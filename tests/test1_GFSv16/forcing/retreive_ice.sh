@@ -6,10 +6,10 @@ FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
 GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
 WGRIB2=/apps/wgrib2/2.0.8/intel/18.0.3.222/bin/wgrib2
 
-STARTDATE="2021-04-02"
-ENDDATE="2021-04-03"
-start=$(date -d $STARTDATE +%s)
-end=$(date -d $ENDDATE +%s)
+STARTDATE="2021-04-01"
+ENDDATE="2021-04-02"
+start0=$(date -d $STARTDATE +%s)
+end0=$(date -d $ENDDATE +%s)
 
 
 
@@ -18,7 +18,10 @@ end=$(date -d $ENDDATE +%s)
 #-----------------------------------------------------------------------------------#
 
 
-d="$start"
+d0="$start0"
+d=$(( $d0 + 86400 ))
+start=$d
+end=$(( $end0 + 86400 ))
 while [[ $d -le $end ]]
 do
     date -d @$d '+%Y-%m-%d %2H'
@@ -64,8 +67,7 @@ ncatted -O -a _FillValue,var91,o,f,-32766 seaice_$YY$MM$DD${HH}_5min.blend1.nc
  fi
 #-----------------------------------------------------------------------------------#
 # Cleanup
-rm -f seaice_$YY$MM$DD${HH}_5min.blend.nc seaice_$YY$MM$DD${HH}_5min.blend.grb
+rm -f seaice_$YY$MM$DD${HH}_5min.blend.nc seaice_$YY$MM$DD${HH}_5min.blend.grb seaice_$YY$MM$DD${HH}_5min.blend1.nc seaice_$YY$MM$DD${HH}_5min.blend1.grb wgrib.out
  d=$(( $d + 86400 ))
 done
 rm gfs_ice_tmp.nc
-

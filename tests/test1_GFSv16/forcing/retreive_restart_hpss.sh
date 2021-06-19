@@ -17,10 +17,15 @@ end=$(date -d $ENDDATE +%s)
 #                                       RESTART                                     #
 #-----------------------------------------------------------------------------------#
 
+  echo ' '                                                                 
+  echo '       *****************************************************************'     
+  echo "      ***                        RESTART file Prep                     ***"
+  echo '       *****************************************************************'    
+  echo ' ' 
 
 d="$start"
 d0=$(( $d - 21600 ))
-    date -d @$d '+%Y-%m-%d %2H'
+echo "restart at $(date -d @$d '+%Y-%m-%d %2H')"
     YY=$(date -d @$d '+%Y')
     MM=$(date -d @$d '+%m')
     DD=$(date -d @$d '+%d')
@@ -40,12 +45,27 @@ gsh=./gdas.${YY0}${MM0}${DD0}/${HH0}/wave/restart/${YY}${MM}${DD}.${HH}0000.rest
 
 if [ ! -d ./gdas.${YY0}${MM0}${DD0} ]
 then
+echo "retreiving from hpss ..."
 htar -xvf $FILEWAVE ${aoc} ${gnh} ${gsh}
-cp ${aoc} restart.aoc_9km
-cp ${gnh} restart.gnh_10m
-cp ${gsh} restart.gsh_15m
+cp ${aoc} ../input/restart.aoc_9km
+echo "${aoc} copied over"
+cp ${gnh} ../input/restart.gnh_10m
+echo "${gnh} copied over"
+cp ${gsh} ../input/restart.gsh_15m
+echo "${gsh} copied over"
 else
-echo "${aoc} exists"
-echo "${gnh} exists"
-echo "${gsh} exists"
+echo "restart files exist"
+cp ${aoc} ../input/restart.aoc_9km
+echo "${aoc} copied over"
+cp ${gnh} ../input/restart.gnh_10m
+echo "${gnh} copied over"
+cp ${gsh} ../input/restart.gsh_15m
+echo "${gsh} copied over"
 fi
+
+
+  echo ' '                                                                 
+  echo '       *****************************************************************'     
+  echo "      ***                         done                                 ***"
+  echo '       *****************************************************************'    
+  echo ' ' 

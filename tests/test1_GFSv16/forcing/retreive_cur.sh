@@ -16,7 +16,15 @@ end=$(date -d $ENDDATE +%s)
 #                                       CURRENT (hourly)                            #
 #-----------------------------------------------------------------------------------#
 
+  echo ' '                                                                 
+  echo '       *****************************************************************'     
+  echo "      ***                  CURRENT Forcing Prep                        ***"
+  echo '       *****************************************************************'    
+  echo ' ' 
+
 d="$start"
+echo "start date: $(date -d @$start '+%Y-%m-%d %2H')"
+echo "end date: $(date -d @$end '+%Y-%m-%d %2H')"
 while [[ $d -le $end ]]
 do
     date -d @$d '+%Y-%m-%d %2H'
@@ -75,3 +83,11 @@ d=$(( $d + 3600 ))
 done
 rm rtofs_current_tmp.nc weights.nc
 mv cur.nc rtofs_current.nc
+
+  echo '       *****************************************************************' 
+  echo "rtofs_current.nc prepared"
+  echo ' '                                                                 
+  echo '       *****************************************************************'     
+  echo "     ***                            done                               ***"
+  echo '       *****************************************************************'    
+  echo ' '  

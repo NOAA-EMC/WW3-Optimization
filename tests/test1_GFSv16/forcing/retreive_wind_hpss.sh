@@ -17,11 +17,20 @@ end=$(date -d $ENDDATE +%s)
 #                                        WIND (hourly)                              #
 #-----------------------------------------------------------------------------------#
 
+  echo ' '                                                                 
+  echo '       *****************************************************************'     
+  echo "      ***                     Wind Forcing Prep                        ***"
+  echo '       *****************************************************************'    
+  echo ' ' 
+
+
 
 d="$start"
+echo "start date: $(date -d @$start '+%Y-%m-%d %2H')"
+echo "end date: $(date -d @$end '+%Y-%m-%d %2H')"
 while [[ $d -le $end ]]
 do
-    date -d @$d '+%Y-%m-%d %2H'
+date -d @$d '+%Y-%m-%d %2H'
     YY=$(date -d @$d '+%Y')
     MM=$(date -d @$d '+%m')
     DD=$(date -d @$d '+%d')
@@ -68,4 +77,11 @@ fi
     d=$(( $d + 21600 ))
 done
 
-rm aoc_wnd_tmp.nc gnh_wnd_tmp.nc gsh_wnd_tmp.nc glo_wnd_tmp.nc
+rm *tmp aoc_wnd_tmp.nc gnh_wnd_tmp.nc gsh_wnd_tmp.nc glo_wnd_tmp.nc
+  echo '       *****************************************************************' 
+  echo "aoc_wnd.nc, gnh_wnd.nc, gsh_wnd.nc, glo_wnd.nc prepared"
+  echo ' '                                                                 
+  echo '       *****************************************************************'     
+  echo "     ***                            done                               ***"
+  echo '       *****************************************************************'    
+  echo ' '  

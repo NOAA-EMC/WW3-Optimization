@@ -20,3 +20,8 @@ edit_forcing < parm/retreive_wind_hpss.sh.IN > forcing/retreive_wind_hpss.sh
 edit_forcing < parm/retreive_ice.sh.IN > forcing/retreive_ice.sh
 edit_forcing < parm/retreive_cur.sh.IN > forcing/retreive_cur.sh
 edit_forcing < parm/retreive_restart_hpss.sh.IN > forcing/retreive_restart_hpss.sh
+
+#ww3_grid parameters
+edit_ww3_grid <parm/ww3_grid_gnh_10m.inp.IN > input/ww3_grid_gnh_10m.inp
+edit_ww3_grid <parm/ww3_grid_gsh_15m.inp.IN > input/ww3_grid_gsh_15m.inp
+edit_ww3_grid <parm/ww3_grid_aoc_9km.inp.IN > input/ww3_grid_aoc_9km.inp

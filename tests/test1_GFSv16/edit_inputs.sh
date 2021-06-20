@@ -70,3 +70,22 @@ function edit_forcing {
   sed  -e "s/FRC_BEG/$SDATEWW3/g" \
        -e "s/FRC_END/$EDATEWW3/g"
 }
+
+function edit_ww3_grid {
+
+  sed  -e "s/BETAMAXvar/$BETAMAXvar/g" \
+       -e "s/TAUWSHELTERvar/$TAUWSHELTERvar/g" \
+       -e "s/SWELLFvar/$SWELLFvar/g" \
+       -e "s/SWELLF2var/$SWELLF2var/g" \
+       -e "s/SWELLF3var/$SWELLF3var/g" \
+       -e "s/SWELLF4var/$SWELLF4var/g" \
+       -e "s/SWELLF5var/$SWELLF5var/g" \
+       -e "s/SWELLF7var/$SWELLF7var/g" \
+       -e "s/NLPROPvar/$NLPROPvar/g" \
+       -e "s/FXFM3var/$FXFM3var/g" \
+       -e "s/SDSC2var/$SDSC2var/g" \
+       -e "s/SDSCUMvar/$SDSCUMvar/g" \
+       -e "s/SDSC6var/$SDSC6var/g" \
+       -e "s/SDSBRvar/$SDSBRvar/g"
+}
+

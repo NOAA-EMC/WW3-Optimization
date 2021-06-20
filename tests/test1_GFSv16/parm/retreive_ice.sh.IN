@@ -80,6 +80,7 @@ rm -f seaice_$YY$MM$DD${HH}_5min.blend.nc seaice_$YY$MM$DD${HH}_5min.blend.grb s
  d=$(( $d + 86400 ))
 done
 rm gfs_ice_tmp.nc
+mv gfs_ice.nc ../input
   echo '       *****************************************************************' 
   echo "gfs_ice.nc prepared"
   echo ' '                                                                 

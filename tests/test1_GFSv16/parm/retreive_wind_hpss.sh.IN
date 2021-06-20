@@ -78,7 +78,12 @@ fi
 done
 
 rm *tmp aoc_wnd_tmp.nc gnh_wnd_tmp.nc gsh_wnd_tmp.nc glo_wnd_tmp.nc
-  echo '       *****************************************************************' 
+mv aoc_wnd.nc ../input
+mv gnh_wnd.nc ../input
+mv gsh_wnd.nc ../input
+mv glo_wnd.nc ../input
+
+echo '       *****************************************************************' 
   echo "aoc_wnd.nc, gnh_wnd.nc, gsh_wnd.nc, glo_wnd.nc prepared"
   echo ' '                                                                 
   echo '       *****************************************************************'     

@@ -86,6 +86,10 @@ function edit_ww3_grid {
        -e "s/SDSC2var/$SDSC2var/g" \
        -e "s/SDSCUMvar/$SDSCUMvar/g" \
        -e "s/SDSC6var/$SDSC6var/g" \
-       -e "s/SDSBRvar/$SDSBRvar/g"
+       -e "s/SDSBRvar/$SDSBRvar/g" \
+       -e "s/SDSC5var/$SDSC5var/g" \
+       -e "s/SDSBCKvar/$SDSBCKvar/g" \
+       -e "s/SDSHCKvar/$SDSHCKvar/g" \
+       -e "s/SDSCOSvar/$SDSCOSvar/g"
 }
 

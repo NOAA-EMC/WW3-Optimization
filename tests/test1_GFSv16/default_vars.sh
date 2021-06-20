@@ -40,20 +40,79 @@ export ww3gline="${ww3gline}'gsh_15m' 'no' 'glo_15mxt' 'native' 'glo_15mxt'  'no
 export ww3gline="${ww3gline}'aoc_9km' 'no' 'glo_15mxt' 'native' 'glo_15mxt'  'no' 'no' 'no'  3 30  0.00 1.00  F"
 
 #physics parameters default
-#SIN4
+#SIN4 (wind input)
+#(1)
 export BETAMAXvar='1.315'
+export BETAMAXmin='1'
+export BETAMAXmax='2'
+#(2)
 export TAUWSHELTERvar='1.0'
+export TAUWSHELTEmin='0'
+export TAUWSHELTEmax='1.5'
+#(3)
 export SWELLFvar='0.798'
+export SWELLFmin='0.5'
+export SWELLFmax='1.2'
+#(4)
 export SWELLF2var='-0.0127'
+export SWELLF2min='−0.03'
+export SWELLF2max='−0.01'
+#(5)
 export SWELLF3var='0.0151'
+export SWELLF3min='0.01'
+export SWELLF3max='0.02'
+#(6)
 export SWELLF4var='100025.0'
+export SWELLF4min='80000.0'
+export SWELLF4max='150000.0'
+#(7)
 export SWELLF5var='1.1999'
+export SWELLF5min='0.8'
+export SWELLF5max='1.6'
+#(8)
 export SWELLF7var='235500.0'
-#SNL1
-export NLPROPvar='2.502E7'
-#SDS4
+export SWELLF7min='0.0'
+export SWELLF7max='400000.0'
+#SDS4 (dissipation)
+
 export FXFM3var='2.501'
+export FXFM3min=''
+export FXFM3max=''
+#(9)
 export SDSC2var='-2.1975e-05'
+export SDSC2min='−2.5e-0.5'
+export SDSC2max='0.0'
+#(10)
 export SDSCUMvar='-0.4032'
+export SDSCUMmin='-0.5'
+export SDSCUMmax='0.0'
+#(11)
+export SDSC5var='0.0'
+export SDSC5min='0.0'
+export SDSC5max='1.2'
+#(12)
 export SDSC6var='0.2978'
+export SDSC6min='0.0'
+export SDSC6max='1.0'
+#(13)
 export SDSBRvar='0.0009035'
+export SDSBRmin='0.0008'
+export SDSBRmax='0.0010'
+#(14)
+export SDSBCKvar='0.0'
+export SDSBCKmin='0.0'
+export SDSBCKmax='0.2'
+#(15)
+export SDSHCKvar='1.5'
+export SDSHCKmin='0.0'
+export SDSHCKmax='2.0'
+#(16)
+export SDSCOSvar='2.0'
+export SDSCOSmin='0.0'
+export SDSCOSmax='2.0'
+
+#SNL1 (nonlinear interactions)
+#(17)
+export NLPROPvar='2.502E7'
+export NLPROPmin='2.400E7'
+export NLPROPmax='2.800E7'

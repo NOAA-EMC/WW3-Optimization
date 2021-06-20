@@ -69,20 +69,20 @@ ncatted -O -a _FillValue,var91,o,f,-32766 seaice_$YY$MM$DD${HH}_5min.blend1.nc
 #-----------------------------------------------------------------------------------#
 #put all time steps together
  if [ $d == $start ]; then
-    cp seaice_$YY$MM$DD${HH}_5min.blend1.nc gfs_ice.nc
+    cp seaice_$YY$MM$DD${HH}_5min.blend1.nc ice.nc
  else
-   mv gfs_ice.nc gfs_ice_tmp.nc
-   ncrcat -h gfs_ice_tmp.nc seaice_$YY$MM$DD${HH}_5min.blend1.nc gfs_ice.nc
+   mv ice.nc ice_tmp.nc
+   ncrcat -h ice_tmp.nc seaice_$YY$MM$DD${HH}_5min.blend1.nc ice.nc
  fi
 #-----------------------------------------------------------------------------------#
 # Cleanup
 rm -f seaice_$YY$MM$DD${HH}_5min.blend.nc seaice_$YY$MM$DD${HH}_5min.blend.grb seaice_$YY$MM$DD${HH}_5min.blend1.nc seaice_$YY$MM$DD${HH}_5min.blend1.grb wgrib.out
  d=$(( $d + 86400 ))
 done
-rm gfs_ice_tmp.nc
-mv gfs_ice.nc ../input
+rm ice_tmp.nc
+mv ice.nc ../input
   echo '       *****************************************************************' 
-  echo "gfs_ice.nc prepared"
+  echo "ice.nc prepared"
   echo ' '                                                                 
   echo '       *****************************************************************'     
   echo "     ***                            done                               ***"

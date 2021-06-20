@@ -43,7 +43,7 @@ $
 $ Define data files -------------------------------------------------- $
 $ The input line identifies the filename using for the forcing field.
 $
-   '../input/wind.nc'
+   '../input/gnh_wnd.nc'
 $
 $ -------------------------------------------------------------------- $
 $ End of input file                                                    $

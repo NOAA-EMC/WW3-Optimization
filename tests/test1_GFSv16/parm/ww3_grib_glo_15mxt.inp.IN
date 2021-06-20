@@ -1,9 +1,9 @@
 $ WAVEWATCH-III gridded output input file 
 $ ----------------------------------------
-20130401 030000 10800 9
+OUT_BEG  DTFLD. 9999
 N
-WND CUR ICE HS T01 T02 DIR FP DP PHS PTP PDIR
+OUTPARS
 $
-20130401 00000 7 11 255 0 0
+OUT_BEG 7 11 255 0 0
 $
 $ end of input file

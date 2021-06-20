@@ -5,8 +5,8 @@ CDO=/apps/cdo/1.9.10/gnu/1.9.10/bin/cdo
 FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
 GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
 
-STARTDATE="2021-04-01"
-ENDDATE="2021-04-02"
+STARTDATE="FRC_BEG"
+ENDDATE="FRC_END"
 
 start=$(date -d $STARTDATE +%s)
 end=$(date -d $ENDDATE +%s)

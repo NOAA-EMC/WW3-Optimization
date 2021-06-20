@@ -4,7 +4,7 @@ $--------------------------------------------------------------------- $
 $ First output time (yyyymmdd hhmmss), increment of output (s), 
 $ and number of output times.
 $
-  20210401 000000  10800.  10
+   OUT_BEG  DTFLD.  99999
 $
 $ Fields requested --------------------------------------------------- $
 $
@@ -19,7 +19,7 @@ $ WCF WCH WCM SXY TWO BHD FOC TUS USS P2S USF P2L TWI FIC ABR UBR BED
 $ FBB TBB MSS MSC DTD FC CFX CFD CFK U1 U2 
 $
  N
-WND CUR ICE HS T01 T02 DIR FP DP PHS PTP PDIR
+ OUTPARS
 $
 $--------------------------------------------------------------------- $
 $ netCDF version [3,4]

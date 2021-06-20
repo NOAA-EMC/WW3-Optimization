@@ -6,8 +6,8 @@ FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
 GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
 WGRIB2=/apps/wgrib2/2.0.8/intel/18.0.3.222/bin/wgrib2
 
-STARTDATE="2021-04-01"
-ENDDATE="2021-04-02"
+STARTDATE="FRC_BEG"
+ENDDATE="FRC_END"
 
 start=$(date -d $STARTDATE +%s)
 end=$(date -d $ENDDATE +%s)

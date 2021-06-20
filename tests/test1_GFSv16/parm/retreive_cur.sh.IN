@@ -82,7 +82,7 @@ rm -f wgrib.out cur_5min_??.nc cur_temp[123].nc rtofs_$YY$MM$DD${HH}_prog.nc cur
 d=$(( $d + 3600 ))
 done
 rm rtofs_current_tmp.nc weights.nc
-mv cur.nc rtofs_current.nc
+mv cur.nc ../input/rtofs_current.nc
 
   echo '       *****************************************************************' 
   echo "rtofs_current.nc prepared"

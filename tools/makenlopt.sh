@@ -19,24 +19,24 @@
 # --------------------------------------------------------------------------- #
 # 1.  clean up and modules                                                    #
 # --------------------------------------------------------------------------- #
-HOME=${PWD}
+HOME=${PWD%/*}
 
 module purge
 module load cmake/3.20.1
 module load  gnu
 module load  matlab
 module list
-if [ -d install ]; then rm -rf install; fi
-if [ -d nlopt ]; then rm -rf nlopt; fi
-mkdir install
+if [ -d tools/install ]; then rm -rf tools/install; fi
+#if [ -d nlopt ]; then rm -rf nlopt; fi
+mkdir tools/install
 # --------------------------------------------------------------------------- #
 # 1.  clone nlopt and install                                                 #
 # --------------------------------------------------------------------------- #
-git clone git@github.com:stevengj/nlopt.git nlopt
-cd nlopt
+#git clone git@github.com:stevengj/nlopt.git nlopt
+cd ${HOME}/nlopt
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=$HOME/install -DBUILD_SHARED_LIBS=OFF ..
+cmake -DCMAKE_INSTALL_PREFIX=$HOME/tools/install -DBUILD_SHARED_LIBS=OFF ..
 make
 cd ${HOME}/nlopt/build
 make install

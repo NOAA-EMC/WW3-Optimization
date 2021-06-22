@@ -26,9 +26,6 @@ module load cmake/3.20.1
 module load  gnu
 module load  matlab
 module list
-if [ -d tools/install ]; then rm -rf tools/install; fi
-#if [ -d nlopt ]; then rm -rf nlopt; fi
-mkdir tools/install
 # --------------------------------------------------------------------------- #
 # 1.  clone nlopt and install                                                 #
 # --------------------------------------------------------------------------- #

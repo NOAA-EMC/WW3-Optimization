@@ -2,3 +2,7 @@
 	path = WW3
 	url = https://github.com/NOAA-EMC/WW3
         branch = production/GFS.v16
+[submodule "nlopt"]
+        path = nlopt
+        url = https://github.com/stevengj/nlopt.git
+	branch = master

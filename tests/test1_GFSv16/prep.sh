@@ -16,7 +16,7 @@ edit_ww3_fld < parm/ww3_grib_glo_15mxt.inp.IN > input/ww3_grib_glo_15mxt.inp
 edit_ww3_ounp < parm/ww3_ounp.inp.IN > input/ww3_ounp_points.inp
 
 #forcing
-edit_forcing < parm/retreive_wind_hpss.sh.IN > forcing/retreive_wind_hpss.sh
+edit_forcing < parm/retreive_wind_hpss.sh.INN > forcing/retreive_wind_hpss.sh
 edit_forcing < parm/retreive_ice.sh.IN > forcing/retreive_ice.sh
 edit_forcing < parm/retreive_cur.sh.IN > forcing/retreive_cur.sh
 edit_forcing < parm/retreive_restart_hpss.sh.IN > forcing/retreive_restart_hpss.sh

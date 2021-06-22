@@ -5,10 +5,9 @@ CDO=/apps/cdo/1.9.10/gnu/1.9.10/bin/cdo
 FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
 GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
 WGRIB2=/apps/wgrib2/2.0.8/intel/18.0.3.222/bin/wgrib2
-
+FORCING_GFS='FORCING_T'
 STARTDATE="FRC_BEG"
 ENDDATE="FRC_END"
-
 start=$(date -d $STARTDATE +%s)
 end=$(date -d $ENDDATE +%s)
 
@@ -28,6 +27,20 @@ end=$(date -d $ENDDATE +%s)
 d="$start"
 echo "start date: $(date -d @$start '+%Y-%m-%d %2H')"
 echo "end date: $(date -d @$end '+%Y-%m-%d %2H')"
+
+#-----------------------------------------------------------------------------------#
+# retreive from gfs atmos
+if [ $FORCING_GFS = 'YES' ]
+then
+echo "retreiving from gfs/atmos"
+
+#define two fields (u10, v10)
+npp=2
+  varname[1]='UGRD'
+  varname[2]='VGRD'
+  lev[1]=':10 m above ground:'
+  lev[2]=':10 m above ground:'
+#-----------------------------------------------------------------------------------#
 while [[ $d -le $end ]]
 do
 date -d @$d '+%Y-%m-%d %2H'
@@ -36,6 +49,69 @@ date -d @$d '+%Y-%m-%d %2H'
     DD=$(date -d @$d '+%d')
     HH=$(date -d @$d '+%2H')
 #-----------------------------------------------------------------------------------#
+  FILEWAVE=(/NCEPPROD/hpssprod/runhistory/rh$YY/$YY$MM/$YY$MM$DD/com_gfs_prod_gfs.${YY}${MM}${DD}_${HH}.gfs_pgrb2.tar)
+  atmos=./gfs.$YY$MM$DD/${HH}/atmos/gfs.t${HH}z.pgrb2.0p25.f00
+    if [ ! -d ./gfs.$YY$MM$DD/${HH}/atmos ]
+    then
+      htar -xvf $FILEWAVE ${atmos}0 ${atmos}1 ${atmos}2 ${atmos}3 ${atmos}4 ${atmos}5
+    fi
+#-----------------------------------------------------------------------------------#
+# convert grib2 to netcdf
+rm gfs.$YY$MM$DD/${HH}/atmos/*nc
+grib2_list=`( ls gfs.$YY$MM$DD/${HH}/atmos/ )`
+echo $grib2_list
+for file in $grib2_list
+  do
+    count=0
+    while (( count < $npp ))
+    do
+      (( count = count + 1 ))
+       $WGRIB2 gfs.$YY$MM$DD/${HH}/atmos/$file -s | grep "${varname[count]}${lev[count]}" | $WGRIB2 -i gfs.$YY$MM$DD/${HH}/atmos/$file -netcdf gfs.$YY$MM$DD/${HH}/atmos/$file.${varname[count]}.nc -nc4
+       echo $count       
+          ncks -A gfs.$YY$MM$DD/${HH}/atmos/$file.${varname[count]}.nc gfs.$YY$MM$DD/${HH}/atmos/$file.nc
+#       fi
+       rm  gfs.$YY$MM$DD/${HH}/atmos/$file.${varname[count]}.nc
+    done
+
+echo $file
+done
+#-----------------------------------------------------------------------------------#
+if [ $d == $start ]; then
+#Append netcdf files
+ncrcat -h ${atmos}0.nc ${atmos}1.nc ${atmos}2.nc ${atmos}3.nc ${atmos}4.nc ${atmos}5.nc gfs_wnd.nc
+else
+mv gfs_wnd.nc gfs_wnd_tmp.nc
+ncrcat -h  gfs_wnd_tmp.nc ${atmos}0.nc ${atmos}1.nc ${atmos}2.nc ${atmos}3.nc ${atmos}4.nc ${atmos}5.nc gfs_wnd.nc
+fi
+
+    d=$(( $d + 21600 ))
+done
+
+rm gfs_wnd_tmp.nc 
+mv gfs_wnd.nc ../input
+
+echo '       *****************************************************************' 
+  echo "gfs_wnd.nc prepared"
+  echo ' '                                                                 
+  echo '       *****************************************************************'     
+  echo "     ***                            done                               ***"
+  echo '       *****************************************************************'    
+  echo ' '  
+#-----------------------------------------------------------------------------------#
+#-----------------------------------------------------------------------------------#
+#-----------------------------------------------------------------------------------#
+else
+echo "retreiving from gfs/wave/gridded"
+while [[ $d -le $end ]]
+do
+date -d @$d '+%Y-%m-%d %2H'
+    YY=$(date -d @$d '+%Y')
+    MM=$(date -d @$d '+%m')
+    DD=$(date -d @$d '+%d')
+    HH=$(date -d @$d '+%2H')
+#-----------------------------------------------------------------------------------#
+
+# retreive from gfs wave on native wave grids
 #FILEWAVE=(/NCEPPROD/hpssprod/runhistory/rh$YY/$YY$MM/$YY$MM$DD/com_gfs_prod_gdas.${YY}${MM}${DD}_${HH}.gdaswave_output.tar)
 FILEWAVE=(/NCEPPROD/hpssprod/runhistory/rh$YY/$YY$MM/$YY$MM$DD/com_gfs_prod_gfs.${YY}${MM}${DD}_${HH}.gfswave_output.tar)
 aoc=./gfs.$YY$MM$DD/${HH}/wave/gridded/gfswave.t${HH}z.arctic.9km.f00
@@ -43,7 +119,7 @@ gnh=./gfs.$YY$MM$DD/${HH}/wave/gridded/gfswave.t${HH}z.global.0p16.f00
 gsh=./gfs.$YY$MM$DD/${HH}/wave/gridded/gfswave.t${HH}z.gsouth.0p25.f00
 glo=./gfs.$YY$MM$DD/${HH}/wave/gridded/gfswave.t${HH}z.global.0p25.f00
 
-if [ ! -d ./gfs.$YY$MM$DD ]
+if [ ! -d ./gfs.$YY$MM$DD/${HH}/wave ]
 then
 htar -xvf $FILEWAVE ${aoc}0.grib2 ${aoc}1.grib2 ${aoc}2.grib2 ${aoc}3.grib2 ${aoc}4.grib2 ${aoc}5.grib2 ${gnh}0.grib2 ${gnh}1.grib2 ${gnh}2.grib2 ${gnh}3.grib2 ${gnh}4.grib2 ${gnh}5.grib2 ${gsh}0.grib2 ${gsh}1.grib2 ${gsh}2.grib2 ${gsh}3.grib2 ${gsh}4.grib2 ${gsh}5.grib2 ${glo}0.grib2 ${glo}1.grib2 ${glo}2.grib2 ${glo}3.grib2 ${glo}4.grib2 ${glo}5.grib2
 fi
@@ -74,6 +150,7 @@ ncrcat -h  gsh_wnd_tmp.nc ${gsh}0.grib2.nc ${gsh}1.grib2.nc ${gsh}2.grib2.nc ${g
 ncrcat -h  glo_wnd_tmp.nc ${glo}0.grib2.nc ${glo}1.grib2.nc ${glo}2.grib2.nc ${glo}3.grib2.nc ${glo}4.grib2.nc ${glo}5.grib2.nc glo_wnd.nc
 fi
 
+
     d=$(( $d + 21600 ))
 done
 
@@ -90,3 +167,5 @@ echo '       *****************************************************************'
   echo "     ***                            done                               ***"
   echo '       *****************************************************************'    
   echo ' '  
+fi
+

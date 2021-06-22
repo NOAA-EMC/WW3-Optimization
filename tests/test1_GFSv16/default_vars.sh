@@ -19,6 +19,9 @@ export EMONTH=$(date -d @$endd '+%m')
 export EDAY=$(date -d @$endd '+%d')
 export EHOUR=$(date -d @$endd '+%2H')
 
+#wind
+#choose yes if the wind is taken directly from gfs, or no if it is taken from wave
+export FORCING_GFS="YES"
 export FHMAX=${FHMAX:-`expr $DAYS \* 24`}
 #waves
 #restsrt interval (hr)

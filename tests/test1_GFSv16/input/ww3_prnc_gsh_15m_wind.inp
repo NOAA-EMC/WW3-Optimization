@@ -33,7 +33,7 @@ $
 $
 $ Variables to use --------------------------------------------------- $
 $
-   uwnd vwnd
+   UGRD_10maboveground VGRD_10maboveground
 $
 $ Additional time input ---------------------------------------------- $
 $ If time flag is .FALSE., give time of field in yyyymmdd hhmmss format.
@@ -43,7 +43,7 @@ $
 $ Define data files -------------------------------------------------- $
 $ The input line identifies the filename using for the forcing field.
 $
-   '../input/gsh_wnd.nc'
+   '../input/gfs_wnd.nc'
 $
 $ -------------------------------------------------------------------- $
 $ End of input file                                                    $

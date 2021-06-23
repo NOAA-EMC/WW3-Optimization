@@ -38,9 +38,10 @@ export NFGRIDS=0
 export NFGRIDS=1
 export NMGRIDS=3
 export CPLILINE="'glo_15mxt'  F T F T F F F"
-export ww3gline="'gnh_10m' 'no' 'glo_15mxt' 'native' 'glo_15mxt'  'no' 'no' 'no'  1 10  0.00 1.00  F\n"
-export ww3gline="${ww3gline}'gsh_15m' 'no' 'glo_15mxt' 'native' 'glo_15mxt'  'no' 'no' 'no'  2 20  0.00 1.00  F\n"
-export ww3gline="${ww3gline}'aoc_9km' 'no' 'glo_15mxt' 'native' 'glo_15mxt'  'no' 'no' 'no'  3 30  0.00 1.00  F"
+export WINDLINE="'glox_10m'  F F T F F F F"
+export ww3gline="'gnh_10m' 'no' 'glo_15mxt' 'glox_10m' 'glo_15mxt'  'no' 'no' 'no'  1 10  0.00 1.00  F\n"
+export ww3gline="${ww3gline}'gsh_15m' 'no' 'glo_15mxt' 'glox_10m' 'glo_15mxt'  'no' 'no' 'no'  2 20  0.00 1.00  F\n"
+export ww3gline="${ww3gline}'aoc_9km' 'no' 'glo_15mxt' 'glox_10m' 'glo_15mxt'  'no' 'no' 'no'  3 30  0.00 1.00  F"
 
 #physics parameters default
 #SIN4 (wind input)

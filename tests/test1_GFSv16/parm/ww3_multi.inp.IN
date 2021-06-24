@@ -322,7 +322,7 @@ $
 $
 $ Keep next two lines formatting as is to allow proper parsing
    RST_BEG   DTRST  RST_END RSTTYPE
-RST_2_BEG   DT_2_RST  RST_2_END
+$RST_2_BEG   DT_2_RST  RST_2_END
 $
    OUT_BEG      0  OUT_END
 $

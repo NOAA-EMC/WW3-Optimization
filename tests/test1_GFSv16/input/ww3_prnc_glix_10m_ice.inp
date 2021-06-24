@@ -30,10 +30,12 @@ $
 $ Name of dimensions ------------------------------------------------- $
 $
   lon lat time
+$ longitude latitude time
 $
 $ Variables to use --------------------------------------------------- $
 $
   var91
+$  ice
 $
 $ Additional time input ---------------------------------------------- $
 $ If time flag is .FALSE., give time of field in yyyymmdd hhmmss format.
@@ -44,6 +46,7 @@ $ Define data files -------------------------------------------------- $
 $ The input line identifies the filename using for the forcing field.
 $
    '../input/ice.nc'
+$    '../input/ww3.202104_glix_10m.nc'
 $
 $ -------------------------------------------------------------------- $
 $ End of input file                                                    $

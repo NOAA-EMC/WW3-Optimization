@@ -15,7 +15,7 @@ function edit_ww3_multi {
   sed -e "s/NFGRIDS/$NFGRIDS/g" \
       -e "s/NMGRIDS/${NMGRIDS}/g" \
       -e "s/FUNIPNT/T/g" \
-      -e "s/IOSRV/1/g" \
+      -e "s/IOSRV/3/g" \
       -e "s/FPNTPROC/T/g" \
       -e "s/FGRDPROC/F/g" \
       -e "s/OUTPARS/${OUTPARS_WAV}/g" \
@@ -36,7 +36,7 @@ function edit_ww3_multi {
       -e "s/POFILETYPE/ $WW3OUTPUTTYPE/g" \
       -e "s/DTPNT/ $DTPNT_WAV/g" \
       -e "s/RST_BEG/$SDATEWW3/g" \
-      -e "s/RSTTYPE/T/g" \
+      -e "s/RSTTYPE/F/g" \
       -e "s/RST_2_BEG/$SDATEWW3/g" \
       -e "s/DTRST/0/g" \
       -e "s/DT_2_RST/$DT_2_RST_WAV/g" \

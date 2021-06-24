@@ -7,9 +7,10 @@
 #
 ###############################################################################
 HOME=${PWD}
+MAIN=${PWD%/*/*}
 export HOME_PATH="${HOME}"
 export FOECING_PATH="${HOME}/forcing"
-
+export OPTDIR="${MAIN}"
 STARTDATE="2021-04-01"
 startd=$(date -d $STARTDATE +%s)
 forecast_day=1
@@ -39,7 +40,7 @@ export ICELINE='$'
 export WINDLINE='$'
 export CURRLINE='$'
 export NFGRIDS=0
-export NFGRIDS=1
+export NFGRIDS=2
 export NMGRIDS=3
 export CPLILINE="'glo_15mxt'  F T F T F F F"
 export WINDLINE="'glox_10m'  F F T F F F F"

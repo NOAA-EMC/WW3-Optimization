@@ -33,7 +33,9 @@ $
 $
 $ Variables to use --------------------------------------------------- $
 $
-   UGRD_10maboveground VGRD_10maboveground
+$ uwnd vwnd
+$   UGRD_surface VGRD_surface
+ UGRD_10maboveground VGRD_10maboveground
 $
 $ Additional time input ---------------------------------------------- $
 $ If time flag is .FALSE., give time of field in yyyymmdd hhmmss format.
@@ -44,6 +46,8 @@ $ Define data files -------------------------------------------------- $
 $ The input line identifies the filename using for the forcing field.
 $
    '../input/gfs_wnd.nc'
+$   '../input/wind.nc'
+$  '../input/ww3.202104_glox_10m.nc'
 $
 $ -------------------------------------------------------------------- $
 $ End of input file                                                    $

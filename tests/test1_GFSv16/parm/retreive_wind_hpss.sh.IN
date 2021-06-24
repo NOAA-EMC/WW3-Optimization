@@ -1,10 +1,13 @@
-#!/bin/bash
+##!/bin/bash
 module load intel netcdf nco cdo hpss wgrib2
 CDO=/apps/cdo/1.9.10/gnu/1.9.10/bin/cdo
 
 FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
 GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
 WGRIB2=/apps/wgrib2/2.0.8/intel/18.0.3.222/bin/wgrib2
+source ../default_vars.sh
+#cd $FORCING_PATH
+
 FORCING_GFS='FORCING_T'
 STARTDATE="FRC_BEG"
 ENDDATE="FRC_END"

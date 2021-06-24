@@ -1,7 +1,6 @@
 #! /usr/bin/env bash
 set -eu
 
-
 function edit_ww3_multi { 
 
   SDATEWW3="${SYEAR}${SMONTH}${SDAY} $(printf "%02d" $(( ${SHOUR}  )))0000"
@@ -69,7 +68,7 @@ function edit_forcing {
   EDATEWW3="${EYEAR}-${EMONTH}-${EDAY}"
   sed  -e "s/FRC_BEG/$SDATEWW3/g" \
        -e "s/FRC_END/$EDATEWW3/g" \
-       -e "s/FORCING_T/${FORCING_GFS}/g"
+       -e "s/FORCING_T/${FORCING_GFS}/g" 
 }
 
 function edit_ww3_grid {

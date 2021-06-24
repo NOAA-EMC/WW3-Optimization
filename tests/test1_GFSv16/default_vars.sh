@@ -6,6 +6,10 @@
 #  - different machines, different defaults:
 #
 ###############################################################################
+HOME=${PWD}
+export HOME_PATH="${HOME}"
+export FOECING_PATH="${HOME}/forcing"
+
 STARTDATE="2021-04-01"
 startd=$(date -d $STARTDATE +%s)
 forecast_day=1

@@ -1,7 +1,9 @@
-#!/bin/bash
+##!/bin/bash
 
 FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
 
+source ../default_vars.sh
+#cd $FORCING_PATH
 
 #-----------------------------------------------------------------------------------#
 #                                   RMP_SRC_TO_DST*                                 #

@@ -1,9 +1,10 @@
-#!/bin/bash
+##!/bin/bash
 module load intel netcdf nco cdo hpss
 CDO=/apps/cdo/1.9.10/gnu/1.9.10/bin/cdo
-
 FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
 GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
+source ../default_vars.sh 
+#cd $FORCING_PATH
 
 STARTDATE="FRC_BEG"
 ENDDATE="FRC_END"
@@ -13,7 +14,7 @@ end=$(date -d $ENDDATE +%s)
 
 
 #-----------------------------------------------------------------------------------#
-#                                       CURRENT (hourly)                            #
+#                                       CURRENT (3 hours)                           #
 #-----------------------------------------------------------------------------------#
 
   echo ' '                                                                 
@@ -79,10 +80,10 @@ cp cur_5min_01.nc cur_$YY$MM$DD${HH}_5min.nc
 
 # Cleanup
 rm -f wgrib.out cur_5min_??.nc cur_temp[123].nc rtofs_$YY$MM$DD${HH}_prog.nc cur_$YY$MM$DD${HH}_5min.nc cur_$YY$MM$DD${HH}_prog.nc cur_$YY$MM$DD${HH}_flat.nc
-d=$(( $d + 3600 ))
+d=$(( $d + 10800 ))
 done
 rm rtofs_current_tmp.nc weights.nc
-mv cur.nc ../input/rtofs_current.nc
+mv rtofs_current.nc ../input/rtofs_current.nc
 
   echo '       *****************************************************************' 
   echo "rtofs_current.nc prepared"

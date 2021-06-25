@@ -131,7 +131,7 @@ source ${WW3_BINDIR}/w3_setenv
 
 # 1.1 Set up
    
-  export  np='140'     #number of mpi tasks
+  export  np='440'     #number of mpi tasks
   export  nr='4'      #number of mpi tasks for hybrid
   export nth='6'      #number of threads
 

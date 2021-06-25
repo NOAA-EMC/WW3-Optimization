@@ -45,7 +45,7 @@ do
 cp rtofs_$YY$MM$DD${HH}_prog.nc cur_$YY$MM$DD${HH}_prog.nc
 ncks -O -a -h -x -v Layer cur_$YY$MM$DD${HH}_prog.nc cur_temp1.nc
 ncwa -h -O -a Layer cur_temp1.nc cur_temp2.nc
-ncrename -h -O -v MT,time -d MT,time cur_temp2.nc
+ncrename -v MT,time -d Date,time cur_temp2.nc
 ncks -v u_velocity,v_velocity cur_temp2.nc cur_temp3.nc
 mv -f cur_temp3.nc cur_$YY$MM$DD${HH}_flat.nc
 # Convert to regular lat lon file

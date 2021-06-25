@@ -144,7 +144,7 @@ cd ${HOME}
   if [ $batchq = "slurm" ] && [ $isorion ]
   then
     echo "#SBATCH -n ${np}"                                 >> matrix.head
-    echo "##SBATCH --cpus-per-task=${nth}"                  >> matrix.head
+    echo "#SBATCH --cpus-per-task=${nth}"                   >> matrix.head
     echo '#SBATCH -q batch'                                 >> matrix.head
     echo '#SBATCH -t 08:00:00'                              >> matrix.head
     echo '#SBATCH -A marine-cpu'                            >> matrix.head
@@ -154,7 +154,7 @@ cd ${HOME}
   elif [ $batchq = "slurm" ]
   then
     echo "#SBATCH -n ${np}"                                 >> matrix.head
-    echo "##SBATCH --cpus-per-task=${nth}"                  >> matrix.head
+    echo "#SBATCH --cpus-per-task=${nth}"                   >> matrix.head
     echo '#SBATCH -q batch'                                 >> matrix.head
     echo '#SBATCH -t 08:00:00'                              >> matrix.head
     echo '#SBATCH -A marine-cpu'                            >> matrix.head
@@ -174,7 +174,7 @@ cd ${HOME}
   echo ' '                                                  >> matrix.head
 
 # Netcdf and Parmetis modules & variables
-#  echo "  module purge"                                     >> matrix.head
+  echo "  module purge"                                     >> matrix.head
 #  echo "  module use $hpcstackpath"                         >> matrix.head
 #  echo "  module load $hpcstackversion"                     >> matrix.head
 #  echo "  module load $modcomp"                             >> matrix.head

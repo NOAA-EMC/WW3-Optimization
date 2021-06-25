@@ -82,7 +82,7 @@ cp cur_5min_01.nc cur_$YY$MM$DD${HH}_5min.nc
 rm -f wgrib.out cur_5min_??.nc cur_temp[123].nc rtofs_$YY$MM$DD${HH}_prog.nc cur_$YY$MM$DD${HH}_5min.nc cur_$YY$MM$DD${HH}_prog.nc cur_$YY$MM$DD${HH}_flat.nc
 d=$(( $d + 10800 ))
 done
-rm rtofs_current_tmp.nc weights.nc
+rm rtofs_current_tmp.nc weights.nc *tmp
 mv rtofs_current.nc ../input/rtofs_current.nc
 
   echo '       *****************************************************************' 

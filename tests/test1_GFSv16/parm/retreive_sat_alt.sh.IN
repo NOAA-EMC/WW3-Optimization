@@ -1,0 +1,91 @@
+#!/bin/bash
+
+STARTDATE="FRC_BEG"
+ENDDATE="FRC_END"
+
+start=$(date -d $STARTDATE +%s)
+end=$(date -d $ENDDATE +%s)
+#-----------------------------------------------------------------------------------#
+#source
+#https://coastwatch.noaa.gov/cw/satellite-data-products/sea-surface-height/along-track.html
+#Jason-3: ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/j3
+#Sentinel-3A: ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/3a
+#Sentinel-3B: ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/3b
+#CryoSat-2: ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/c2
+#SARAL:  ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/sa/
+#Jason-2 available through 1 Oct. 2019.
+#ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/j2
+#-----------------------------------------------------------------------------------#
+#                          Satellite Altimeter (daily)                              #
+#-----------------------------------------------------------------------------------#
+
+  echo ' '
+  echo '       *****************************************************************'
+  echo "      ***              Satellite Altimeter Prep                        ***"
+  echo '       *****************************************************************'
+  echo ' '
+
+d="$start"
+echo "start date: $(date -d @$start '+%Y-%m-%d %2H')"
+echo "end date: $(date -d @$end '+%Y-%m-%d %2H')"
+
+#-----------------------------------------------------------------------------------#
+# retreive
+
+while [[ $d -le $end ]]
+do
+date -d @$d '+%Y-%m-%d %2H'
+    YY=$(date -d @$d '+%Y')
+    MM=$(date -d @$d '+%m')
+    DD=$(date -d @$d '+%d')
+    HH=$(date -d @$d '+%2H')
+
+if [ ! -f j3_${YY}${MM}${DD}.nc ]
+then
+wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/j3/j3_${YY}${MM}${DD}.nc
+else 
+echo -e "\e[34mj3_${YY}${MM}${DD}.nc exists\e[0m"
+fi
+
+if [ ! -f 3a_${YY}${MM}${DD}.nc ]
+then
+wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/3a/3a_${YY}${MM}${DD}.nc
+else
+echo -e "\e[34m3a_${YY}${MM}${DD}.nc exists\e[0m"
+fi
+
+if [ ! -f 3b_${YY}${MM}${DD}.nc ]
+then
+wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/3b/3b_${YY}${MM}${DD}.nc
+else
+echo -e "\e[34m3b_${YY}${MM}${DD}.nc exists\e[0m"
+fi
+
+if [ ! -f c2_${YY}${MM}${DD}.nc ]
+then
+wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/c2/c2_${YY}${MM}${DD}.nc
+else
+echo -e "\e[34mc2_${YY}${MM}${DD}.nc exists\e[0m"
+fi
+
+if [ ! -f sa_${YY}${MM}${DD}.nc ]
+then
+wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/sa/sa_${YY}${MM}${DD}.nc
+else
+echo -e "\e[34msa_${YY}${MM}${DD}.nc exists\e[0m"
+fi
+##wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/j2/j2_${YY}${MM}${DD}.nc
+
+#-----------------------------------------------------------------------------------#
+
+    d=$(( $d + 86400 ))
+done
+
+
+echo '       *****************************************************************'
+  echo -e "\e[36mj3, 3a, 3b, c2, sa files are retreived\e[0m"
+  echo ' '
+  echo '       *****************************************************************'
+  echo "     ***                            done                               ***"
+  echo '       *****************************************************************'
+  echo ' '

@@ -35,6 +35,11 @@ edit_forcing < parm/retreive_cur.sh.IN > forcing/retreive_cur.sh
 edit_forcing < parm/retreive_restart_hpss.sh.IN > forcing/retreive_restart_hpss.sh
 echo -e "\e[34mForcing templates are filled\e[0m"
 #-----------------------------------------------------------------------------------#
+#observation
+if [ ! -r obs ]; then makedir ${HOME}/obs fi
+#satellite
+edit_obs_sat < parm/retreive_sat_alt.sh.IN > obs/retreive_sat_alt.sh
+#-----------------------------------------------------------------------------------#
 #                     2- Forcing and Restart Retreival                              #
 #-----------------------------------------------------------------------------------#
 cd ${HOME}/forcing
@@ -79,4 +84,8 @@ cd ${HOME}/forcing
        echo -e "\e[31mfix files are retreived\e[0m"
     fi
 #-----------------------------------------------------------------------------------#
-
+#                     3- Observation (satellite and buoy)                           #
+#-----------------------------------------------------------------------------------#
+cd ${HOME}/obs
+       bash retreive_sat_alt.sh
+       echo -e "\e[31mSatellite files are downloaded\e[0m"

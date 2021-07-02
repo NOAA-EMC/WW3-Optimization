@@ -1497,7 +1497,7 @@ fi
   if [ ! -z "$rmpfile" ]; then
     for rmpnc in $rmpfile
     do
-      cp $rmpnc .
+      cp $rmpnc ${path_w}
       echo "copying $rmpnc to $path_w"
     done
   fi
@@ -1507,7 +1507,7 @@ fi
   if [ ! -z "$strtfile" ]; then
     for strtf in $strtfile
     do
-    #  cp $strtf .
+    #  cp $strtf ${path_w}
       echo "copying $strtf to $path_w"
     done
   fi
@@ -1815,7 +1815,13 @@ then
 
     echo "   Processing $ifile"
     echo "   Screen output copied to $ofile"
-
+          rm $path_w/WHTGRIDINT.bin
+          echo "$path_w/WHTGRIDINT.bin removed"
+          if [ -f  ${path_i}/WHTGRIDINT.bin ];
+          then 
+            cp ${path_i}/WHTGRIDINT.bin $path_w 
+            echo "WHTGRIDINT.bin copied"
+          fi
     if [ $time_count ]
     then # Add time counter if -T
       Tstart=`date +"%s.%2N"`
@@ -1995,7 +2001,6 @@ do
 
           echo "   Processing $path_i/$prog${gu}.inp"
           echo "   Screen output routed to $ofile"
-
           if [ $multi -eq 2 ]
           then
             \rm -f mod_def.ww3

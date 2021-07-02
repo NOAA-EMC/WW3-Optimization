@@ -3,7 +3,7 @@ set -eux
 
 HOME=${PWD}
 
-source default_vars.sh
+source input_vars.sh
 source edit_inputs.sh
 
 

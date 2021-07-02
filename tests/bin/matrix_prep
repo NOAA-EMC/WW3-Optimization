@@ -20,7 +20,7 @@ HOME=${PWD}
 MAIN=${PWD%/*}
 export HOME_PATH="${HOME}"
 export OPTDIR="${MAIN}"
-#source default_vars.sh
+#source input_vars.sh
 ###################################
 # 0. Set up                       #
 ###################################

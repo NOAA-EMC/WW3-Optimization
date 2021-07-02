@@ -47,7 +47,7 @@ gsh=./gdas.${YY0}${MM0}${DD0}/${HH0}/wave/restart/${YY}${MM}${DD}.${HH}0000.rest
 
 if [ ! -d ./gdas.${YY0}${MM0}${DD0} ]
 then
-echo "retreiving from hpss ..."
+echo "retrieving from hpss ..."
 htar -xvf $FILEWAVE ${aoc} ${gnh} ${gsh}
 cp ${aoc} ../input/restart.aoc_9km
 echo "${aoc} copied over"

@@ -30,7 +30,7 @@ echo "start date: $(date -d @$start '+%Y-%m-%d %2H')"
 echo "end date: $(date -d @$end '+%Y-%m-%d %2H')"
 
 #-----------------------------------------------------------------------------------#
-# retreive
+# retrieve
 
 while [[ $d -le $end ]]
 do
@@ -83,7 +83,7 @@ done
 
 
 echo '       *****************************************************************'
-  echo -e "\e[36mj3, 3a, 3b, c2, sa files are retreived\e[0m"
+  echo -e "\e[36mj3, 3a, 3b, c2, sa files are retrieved\e[0m"
   echo ' '
   echo '       *****************************************************************'
   echo "     ***                            done                               ***"

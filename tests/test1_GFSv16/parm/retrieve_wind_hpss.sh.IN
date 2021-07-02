@@ -32,10 +32,10 @@ echo "start date: $(date -d @$start '+%Y-%m-%d %2H')"
 echo "end date: $(date -d @$end '+%Y-%m-%d %2H')"
 
 #-----------------------------------------------------------------------------------#
-# retreive from gfs atmos
+# retrieve from gfs atmos
 if [ $FORCING_GFS = 'YES' ]
 then
-echo "retreiving from gfs/atmos"
+echo "retrieving from gfs/atmos"
 
 #define two fields (u10, v10)
 npp=2
@@ -104,7 +104,7 @@ echo '       *****************************************************************'
 #-----------------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------------#
 else
-echo "retreiving from gfs/wave/gridded"
+echo "retrieving from gfs/wave/gridded"
 while [[ $d -le $end ]]
 do
 date -d @$d '+%Y-%m-%d %2H'
@@ -114,7 +114,7 @@ date -d @$d '+%Y-%m-%d %2H'
     HH=$(date -d @$d '+%2H')
 #-----------------------------------------------------------------------------------#
 
-# retreive from gfs wave on native wave grids
+# retrieve from gfs wave on native wave grids
 #FILEWAVE=(/NCEPPROD/hpssprod/runhistory/rh$YY/$YY$MM/$YY$MM$DD/com_gfs_prod_gdas.${YY}${MM}${DD}_${HH}.gdaswave_output.tar)
 FILEWAVE=(/NCEPPROD/hpssprod/runhistory/rh$YY/$YY$MM/$YY$MM$DD/com_gfs_prod_gfs.${YY}${MM}${DD}_${HH}.gfswave_output.tar)
 aoc=./gfs.$YY$MM$DD/${HH}/wave/gridded/gfswave.t${HH}z.arctic.9km.f00

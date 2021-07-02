@@ -41,7 +41,7 @@ do
     DD=$(date -d @$d '+%d')
     HH=$(date -d @$d '+%2H')
 #-----------------------------------------------------------------------------------#
-# HPSS retreival
+# HPSS retrieval
 # ice input per cycle is one single time step
 #    FILEICE=(/NCEPPROD/hpssprod/runhistory/rh$YY/$YY$MM/$YY$MM$DD/com_gfs_prod_gfs.${YY}${MM}${DD}_${HH}.gfs.tar)
 #    ICEGRB=(./gfs.$YY$MM$DD/$HH/atmos/gfs.t${HH}z.seaice.5min.blend.grb)

@@ -34,8 +34,8 @@ do
     DD=$(date -d @$d '+%d')
     HH=$(date -d @$d '+%2H')
 #-----------------------------------------------------------------------------------#
-# HPSS retreival
-# for current, the data is retreivied from global dump (daily)
+# HPSS retrieval
+# for current, the data is retrieved from global dump (daily)
 #    FILECUR1=(/NCEPPROD/5year/hpssprod/runhistory/rh$YY/$YY$MM/$YY$MM$DD/com_rtofs_prod_rtofs.${YY}${MM}${DD}.ab.tar)
 #    FILECUR2=(/NCEPPROD/5year/hpssprod/runhistory/rh$YY/$YY$MM/$YY$MM$DD/com_rtofs_prod_rtofs.${YY}${MM}${DD}.ncoda.tar)
 #-----------------------------------------------------------------------------------#

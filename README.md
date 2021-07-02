@@ -13,7 +13,7 @@ or with GitHub account
 `cd tools`   
 `./makenlopt.sh`  
 
-# Fill the templates and retreive the forcings from global dump and hpss   
+# Fill the templates and retrieve the forcings from global dump and hpss   
 cd tests/test<name>   
 modify _default_var.sh_ and add the start day (_STARTDATE_) and number of forecast days (_forecast_day_):   
 `STARTDATE="<YYYY-MM-DD>"`   

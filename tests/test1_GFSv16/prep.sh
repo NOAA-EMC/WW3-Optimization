@@ -36,9 +36,13 @@ edit_forcing < parm/retrieve_restart_hpss.sh.IN > forcing/retrieve_restart_hpss.
 echo -e "\e[34mForcing templates are filled\e[0m"
 #-----------------------------------------------------------------------------------#
 #observation
-if [ ! -r obs ]; then makedir ${HOME}/obs fi
+if [ ! -r ${HOME}/obs ]
+then 
+  mkdir ${HOME}/obs
+fi
 #satellite
 edit_obs_sat < parm/retrieve_sat_alt.sh.IN > obs/retrieve_sat_alt.sh
+echo -e "\e[34mSatellite obs templates is filled\e[0m"
 #-----------------------------------------------------------------------------------#
 #                     2- Forcing and Restart Retrieval                              #
 #-----------------------------------------------------------------------------------#

@@ -1,4 +1,18 @@
 ##!/bin/bash
+source ../input_vars.sh
+source ../loadmodules.sh
+  module purge
+  module use $hpcstackpath
+  module load $hpcstackversion
+  module load $modcomp
+  module load $modnetcdf
+  module load $modcdo
+  module load $modnco
+  module load $modwgrib2
+  module load $modhpss
+
+ module list
+#-----------------------------------------------------------------------------------#
 module load intel netcdf nco cdo hpss
 CDO=/apps/cdo/1.9.10/gnu/1.9.10/bin/cdo
 FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/

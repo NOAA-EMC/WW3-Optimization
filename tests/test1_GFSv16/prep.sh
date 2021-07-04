@@ -41,13 +41,15 @@ then
   mkdir ${HOME}/obs
 fi
 #satellite
-edit_obs_sat < parm/retrieve_sat_alt.sh.IN > obs/retrieve_sat_alt.sh
+edit_obs < parm/retrieve_sat_alt.sh.IN > obs/retrieve_sat_alt.sh
 echo -e "\e[34mSatellite obs templates is filled\e[0m"
+edit_obs < parm/retrieve_buoy.sh.IN > obs/retrieve_buoy.sh
+echo -e "\e[34mBuoy obs templates is filled\e[0m"
 #-----------------------------------------------------------------------------------#
 #                     2- Forcing and Restart Retrieval                              #
 #-----------------------------------------------------------------------------------#
 cd ${HOME}/forcing
-    echo -e "\e[36mForcing and Restart Retrieval\e[0m"
+    echo -e "\e[36mForcing and Restart Retrieval ...\e[0m"
     if [ -f ../input/rtofs_current.nc ]
     then
        echo -e "\e[34mrtofs._current.nc exists\e[0m"
@@ -72,7 +74,7 @@ cd ${HOME}/forcing
       echo -e "\e[31mwind file is retrieved\e[0m"     
     fi
 #-----------------------------------------------------------------------------------#
-    if [ -f ../input/restart.aoc_9km ] && [ -f ../input/restart.gnh_10m ] && [ -f ../input/restart.gsh_15m ]
+    if [[ -f ../input/restart.aoc_9km ]] && [[ -f ../input/restart.gnh_10m ]] && [[ -f ../input/restart.gsh_15m ]]
     then
        echo -e "\e[34mrestart files exist\e[0m"
     else
@@ -80,7 +82,7 @@ cd ${HOME}/forcing
        echo -e "\e[31mrestart files are retrieved\e[0m"     
     fi
 #-----------------------------------------------------------------------------------#
-    if [ -f ../input/rmp_src_to_dst_conserv_002_001.nc ] && [ -f ../input/rmp_src_to_dst_conserv_003_001.nc ]
+    if [[ -f ../input/rmp_src_to_dst_conserv_002_001.nc ]] && [[ -f ../input/rmp_src_to_dst_conserv_003_001.nc ]]
     then
        echo -e "\e[34mrmp_src_to_dst_conserv_002_001.nc and rmp_src_to_dst_conserv_003_001.nc files exist\e[0m"
     else
@@ -91,5 +93,22 @@ cd ${HOME}/forcing
 #                     3- Observation (satellite and buoy)                           #
 #-----------------------------------------------------------------------------------#
 cd ${HOME}/obs
+    echo -e "\e[36mObservations Retrieval ...\e[0m"
+#satellite
+   if [ -f satellite_obs.nc ]
+   then
+       echo -e "\e[34msatellite_obs.nc file exists\e[0m"
+    else
        bash retrieve_sat_alt.sh
        echo -e "\e[31mSatellite files are downloaded\e[0m"
+   fi
+
+#-----------------------------------------------------------------------------------#
+# buoy
+   if [ -f BUOY.nc ]
+   then
+       echo -e "\e[34mBUOY.nc file exists\e[0m"
+    else
+       bash retrieve_buoy.sh
+       echo -e "\e[31mBuoy files are downloaded\e[0m"
+   fi

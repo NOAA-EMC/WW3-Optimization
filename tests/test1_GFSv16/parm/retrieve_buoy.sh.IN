@@ -1,0 +1,76 @@
+##!/bin/bash
+source ../input_vars.sh
+source ../loadmodules.sh
+  module purge
+  module use $hpcstackpath
+  module load $hpcstackversion
+  module load $modcomp
+  module load $modnetcdf
+  module load $modcdo
+  module load $modnco
+  module load $modwgrib2
+  module load $modhpss
+
+  module list
+
+
+STARTDATE="FRC_BEG"
+ENDDATE="FRC_END"
+
+start=$(date -d $STARTDATE +%s)
+end=$(date -d $ENDDATE +%s)
+#-----------------------------------------------------------------------------------#
+#source
+#https://dods.ndbc.noaa.gov/
+#-----------------------------------------------------------------------------------#
+#                          NDBC buoy (10 min)                                       #
+#-----------------------------------------------------------------------------------#
+
+  echo ' '
+  echo '       *****************************************************************'
+  echo "      ***                   NDBC bouy data Prep                        ***"
+  echo '       *****************************************************************'
+  echo ' '
+
+
+echo "start date: $(date -d @$start '+%Y-%m-%d %2H')"
+echo "end date: $(date -d @$end '+%Y-%m-%d %2H')"
+
+#-----------------------------------------------------------------------------------#
+# retrieve and append
+
+date -d @$start '+%Y-%m-%d %2H'
+    YY1=$(date -d @$start '+%Y')
+date -d @$end '+%Y-%m-%d %2H'
+    YY2=$(date -d @$end '+%Y')
+
+
+for i in `seq ${YY1} 1 ${YY2}`; do
+  if [ -f $NDBCfiles/NDBC_h_${i}.nc ]
+  then 
+     if [ $i == ${YY1} ]; then
+        cp $NDBCfiles/NDBC_h_${i}.nc ./BUOY_tmp.nc
+        echo -e "\e[34m$NDBCfiles/NDBC_h_${i}.nc copieds\e[0m"
+        ncks -O --mk_rec_dmn time BUOY_tmp.nc BUOY.nc
+     else
+        cp $NDBCfiles/NDBC_h_${i}.nc ./BUOY${i}.nc
+        echo -e "\e[34m$NDBCfiles/NDBC_h_${i}.nc copieds\e[0m"
+#Append netcdf files
+        mv BUOY.nc BUOY_tmp.nc
+        ncrcat -h  BUOY_tmp.nc BUOY${i}.nc BUOY.nc
+     fi
+  else
+     echo -e "\e[33m$NDBCfiles/NDBC_h_${i}.nc does not exist\e[0m"
+  fi
+done
+
+rm BUOY_tmp.nc 
+#-----------------------------------------------------------------------------------#
+
+echo '       *****************************************************************'
+  echo -e "\e[36m NDBC.nc is copied\e[0m"
+  echo ' '
+  echo '       *****************************************************************'
+  echo "     ***                            done                               ***"
+  echo '       *****************************************************************'
+  echo ' '

@@ -1,11 +1,18 @@
 ##!/bin/bash
-module load intel netcdf nco cdo hpss wgrib2
-CDO=/apps/cdo/1.9.10/gnu/1.9.10/bin/cdo
-
-FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
-GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
-WGRIB2=/apps/wgrib2/2.0.8/intel/18.0.3.222/bin/wgrib2
 source ../input_vars.sh
+source ../loadmodules.sh
+  module purge
+  module use $hpcstackpath
+  module load $hpcstackversion
+  module load $modcomp
+  module load $modnetcdf
+  module load $modcdo
+  module load $modnco
+  module load $modwgrib2
+  module load $modhpss
+
+ module list
+#-----------------------------------------------------------------------------------#
 #cd $FORCING_PATH
 
 FORCING_GFS='FORCING_T'
@@ -69,10 +76,9 @@ for file in $grib2_list
     while (( count < $npp ))
     do
       (( count = count + 1 ))
-       $WGRIB2 gfs.$YY$MM$DD/${HH}/atmos/$file -s | grep "${varname[count]}${lev[count]}" | $WGRIB2 -i gfs.$YY$MM$DD/${HH}/atmos/$file -netcdf gfs.$YY$MM$DD/${HH}/atmos/$file.${varname[count]}.nc -nc4
+       wgrib2 gfs.$YY$MM$DD/${HH}/atmos/$file -s | grep "${varname[count]}${lev[count]}" | wgrib2 -i gfs.$YY$MM$DD/${HH}/atmos/$file -netcdf gfs.$YY$MM$DD/${HH}/atmos/$file.${varname[count]}.nc -nc4
        echo $count       
           ncks -A gfs.$YY$MM$DD/${HH}/atmos/$file.${varname[count]}.nc gfs.$YY$MM$DD/${HH}/atmos/$file.nc
-#       fi
        rm  gfs.$YY$MM$DD/${HH}/atmos/$file.${varname[count]}.nc
     done
 
@@ -132,7 +138,7 @@ grib2_list=`( ls gfs.$YY$MM$DD/${HH}/wave/gridded )`
 echo $grib2_list
 for file in $grib2_list
   do
-  $WGRIB2 gfs.$YY$MM$DD/${HH}/wave/gridded/$file -netcdf gfs.$YY$MM$DD/${HH}/wave/gridded/$file.nc -nc4
+  wgrib2 gfs.$YY$MM$DD/${HH}/wave/gridded/$file -netcdf gfs.$YY$MM$DD/${HH}/wave/gridded/$file.nc -nc4
 echo $file
 done
 #-----------------------------------------------------------------------------------#

@@ -71,7 +71,7 @@ function edit_forcing {
        -e "s/FORCING_T/${FORCING_GFS}/g" 
 }
 
-function edit_obs_sat {
+function edit_obs {
 
   SDATEWW3="${SYEAR}-${SMONTH}-${SDAY}"
   EDATEWW3="${EYEAR}-${EMONTH}-${EDAY}"

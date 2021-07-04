@@ -13,11 +13,6 @@ source ../loadmodules.sh
 
  module list
 #-----------------------------------------------------------------------------------#
-module load intel netcdf nco cdo hpss
-CDO=/apps/cdo/1.9.10/gnu/1.9.10/bin/cdo
-FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
-GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
-source ../input_vars.sh 
 #cd $FORCING_PATH
 
 STARTDATE="FRC_BEG"
@@ -64,18 +59,18 @@ ncks -v u_velocity,v_velocity cur_temp2.nc cur_temp3.nc
 mv -f cur_temp3.nc cur_$YY$MM$DD${HH}_flat.nc
 # Convert to regular lat lon file
 # If weights need to be regenerated due to CDO ver change, use:
-#$CDO genbil,r4320x2160 rtofs_glo_2ds_f000_3hrly_prog.nc weights.nc
+#cdo genbil,r4320x2160 rtofs_glo_2ds_f000_3hrly_prog.nc weights.nc
  if [ $d == $start ]; then
-$CDO genbil,r4320x2160 rtofs_$YY$MM$DD${HH}_prog.nc weights.nc
+cdo genbil,r4320x2160 rtofs_$YY$MM$DD${HH}_prog.nc weights.nc
 fi
 #cp ${FIXwave}/weights_rtofs_to_r4320x2160.nc ./weights.nc
 # Interpolate to regular 5 min grid
-$CDO remap,r4320x2160,weights.nc cur_$YY$MM$DD${HH}_flat.nc cur_5min_01.nc
+cdo remap,r4320x2160,weights.nc cur_$YY$MM$DD${HH}_flat.nc cur_5min_01.nc
 # Perform 9-point smoothing twice to make RTOFS data less noisy when
 # interpolating from 1/12 deg RTOFS grid to 1/6 deg wave grid 
 #smoothing
-#  $CDO -f nc -smooth9 cur_5min_01.nc cur_5min_02.nc
-#  $CDO -f nc -smooth9 cur_5min_02.nc cur_$YY$MM$DD${HH}_5min.nc
+#  cdo -f nc -smooth9 cur_5min_01.nc cur_5min_02.nc
+#  cdo -f nc -smooth9 cur_5min_02.nc cur_$YY$MM$DD${HH}_5min.nc
 cp cur_5min_01.nc cur_$YY$MM$DD${HH}_5min.nc
 #-----------------------------------------------------------------------------------#
 #put all time steps together

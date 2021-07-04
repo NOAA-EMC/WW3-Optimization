@@ -1,8 +1,7 @@
 ##!/bin/bash
 
-FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
-
 source ../input_vars.sh
+
 #cd $FORCING_PATH
 
 #-----------------------------------------------------------------------------------#
@@ -34,4 +33,3 @@ cp ${FIXwave}ww3_grid.inp.glox_10m ../input/ww3_grid_glox_10m.inp
   echo "     ***                            done                               ***"
   echo '       *****************************************************************'    
   echo ' '     
-

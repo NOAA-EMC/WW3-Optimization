@@ -23,7 +23,12 @@ export EYEAR=$(date -d @$endd '+%Y')
 export EMONTH=$(date -d @$endd '+%m')
 export EDAY=$(date -d @$endd '+%d')
 export EHOUR=$(date -d @$endd '+%2H')
-
+##### FIX files ###############################
+export GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
+export FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
+#obs
+#NDBC
+export NDBCfiles=/scratch2/COASTAL/coastal/save/NDBC
 #wind
 #choose yes if the wind is taken directly from gfs, or no if it is taken from wave
 export FORCING_GFS="YES"

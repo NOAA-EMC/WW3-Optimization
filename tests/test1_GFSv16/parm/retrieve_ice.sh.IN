@@ -1,19 +1,22 @@
 ##!/bin/bash
-module load intel netcdf nco cdo hpss wgrib2
-CDO=/apps/cdo/1.9.10/gnu/1.9.10/bin/cdo
-
-FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
-GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
-WGRIB2=/apps/wgrib2/2.0.8/intel/18.0.3.222/bin/wgrib2
 source ../input_vars.sh
+source ../loadmodules.sh
+  module purge
+  module use $hpcstackpath
+  module load $hpcstackversion
+  module load $modcomp
+  module load $modnetcdf
+  module load $modcdo
+  module load $modnco
+  module load $modwgrib2
+  module load $modhpss
+
 #cd $FORCING_PATH
 
 STARTDATE="FRC_BEG"
 ENDDATE="FRC_END"
 start0=$(date -d $STARTDATE +%s)
 end0=$(date -d $ENDDATE +%s)
-
-
 
 #-----------------------------------------------------------------------------------#
 #                                        ICE (Daily)                                #
@@ -51,9 +54,9 @@ do
 # from Global Dump
 cp $GLBDUMP/gfs.$YY$MM$DD/${HH}/gfs.t${HH}z.seaice.5min.blend.grb ./seaice_$YY$MM$DD${HH}_5min.blend.grb
 # convert grb to netcdf
-$CDO -f nc copy seaice_$YY$MM$DD${HH}_5min.blend.grb seaice_$YY$MM$DD${HH}_5min.blend.nc 2>&1 > wgrib.out
+cdo -f nc copy seaice_$YY$MM$DD${HH}_5min.blend.grb seaice_$YY$MM$DD${HH}_5min.blend.nc 2>&1 > wgrib.out
 # convert time reference
-$CDO  setreftime,1970-01-01,00:00:00,"seconds" seaice_$YY$MM$DD${HH}_5min.blend.nc seaice_$YY$MM$DD${HH}_5min.blend1.nc
+cdo  setreftime,1970-01-01,00:00:00,"seconds" seaice_$YY$MM$DD${HH}_5min.blend.nc seaice_$YY$MM$DD${HH}_5min.blend1.nc
 #inverse lat
 ncpdq -h -O -a -lat seaice_$YY$MM$DD${HH}_5min.blend1.nc seaice_$YY$MM$DD${HH}_5min.blend2.nc
 mv seaice_$YY$MM$DD${HH}_5min.blend2.nc seaice_$YY$MM$DD${HH}_5min.blend1.nc
@@ -67,7 +70,7 @@ mv seaice_$YY$MM$DD${HH}_5min.blend2.nc seaice_$YY$MM$DD${HH}_5min.blend1.nc
 #cp seaice_$YY$MM$DD${HH}_5min.blend.nc seaice_$YY$MM$DD${HH}_5min.blend1.nc
 ncatted -O -a _FillValue,var91,o,f,-32766 seaice_$YY$MM$DD${HH}_5min.blend1.nc
 #ncatted -a _FillValue,,m,f,1.0e36 seaice_$YY$MM$DD${HH}_5min.blend.nc_out.nc
-#$CDO setmisstoc,999.0 seaice_$YY$MM$DD${HH}_5min.blend.nc_out1.nc seaice_$YY$MM$DD${HH}_5min.blend.nc_out.nc
+#cdo setmisstoc,999.0 seaice_$YY$MM$DD${HH}_5min.blend.nc_out1.nc seaice_$YY$MM$DD${HH}_5min.blend.nc_out.nc
 #-----------------------------------------------------------------------------------#
 #put all time steps together
  if [ $d == $start ]; then

@@ -1,11 +1,19 @@
 ##!/bin/bash
-module load intel netcdf nco cdo hpss wgrib2
-CDO=/apps/cdo/1.9.10/gnu/1.9.10/bin/cdo
 
-FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
-GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
-WGRIB2=/apps/wgrib2/2.0.8/intel/18.0.3.222/bin/wgrib2
 source ../input_vars.sh
+source ../loadmodules.sh
+  module purge
+  module use $hpcstackpath
+  module load $hpcstackversion
+  module load $modcomp
+  module load $modnetcdf
+  module load $modcdo
+  module load $modnco
+  module load $modwgrib2
+  module load $modhpss
+
+ module list
+#-----------------------------------------------------------------------------------#
 #cd $FORCING_PATH
 
 STARTDATE="FRC_BEG"

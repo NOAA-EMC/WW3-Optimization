@@ -1,4 +1,17 @@
 #!/bin/bash
+source ../input_vars.sh
+source ../loadmodules.sh
+  module purge
+  module use $hpcstackpath
+  module load $hpcstackversion
+  module load $modcomp
+  module load $modnetcdf
+  module load $modcdo
+  module load $modnco
+  module load $modwgrib2 
+  module load $modhpss
+  
+  module list
 
 STARTDATE="FRC_BEG"
 ENDDATE="FRC_END"
@@ -77,13 +90,24 @@ fi
 ##wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/j2/j2_${YY}${MM}${DD}.nc
 
 #-----------------------------------------------------------------------------------#
-
+list1=`( ls ??_${YY}${MM}${DD}.nc )`
+echo $list1
+ncrcat -h $list1 sat_${YY}${MM}${DD}.nc
+if [ $d == $start ]; then
+#Append netcdf files
+mv sat_${YY}${MM}${DD}.nc satellite_obs.nc
+else
+mv satellite_obs.nc satellite_obs_tmp.nc
+ncrcat -h satellite_obs_tmp.nc sat_${YY}${MM}${DD}.nc satellite_obs.nc
+fi
+#-----------------------------------------------------------------------------------#
     d=$(( $d + 86400 ))
 done
 
+rm satellite_obs_tmp.nc
 
 echo '       *****************************************************************'
-  echo -e "\e[36mj3, 3a, 3b, c2, sa files are retrieved\e[0m"
+  echo -e "\e[36msatellite_obs.nc file is retrieved\e[0m"
   echo ' '
   echo '       *****************************************************************'
   echo "     ***                            done                               ***"

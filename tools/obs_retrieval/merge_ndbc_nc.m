@@ -9,10 +9,10 @@ clc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%    INPUT    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-yr=2019;
+yr=2020;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-fid = fopen('NDBC_ww3_list.txt');
+fid = fopen('NDBC_ww3_list_2.txt');
 data = textscan(fid,'%s%s%s');
 fclose(fid);
 % list of buoy used in GFSv16 wave
@@ -33,14 +33,17 @@ m=0;
 % define hourly time
 t0=datenum([num2str(yr),'0101'],'YYYYMMDD')-60/3600/24;
 t1=datenum([num2str(yr+1),'0101'],'YYYYMMDD')-60/3600/24;
-TIME=t0:1/6/24:t1;
+TIME(:,1)=t0:1/6/24:t1;
+
+
 for i=1:length(B)
     %check if it exist locally
     if isfile([B{i},'h',num2str(yr),'.nc'])
        clearvars -except i B TIME yr m LATITUDE LONGITUDE WIND_DIR WIND_SPD GUST ...
         DOMINANT_WPD WAVE_HEIGHT AVERAGE_WPD MEAN_WAVE_DIR AIR_PRESSURE AIR_PRESSURE ...
         AIR_TEMPERATURE SEA_SURFACE_TEMPERATURE VISIBILITY WATER_LEVEL DEWPT_TEMPERATURE
-       time=double(ncread([B{i},'h',num2str(yr),'.nc'],'time'))/3600/24+datenum('19700101','YYYYMMDD')-60/3600/24;
+       %time=double(ncread([B{i},'h',num2str(yr),'.nc'],'time'))/3600/24+datenum('19700101','YYYYMMDD')-60/3600/24;
+       [time]=convert_time([B{i},'h',num2str(yr),'.nc'],'time');
        latitude=ncread([B{i},'h',num2str(yr),'.nc'],'latitude');
        LATITUDE(i,1)=latitude;
        longitude=ncread([B{i},'h',num2str(yr),'.nc'],'longitude');
@@ -75,19 +78,19 @@ for i=1:length(B)
        disp([B{i},'h',num2str(yr),'.nc does not exist.'])
        LATITUDE(i,1)=nan;
        LONGITUDE(i,1)=nan;
-       WIND_DIR(i,:)=nan;
-       WIND_SPD(i,:)=nan; 
-       GUST(i,:)=nan;
-       DOMINANT_WPD(i,:)=nan;
-       WAVE_HEIGHT(i,:)=nan; 
-       AVERAGE_WPD(i,:)=nan; 
-       MEAN_WAVE_DIR(i,:)=nan;
-       AIR_PRESSURE(i,:)=nan;
-       AIR_TEMPERATURE(i,:)=nan;
-       SEA_SURFACE_TEMPERATURE(i,:)=nan;
-       DEWPT_TEMPERATURE(i,:)=nan;
-       VISIBILITY(i,:)=nan;
-       WATER_LEVEL(i,:)=nan;
+       WIND_DIR(i,:)=nan*ones(1,length(TIME));
+       WIND_SPD(i,:)=nan*ones(1,length(TIME)); 
+       GUST(i,:)=nan*ones(1,length(TIME));
+       DOMINANT_WPD(i,:)=nan*ones(1,length(TIME));
+       WAVE_HEIGHT(i,:)=nan*ones(1,length(TIME)); 
+       AVERAGE_WPD(i,:)=nan*ones(1,length(TIME)); 
+       MEAN_WAVE_DIR(i,:)=nan*ones(1,length(TIME));
+       AIR_PRESSURE(i,:)=nan*ones(1,length(TIME));
+       AIR_TEMPERATURE(i,:)=nan*ones(1,length(TIME));
+       SEA_SURFACE_TEMPERATURE(i,:)=nan*ones(1,length(TIME));
+       DEWPT_TEMPERATURE(i,:)=nan*ones(1,length(TIME));
+       VISIBILITY(i,:)=nan*ones(1,length(TIME));
+       WATER_LEVEL(i,:)=nan*ones(1,length(TIME));
     end
        
 end   

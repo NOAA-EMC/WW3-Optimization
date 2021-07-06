@@ -30,6 +30,7 @@ edit_grdset < parm/grdset.IN > input/grdset_a
 edit_ww3_grid < parm/ww3_grid_gnh_10m.inp.IN > input/ww3_grid_gnh_10m.inp
 edit_ww3_grid < parm/ww3_grid_gsh_15m.inp.IN > input/ww3_grid_gsh_15m.inp
 edit_ww3_grid < parm/ww3_grid_aoc_9km.inp.IN > input/ww3_grid_aoc_9km.inp
+edit_ww3_grid < parm/input_nml.IN > input/inp.nml
 cp grids/switch input
 echo -e "\e[34mww3_grid.inp files are filled\e[0m"
 #-----------------------------------------------------------------------------------#

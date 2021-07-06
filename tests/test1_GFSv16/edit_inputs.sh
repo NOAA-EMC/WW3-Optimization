@@ -9,8 +9,8 @@ function edit_ww3_multi {
   #a work around is to just put a date long in the future as the actual end time is
   #determined by the driver
   DT_2_RST_WAV="$(printf "%02d" $(( ${WW3RSTDTHR}*3600 )))"
-  DTFLD_WAV="$(printf "%02d" $(( ${WW3OUTDTHR}*3600 )))"
-  DTPNT_WAV="$(printf "%02d" $(( ${WW3OUTDTHR}*3600 )))"
+  DTFLD_WAV="$(printf "%02d" $(( ${WW3OUTDTHR}*1 )))"
+  DTPNT_WAV="$(printf "%02d" $(( ${WW3OUTDTHRPNT}*1 )))"
 
   sed -e "s/NFGRIDS/$NFGRIDS/g" \
       -e "s/NMGRIDS/${NMGRIDS}/g" \
@@ -53,6 +53,41 @@ function edit_ww3_fld {
        -e "s/OUTPARS/${OUTPARS_WAV}/g"
 }
 
+function edit_ww3_gint {
+
+  SDATEWW3="${SYEAR}${SMONTH}${SDAY} $(printf "%02d" $(( ${SHOUR}  )))0000"
+  sed  -e "s/OUT_BEG/$SDATEWW3/g" \
+       -e "s/DTFLD/ $DTFLD_WAV/g" \
+       -e "s/NOGRD/ $NOGRID/g" \
+       -e "s/GRDLN/ $GRIDSLINE/g" \
+       -e "s/INTLN/ $INTEGLINE/g" \
+       -e "s/OUTPARS/${OUTPARS_WAV}/g"
+}
+
+function edit_ww3_prnc_wind {
+
+  sed  -e "s/PRNCLINE/$WINDPRNCLINE/g" \
+       -e "s/DIMLINE/$WINDDIMLINE/g" \
+       -e "s/VARLINE/$WINDVARLINE/g" \
+       -e "s/FRCFILE/$WINDFRCFILE/g"
+}
+
+
+function edit_ww3_prnc_cur {
+
+  sed  -e "s/PRNCLINE/$CURPRNCLINE/g" \
+       -e "s/DIMLINE/$CURDIMLINE/g" \
+       -e "s/VARLINE/$CURVARLINE/g" \
+       -e "s/FRCFILE/$CURFRCFILE/g"
+}
+
+function edit_ww3_prnc_ice {
+
+  sed  -e "s/PRNCLINE/$ICEPRNCLINE/g" \
+       -e "s/DIMLINE/$ICEDIMLINE/g" \
+       -e "s/VARLINE/$ICEVARLINE/g" \
+       -e "s/FRCFILE/$ICEFRCFILE/g"
+}
 
 function edit_ww3_ounp {
 
@@ -77,6 +112,14 @@ function edit_obs {
   EDATEWW3="${EYEAR}-${EMONTH}-${EDAY}"
   sed  -e "s/FRC_BEG/$SDATEWW3/g" \
        -e "s/FRC_END/$EDATEWW3/g"
+}
+
+function edit_grdset {
+
+  sed  -e "s/MDLGRDLN/$MODELGRIDLINE/g" \
+       -e "s/INPGRDLN/$INPUTGRIDLINE/g" \
+       -e "s/PNTGRDLN/$POINTGRIDLINE/g" \
+       -e "s/INTGRDLN/$INTGRIDLINE/g"
 }
 
 function edit_ww3_grid {

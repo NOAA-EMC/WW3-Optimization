@@ -97,7 +97,7 @@ fi
 done
 
 rm gfs_wnd_tmp.nc 
-mv gfs_wnd.nc ../input
+#mv gfs_wnd.nc ../input
 
 echo '       *****************************************************************' 
   echo "gfs_wnd.nc prepared"
@@ -164,10 +164,10 @@ fi
 done
 
 rm *tmp aoc_wnd_tmp.nc gnh_wnd_tmp.nc gsh_wnd_tmp.nc glo_wnd_tmp.nc
-mv aoc_wnd.nc ../input
-mv gnh_wnd.nc ../input
-mv gsh_wnd.nc ../input
-mv glo_wnd.nc ../input
+#mv aoc_wnd.nc ../input
+#mv gnh_wnd.nc ../input
+#mv gsh_wnd.nc ../input
+#mv glo_wnd.nc ../input
 
 echo '       *****************************************************************' 
   echo "aoc_wnd.nc, gnh_wnd.nc, gsh_wnd.nc, glo_wnd.nc prepared"

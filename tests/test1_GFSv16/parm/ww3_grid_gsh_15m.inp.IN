@@ -39,9 +39,9 @@ $
  15.00    15.00   60.00
  0.0000         -79.5000         1.00
 $ Bottom Bathymetry 
- -0.10   2.50  20  0.001000  1  1 '(....)'  NAME  '../input/gsh_15m.bot' 
- 21  0.010000  1  1  '(....)'  NAME  '../input/gsh_15m.obs'  
- 22  1  1  '(....)'  NAME  '../input/gsh_15m.mask'  
+ -0.10   2.50  20  0.001000  1  1 '(....)'  NAME  '../grids/gsh_15m.bot' 
+ 21  0.010000  1  1  '(....)'  NAME  '../grids/gsh_15m.obs'  
+ 22  1  1  '(....)'  NAME  '../grids/gsh_15m.mask'  
 $
       0.  0.  0.  0.  0
 $

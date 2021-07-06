@@ -38,11 +38,11 @@ END OF NAMELISTS
 $
     'CURV' T 'NONE'
    1006   1006
-            20 1.0 0.0 1 1 '(....)' 'NAME' '../input/aoc_9km.lon'
-            20 1.0 0.0 1 1 '(....)' 'NAME' '../input/aoc_9km.lat'
-  -0.1 2.50  20  0.001 1 1 '(....)' 'NAME' '../input/aoc_9km.bot'
-  21  0.01  1 1 '(....)' 'NAME' '../input/aoc_9km.obs'
-  22        1 1 '(....)' 'NAME' '../input/aoc_9km.mask'
+            20 1.0 0.0 1 1 '(....)' 'NAME' '../grids/aoc_9km.lon'
+            20 1.0 0.0 1 1 '(....)' 'NAME' '../grids/aoc_9km.lat'
+  -0.1 2.50  20  0.001 1 1 '(....)' 'NAME' '../grids/aoc_9km.bot'
+  21  0.01  1 1 '(....)' 'NAME' '../grids/aoc_9km.obs'
+  22        1 1 '(....)' 'NAME' '../grids/aoc_9km.mask'
 $
       0.  0.  0.  0.  0
 $ -------------------------------------------------------------------- $

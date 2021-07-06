@@ -13,19 +13,24 @@ source edit_inputs.sh
 echo -e "\e[36mFill namelist templates\e[0m"
 #inp prep
 edit_ww3_multi < parm/ww3_multi.inp.IN > input/ww3_multi_grdset_a.inp
-edit_ww3_fld < parm/ww3_gint.inp.IN > input/ww3_gint_grdset_a.inp
+edit_ww3_gint < parm/ww3_gint.inp.IN > input/ww3_gint_grdset_a.inp
 edit_ww3_fld < parm/ww3_ounf.inp.IN > input/ww3_ounf.inp
 edit_ww3_fld < parm/ww3_grib_gnh_10m.inp.IN > input/ww3_grib_gnh_10m.inp
 edit_ww3_fld < parm/ww3_grib_gsh_15m.inp.IN > input/ww3_grib_gsh_15m.inp
 edit_ww3_fld < parm/ww3_grib_aoc_9km.inp.IN > input/ww3_grib_aoc_9km.inp
 edit_ww3_fld < parm/ww3_grib_glo_15mxt.inp.IN > input/ww3_grib_glo_15mxt.inp
 edit_ww3_ounp < parm/ww3_ounp.inp.IN > input/ww3_ounp_points.inp
+edit_ww3_prnc_wind < parm/ww3_prnc.inp.IN > input/ww3_prnc_glox_10m_wind.inp
+edit_ww3_prnc_cur < parm/ww3_prnc.inp.IN > input/ww3_prnc_glix_10m_current.inp
+edit_ww3_prnc_ice < parm/ww3_prnc.inp.IN > input/ww3_prnc_glix_10m_ice.inp
 echo -e "\e[34minputs templates are filled\e[0m"
 #-----------------------------------------------------------------------------------#
 #ww3_grid parameters
+edit_grdset < parm/grdset.IN > input/grdset_a
 edit_ww3_grid < parm/ww3_grid_gnh_10m.inp.IN > input/ww3_grid_gnh_10m.inp
 edit_ww3_grid < parm/ww3_grid_gsh_15m.inp.IN > input/ww3_grid_gsh_15m.inp
 edit_ww3_grid < parm/ww3_grid_aoc_9km.inp.IN > input/ww3_grid_aoc_9km.inp
+cp grids/switch input
 echo -e "\e[34mww3_grid.inp files are filled\e[0m"
 #-----------------------------------------------------------------------------------#
 #forcing
@@ -50,7 +55,7 @@ echo -e "\e[34mBuoy obs templates is filled\e[0m"
 #-----------------------------------------------------------------------------------#
 cd ${HOME}/forcing
     echo -e "\e[36mForcing and Restart Retrieval ...\e[0m"
-    if [ -f ../input/rtofs_current.nc ]
+    if [ -f ../forcing/rtofs_current.nc ]
     then
        echo -e "\e[34mrtofs._current.nc exists\e[0m"
    else
@@ -58,7 +63,7 @@ cd ${HOME}/forcing
        echo -e "\e[31mcurrent file is retrieved\e[0m"
    fi
 #-----------------------------------------------------------------------------------#
-    if [ -f ../input/ice.nc ]
+    if [ -f ../forcing/ice.nc ]
     then
        echo -e "\e[34mice.nc exists\e[0m"
     else
@@ -66,7 +71,7 @@ cd ${HOME}/forcing
        echo -e "\e[31mice file is retrieved\e[0m"
    fi
 #-----------------------------------------------------------------------------------#
-    if [ -f ../input/gfs_wnd.nc ]
+    if [ -f ../forcing/gfs_wnd.nc ]
     then
       echo -e "\e[34mgfs_wnd.nc exists\e[0m"        
     else

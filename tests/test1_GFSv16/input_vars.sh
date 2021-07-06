@@ -23,21 +23,43 @@ export EYEAR=$(date -d @$endd '+%Y')
 export EMONTH=$(date -d @$endd '+%m')
 export EDAY=$(date -d @$endd '+%d')
 export EHOUR=$(date -d @$endd '+%2H')
+
 ##### FIX files ###############################
 export GLBDUMP=/scratch1/NCEPDEV/global/glopara/dump
 export FIXwave=/scratch1/NCEPDEV/global/glopara/fix_nco_gfsv16/fix_wave_gfs/
-#obs
+
+#obs #########################################
 #NDBC
 export NDBCfiles=/scratch2/COASTAL/coastal/save/NDBC
+
+
 #wind
 #choose yes if the wind is taken directly from gfs, or no if it is taken from wave
 export FORCING_GFS="YES"
 export FHMAX=${FHMAX:-`expr $DAYS \* 24`}
+
+#prnc
+export WINDPRNCLINE="'WND' 'LL' T T"
+export WINDDIMLINE="longitude latitude time"
+export WINDVARLINE="UGRD_10maboveground VGRD_10maboveground"
+export WINDFRCFILE="gfs_wnd.nc"
+
+export ICEPRNCLINE="'ICE' 'LL' T T"
+export ICEDIMLINE="lon lat time"
+export ICEVARLINE="var91"
+export ICEFRCFILE="ice.nc"
+
+export CURPRNCLINE="'CUR' 'LL' T T"
+export CURDIMLINE="lon lat time"
+export CURVARLINE="u_velocity v_velocity"
+export CURFRCFILE="rtofs_current.nc"
+
 #waves
 #restsrt interval (hr)
 export WW3RSTDTHR='0'
-#output interval (hr)
-export WW3OUTDTHR='1'
+#output interval (second)
+export WW3OUTDTHR='3600'
+export WW3OUTDTHRPNT='600'
 export WW3OUTPUTTYPE=' '
 export OUTPARS_WAV="WND HS FP DP PHS PTP PDIR"
 export CPLILINE='$'
@@ -52,6 +74,19 @@ export WINDLINE="'glox_10m'  F F T F F F F"
 export ww3gline="'gnh_10m' 'no' 'glix_10m' 'glox_10m' 'glix_10m'  'no' 'no' 'no'  1 10  0.00 1.00  F\n"
 export ww3gline="${ww3gline}'gsh_15m' 'no' 'glix_10m' 'glox_10m' 'glix_10m'  'no' 'no' 'no'  2 20  0.00 1.00  F\n"
 export ww3gline="${ww3gline}'aoc_9km' 'no' 'glix_10m' 'glox_10m' 'glix_10m'  'no' 'no' 'no'  3 30  0.00 1.00  F"
+
+#GRIDSET
+export MODELGRIDLINE="gnh_10m gsh_15m aoc_9km"
+export INPUTGRIDLINE="glix_10m glox_10m"
+export POINTGRIDLINE="points"
+export INTGRIDLINE="glo_15mxt"
+
+#GINT
+export NOGRID='4'
+export GRIDSLINE="'gnh_10m'\n"
+export GRIDSLINE="$GRIDSLINE'gsh_15m'\n"
+export GRIDSLINE="$GRIDSLINE'aoc_9km'\n"
+export INTEGLINE="'glo_15mxt'"
 
 #physics parameters default
 #SIN4 (wind input)

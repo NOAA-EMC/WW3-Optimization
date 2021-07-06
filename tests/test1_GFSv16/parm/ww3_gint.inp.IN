@@ -1,12 +1,10 @@
 $
  OUT_BEG  DTFLD. 9999
 $
- 4
+ NOGRD
 $
- 'gnh_10m'
- 'gsh_15m'
- 'aoc_9km'
- 'glo_15mxt'
+GRDLN
+INTLN
 $
  0
 $

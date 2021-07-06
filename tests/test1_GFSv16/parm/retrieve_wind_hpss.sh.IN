@@ -1,6 +1,8 @@
 ##!/bin/bash
+
 source ../input_vars.sh
-source ../loadmodules.sh
+source ../../bin/loadmodules.sh
+
   module purge
   module use $hpcstackpath
   module load $hpcstackversion

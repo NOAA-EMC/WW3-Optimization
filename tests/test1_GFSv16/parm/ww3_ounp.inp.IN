@@ -25,7 +25,7 @@ $ output type ITYPE [0,1,2,3]
 $ flag for global attributes WW3 [0] or variable version [1-2-3-4]
 $ flag for dimensions order time,station [T] or station,time [F]
 $
- ww3_out_pnt_ 
+ ww3_out_pnt 
  0
  4
  T 1 

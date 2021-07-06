@@ -36,8 +36,8 @@ $ File prefix
 $ number of characters in date [0(nodate),4(yearly),6(monthly),8(daily),10(hourly)]
 $ IX and IY ranges [regular:IX NX IY NY, unstructured:IP NP 1 1]
 $
- ww3.         
- 6
+ ww3_out_grd_         
+ 0
 $
 $ ----------------- FOR SMC GRID ONLY ---------------------------------$
 $ SMC output type:

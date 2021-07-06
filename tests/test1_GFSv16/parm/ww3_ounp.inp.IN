@@ -25,8 +25,8 @@ $ output type ITYPE [0,1,2,3]
 $ flag for global attributes WW3 [0] or variable version [1-2-3-4]
 $ flag for dimensions order time,station [T] or station,time [F]
 $
- ww3.
- 6
+ ww3_out_pnt_ 
+ 0
  4
  T 1 
  2
@@ -70,7 +70,7 @@ $                              3 : Nondimensional pars. (U*)
 $                              4 : Nondimensional pars. (U10)
 $                              5 : 'Validation table'
 $                              6 : WMO standard output 
- 2
+ 6
 $
 $ -------------------------------------------------------------------- $
 $ ITYPE = 3, netCDF Source terms

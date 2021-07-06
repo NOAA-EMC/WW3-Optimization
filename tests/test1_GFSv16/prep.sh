@@ -41,12 +41,12 @@ edit_ww3_grid < parm/input_nml.IN > ${input_i}/inp.nml
 echo -e "\e[34mww3_grid.inp files are filled\e[0m"
 #-----------------------------------------------------------------------------------#
 #switch
-cp grids/switch ${input_i}
+cp parm/switch ${input_i}
 echo -"\e[34mswitch is coppied\e[0m"
 #-----------------------------------------------------------------------------------#
 #statistical_analysis
-cp parm/statistical_analysis.m ${input_i}
-echo -"\e[34mstatistical_analysis.mis coppied\e[0m"
+edit_statistical_analysis < parm/statistical_analysis.m.IN > ${input_i}/statistical_analysis.m
+echo -"\e[34mstatistical_analysis.m template is filled\e[0m"
 #-----------------------------------------------------------------------------------#
 #forcing
 edit_forcing < parm/retrieve_wind_hpss.sh.IN > forcing/retrieve_wind_hpss.sh

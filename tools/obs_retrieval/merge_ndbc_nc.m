@@ -12,7 +12,7 @@ clc
 yr=2020;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-fid = fopen('NDBC_ww3_list_2.txt');
+fid = fopen('NDBC_ww3_list.txt');
 data = textscan(fid,'%s%s%s');
 fclose(fid);
 % list of buoy used in GFSv16 wave

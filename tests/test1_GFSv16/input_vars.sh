@@ -88,6 +88,9 @@ export GRIDSLINE="$GRIDSLINE'gsh_15m'\n"
 export GRIDSLINE="$GRIDSLINE'aoc_9km'\n"
 export INTEGLINE="'glo_15mxt'"
 
+#statistial analysis
+export OUTGRIDED="glo_15mxt"
+
 #physics parameters default
 #SIN4 (wind input)
 #(1)

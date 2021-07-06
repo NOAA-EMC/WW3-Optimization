@@ -144,3 +144,9 @@ function edit_ww3_grid {
        -e "s/SDSCOSvar/$SDSCOSvar/g"
 }
 
+function edit_statistical_analysis {
+
+  sed  -e "s/WORKDIR/$work_i/g" \
+       -e "s/OUTGRID/$OUTGRIDED/g"\
+       -e "s/INPUTDIR/$input_i/g"
+}

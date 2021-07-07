@@ -90,17 +90,19 @@ export INTEGLINE="'glo_15mxt'"
 
 #statistial analysis
 export OUTGRIDED="glo_15mxt"
+export VMIN_val='0.0'
+export VMAX_val='1.0'
 
 #physics parameters default
 #SIN4 (wind input)
 #(1)
 export BETAMAXvar='1.315'
-export BETAMAXmin='1'
-export BETAMAXmax='2'
+export BETAMAXmin='1.0'
+export BETAMAXmax='2.0'
 #(2)
 export TAUWSHELTERvar='1.0'
-export TAUWSHELTEmin='0'
-export TAUWSHELTEmax='1.5'
+export TAUWSHELTERmin='0'
+export TAUWSHELTERmax='1.5'
 #(3)
 export SWELLFvar='0.798'
 export SWELLFmin='0.5'
@@ -128,11 +130,11 @@ export SWELLF7max='400000.0'
 #SDS4 (dissipation)
 
 export FXFM3var='2.501'
-export FXFM3min=''
-export FXFM3max=''
+export FXFM3min='2.501'
+export FXFM3max='2.501'
 #(9)
 export SDSC2var='-2.1975e-05'
-export SDSC2min='−2.5e-0.5'
+export SDSC2min='−2.5e-05'
 export SDSC2max='0.0'
 #(10)
 export SDSCUMvar='-0.4032'

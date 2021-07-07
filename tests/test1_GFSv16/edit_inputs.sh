@@ -122,6 +122,12 @@ function edit_grdset {
        -e "s/INTGRDLN/$INTGRIDLINE/g"
 }
 
+function normalize(){
+ var = $(( ( vmin * ( upper_bound - xval ) +  vmax * ( xval - lower_bound ) )/ \
+                  ( upper_bound - lower_bound ) ))
+
+}
+
 function edit_ww3_grid {
 
   sed  -e "s/BETAMAXvar/$BETAMAXvar/g" \
@@ -144,9 +150,56 @@ function edit_ww3_grid {
        -e "s/SDSCOSvar/$SDSCOSvar/g"
 }
 
+function edit_input_lower_bound {
+
+  sed  -e "s/BETAMAXmin/$BETAMAXmin/g" \
+       -e "s/TAUWSHELTERmin/$TAUWSHELTERmin/g" \
+       -e "s/SWELLFmin/$SWELLFmin/g" \
+       -e "s/SWELLF2min/$SWELLF2min/g" \
+       -e "s/SWELLF3min/$SWELLF3min/g" \
+       -e "s/SWELLF4min/$SWELLF4min/g" \
+       -e "s/SWELLF5min/$SWELLF5min/g" \
+       -e "s/SWELLF7min/$SWELLF7min/g" \
+       -e "s/NLPROPmin/$NLPROPmin/g" \
+       -e "s/FXFM3min/$FXFM3min/g" \
+       -e "s/SDSC2min/$SDSC2min/g" \
+       -e "s/SDSCUMmin/$SDSCUMmin/g" \
+       -e "s/SDSC6min/$SDSC6min/g" \
+       -e "s/SDSBRmin/$SDSBRmin/g" \
+       -e "s/SDSC5min/$SDSC5min/g" \
+       -e "s/SDSBCKmin/$SDSBCKmin/g" \
+       -e "s/SDSHCKmin/$SDSHCKmin/g" \
+       -e "s/SDSCOSmin/$SDSCOSmin/g"
+}
+
+
+function edit_input_upper_bound {
+
+  sed  -e "s/BETAMAXmax/$BETAMAXmax/g" \
+       -e "s/TAUWSHELTERmax/$TAUWSHELTERmax/g" \
+       -e "s/SWELLFmax/$SWELLFmax/g" \
+       -e "s/SWELLF2max/$SWELLF2max/g" \
+       -e "s/SWELLF3max/$SWELLF3max/g" \
+       -e "s/SWELLF4max/$SWELLF4max/g" \
+       -e "s/SWELLF5max/$SWELLF5max/g" \
+       -e "s/SWELLF7max/$SWELLF7max/g" \
+       -e "s/NLPROPmax/$NLPROPmax/g" \
+       -e "s/FXFM3max/$FXFM3max/g" \
+       -e "s/SDSC2max/$SDSC2max/g" \
+       -e "s/SDSCUMmax/$SDSCUMmax/g" \
+       -e "s/SDSC6max/$SDSC6max/g" \
+       -e "s/SDSBRmax/$SDSBRmax/g" \
+       -e "s/SDSC5max/$SDSC5max/g" \
+       -e "s/SDSBCKmax/$SDSBCKmax/g" \
+       -e "s/SDSHCKmax/$SDSHCKmax/g" \
+       -e "s/SDSCOSmax/$SDSCOSmax/g"
+}
+
 function edit_statistical_analysis {
 
   sed  -e "s/WORKDIR/$work_i/g" \
-       -e "s/OUTGRID/$OUTGRIDED/g"\
+       -e "s/OUTGRID/$OUTGRIDED/g" \
+       -e "s/VMIN/$VMIN_val/g" \
+       -e "s/VMAX/$VMAX_val/g" \
        -e "s/INPUTDIR/$input_i/g"
 }

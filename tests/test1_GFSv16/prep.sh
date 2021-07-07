@@ -38,6 +38,8 @@ edit_ww3_grid < parm/ww3_grid_gnh_10m.inp.IN > ${input_i}/ww3_grid_gnh_10m.inp
 edit_ww3_grid < parm/ww3_grid_gsh_15m.inp.IN > ${input_i}/ww3_grid_gsh_15m.inp
 edit_ww3_grid < parm/ww3_grid_aoc_9km.inp.IN > ${input_i}/ww3_grid_aoc_9km.inp
 edit_ww3_grid < parm/input_nml.IN > ${input_i}/inp.nml
+edit_input_lower_bound < parm/input_lower_bound_nml.IN > ${input_i}/inp_lower_bound.nml
+edit_input_upper_bound < parm/input_upper_bound_nml.IN > ${input_i}/inp_upper_bound.nml
 echo -e "\e[34mww3_grid.inp files are filled\e[0m"
 #-----------------------------------------------------------------------------------#
 #switch

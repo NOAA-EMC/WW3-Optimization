@@ -15,3 +15,18 @@ fclose(fileID);
 fileID = fopen('../WORKDIR/Err','w');
 fprintf(fileID,'%d\n',ErrTot);
 fclose(fileID);
+
+% Normalize input variables
+input_nml=read('../INPUTDIR/inp.nml');
+input_upper_bound_nml=read('../INPUTDIR/inp_upper_bound.nml');
+input_lower_bound_nml=read('../INPUTDIR/inp_lower_bound.nml');
+
+for i=1:length(input_nml)
+   [input_norm_nml(1,i)] = normalize(input_upper_bound_nml(i),input_upper_bound_nml(i),VMIN,VMAX,input_nml(i));
+end
+
+writematrix(input_norm_nml,'np_norm.nml','Delimiter',' ')
+
+
+
+

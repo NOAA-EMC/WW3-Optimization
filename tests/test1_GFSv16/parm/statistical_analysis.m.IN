@@ -25,7 +25,7 @@ for i=1:length(input_nml)
    [input_norm_nml(1,i)] = normalize(input_upper_bound_nml(i),input_upper_bound_nml(i),VMIN,VMAX,input_nml(i));
 end
 
-writematrix(input_norm_nml,'np_norm.nml','Delimiter',' ')
+writematrix(input_norm_nml,'inp_norm.nml','Delimiter',' ')
 
 
 

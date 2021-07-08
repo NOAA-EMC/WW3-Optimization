@@ -1,7 +1,7 @@
 ##!/bin/bash
 
-source ../input_vars.sh
-source ../../bin/loadmodules.sh
+source ${TEST_DIR}/input_vars.sh
+source ${BIN_DIR}/loadmodules.sh
 
   module purge
   module use $hpcstackpath
@@ -58,19 +58,19 @@ if [ ! -d ./gdas.${YY0}${MM0}${DD0} ]
 then
 echo "retrieving from hpss ..."
 htar -xvf $FILEWAVE ${aoc} ${gnh} ${gsh}
-cp ${aoc} ../${input_i}/restart.aoc_9km
+cp ${aoc} ${TEST_DIR}/${input_i}/restart.aoc_9km
 echo "${aoc} copied over"
-cp ${gnh} ../${input_i}/restart.gnh_10m
+cp ${gnh} ${TEST_DIR}/${input_i}/restart.gnh_10m
 echo "${gnh} copied over"
-cp ${gsh} ../${input_i}/restart.gsh_15m
+cp ${gsh} ${TEST_DIR}/${input_i}/restart.gsh_15m
 echo "${gsh} copied over"
 else
 echo "restart files exist"
-cp ${aoc} ../${input_i}/restart.aoc_9km
+cp ${aoc} ${TEST_DIR}/${input_i}/restart.aoc_9km
 echo "${aoc} copied over"
-cp ${gnh} ../${input_i}/restart.gnh_10m
+cp ${gnh} ${TEST_DIR}/${input_i}/restart.gnh_10m
 echo "${gnh} copied over"
-cp ${gsh} ../${input_i}/restart.gsh_15m
+cp ${gsh} ${TEST_DIR}/${input_i}/restart.gsh_15m
 echo "${gsh} copied over"
 fi
 

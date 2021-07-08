@@ -1,7 +1,7 @@
 ##!/bin/bash
 
-source ../input_vars.sh
-source ../../bin/loadmodules.sh
+source ${TEST_DIR}/input_vars.sh
+source ${BIN_DIR}/loadmodules.sh
 
   module purge
   module use $hpcstackpath
@@ -94,7 +94,7 @@ rm -f wgrib.out cur_5min_??.nc cur_temp[123].nc rtofs_$YY$MM$DD${HH}_prog.nc cur
 d=$(( $d + 10800 ))
 done
 rm rtofs_current_tmp.nc weights.nc *tmp
-#mv rtofs_current.nc ../input/rtofs_current.nc
+#mv rtofs_current.nc ${TEST_DIR}/${input_i}/rtofs_current.nc
 
   echo '       *****************************************************************' 
   echo "rtofs_current.nc prepared"

@@ -6,11 +6,10 @@
 #  - different machines, different defaults:
 #
 ###############################################################################
-HOME=${PWD}
-MAIN=${PWD%/*/*}
-export HOME_PATH="${HOME}"
-export FOECING_PATH="${HOME}/forcing"
-export OPTDIR="${MAIN}"
+export TEST_DIR="${PWD}"
+export FORCING_DIR="${TEST_DIR}/forcing"
+export OPTDIR="${PWD%/*/*/*}"
+export BIN_DIR=${OPTDIR}/tests/bin
 STARTDATE="2021-04-01"
 startd=$(date -d $STARTDATE +%s)
 forecast_day=1

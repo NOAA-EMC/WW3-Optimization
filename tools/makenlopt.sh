@@ -3,7 +3,7 @@
 # install nlopt with matlab plugin on hera                                    #
 #                                                      Ali Abdolali           #
 #                                                        June 2021            #
-#                                              Updated:  June 2021            #
+#                             Updated:  Matthew Masarik  July 2021            #
 #                                                                             #
 #    Copyright 2013 National Weather Service (NWS),                           #
 #       National Oceanic and Atmospheric Administration.  All rights          #
@@ -19,23 +19,37 @@
 # --------------------------------------------------------------------------- #
 # 1.  clean up and modules                                                    #
 # --------------------------------------------------------------------------- #
-HOME=${PWD%/*}
+OPTDIR=${PWD%/*}
 
-module purge
-module load cmake/3.20.1
-module load  gnu
-module load  matlab
-module list
+  ishera=`hostname | grep hfe`
+  isorion=`hostname | grep Orion`
+  module purge
+  if [ $ishera ]
+  then
+     module load cmake/3.20.1
+     module load  gnu
+     module load  matlab
+     module list
+  elif [ $isorion ]
+  then
+     module load cmake
+     module load matlab
+  else
+    echo "machine is not detected"
+  fi
 # --------------------------------------------------------------------------- #
 # 1.  clone nlopt and install                                                 #
 # --------------------------------------------------------------------------- #
 #git clone git@github.com:stevengj/nlopt.git nlopt
-cd ${HOME}/nlopt
+cd ${OPTDIR}/nlopt
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=$HOME/tools/install -DBUILD_SHARED_LIBS=OFF ..
+#static
+#cmake -DCMAKE_INSTALL_PREFIX=$OPTDIR/tools/install -DBUILD_SHARED_LIBS=OFF ..
+#dynamic
+cmake -DCMAKE_INSTALL_PREFIX=$OPTDIR/tools/install ..
 make
-cd ${HOME}/nlopt/build
+cd ${OPTDIR}/nlopt/build
 make install
 
   echo ' '                                                                 

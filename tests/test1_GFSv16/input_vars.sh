@@ -108,8 +108,8 @@ export SWELLFmin='0.5'
 export SWELLFmax='1.2'
 #(4)
 export SWELLF2var='-0.0127'
-export SWELLF2min='0.03'
-export SWELLF2max='0.01'
+export SWELLF2min='-0.03'
+export SWELLF2max='-0.01'
 #(5)
 export SWELLF3var='0.0151'
 export SWELLF3min='0.01'
@@ -128,12 +128,13 @@ export SWELLF7min='0.0'
 export SWELLF7max='400000.0'
 #SDS4 (dissipation)
 
-export FXFM3var='2.501'
-export FXFM3min='2.501'
-export FXFM3max='2.501'
+#export FXFM3var='2.501'
+#export FXFM3min='2.501'
+#export FXFM3max='2.501'
+
 #(9)
 export SDSC2var='-2.1975e-05'
-export SDSC2min='2.5e-05'
+export SDSC2min='-2.5e-05'
 export SDSC2max='0.0'
 #(10)
 export SDSCUMvar='-0.4032'

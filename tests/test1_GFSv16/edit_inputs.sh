@@ -139,7 +139,6 @@ function edit_ww3_grid {
        -e "s/SWELLF5var/$SWELLF5var/g" \
        -e "s/SWELLF7var/$SWELLF7var/g" \
        -e "s/NLPROPvar/$NLPROPvar/g" \
-       -e "s/FXFM3var/$FXFM3var/g" \
        -e "s/SDSC2var/$SDSC2var/g" \
        -e "s/SDSCUMvar/$SDSCUMvar/g" \
        -e "s/SDSC6var/$SDSC6var/g" \
@@ -161,7 +160,6 @@ function edit_input_lower_bound {
        -e "s/SWELLF5min/$SWELLF5min/g" \
        -e "s/SWELLF7min/$SWELLF7min/g" \
        -e "s/NLPROPmin/$NLPROPmin/g" \
-       -e "s/FXFM3min/$FXFM3min/g" \
        -e "s/SDSC2min/$SDSC2min/g" \
        -e "s/SDSCUMmin/$SDSCUMmin/g" \
        -e "s/SDSC6min/$SDSC6min/g" \
@@ -184,7 +182,6 @@ function edit_input_upper_bound {
        -e "s/SWELLF5max/$SWELLF5max/g" \
        -e "s/SWELLF7max/$SWELLF7max/g" \
        -e "s/NLPROPmax/$NLPROPmax/g" \
-       -e "s/FXFM3max/$FXFM3max/g" \
        -e "s/SDSC2max/$SDSC2max/g" \
        -e "s/SDSCUMmax/$SDSCUMmax/g" \
        -e "s/SDSC6max/$SDSC6max/g" \

@@ -22,10 +22,10 @@ input_upper_bound_nml=importdata('../INPUTDIR/inp_upper_bound.nml');
 input_lower_bound_nml=importdata('../INPUTDIR/inp_lower_bound.nml');
 
 for i=1:length(input_nml)
-   [input_norm_nml(1,i)] = normalize(input_upper_bound_nml(i),input_upper_bound_nml(i),VMIN,VMAX,input_nml(i));
+   [input_norm_nml(1,i)] = normalize(input_lower_bound_nml(i),input_upper_bound_nml(i),VMIN,VMAX,input_nml(i));
 end
 
-writematrix('input_norm.nml',inp_norm_nml,'Delimiter',' ')
+dlmwrite('inp_norm.nml',input_norm_nml,'Delimiter',' ','precision',6)
 
 
 

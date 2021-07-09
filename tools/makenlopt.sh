@@ -26,8 +26,7 @@ OPTDIR=${PWD%/*}
   module purge
   if [ $ishera ]
   then
-     module load cmake/3.20.1
-     module load  gnu
+     module load cmake
      module load  matlab
      module list
   elif [ $isorion ]
@@ -44,8 +43,6 @@ OPTDIR=${PWD%/*}
 cd ${OPTDIR}/nlopt
 mkdir build
 cd build
-#static
-#cmake -DCMAKE_INSTALL_PREFIX=$OPTDIR/tools/install -DBUILD_SHARED_LIBS=OFF ..
 #dynamic
 cmake -DCMAKE_INSTALL_PREFIX=$OPTDIR/tools/install ..
 make

@@ -91,6 +91,10 @@ export INTEGLINE="'glo_15mxt'"
 export OUTGRIDED="glo_15mxt"
 export VMIN_val='0.0'
 export VMAX_val='1.0'
+export lon_min='0.0'
+export lon_max='360.0'
+export lat_min='-90.0'
+export lat_max='90.0'
 
 #physics parameters default
 #SIN4 (wind input)

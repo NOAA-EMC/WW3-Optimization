@@ -204,5 +204,9 @@ function edit_statistical_analysis {
        -e "s/OUTGRID/$OUTGRIDED/g" \
        -e "s/VMIN/$VMIN_val/g" \
        -e "s/VMAX/$VMAX_val/g" \
-       -e "s/INPUTDIR/$input_i/g"
+       -e "s/INPUTDIR/$input_i/g" \
+       -e "s/LONMIN/$lon_min/g" \
+       -e "s/LONMAX/$lon_max/g" \
+       -e "s/LATMIN/$lat_min/g" \
+       -e "s/LATMAX/$lat_max/g"
 }

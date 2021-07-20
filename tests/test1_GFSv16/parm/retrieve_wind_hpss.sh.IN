@@ -62,15 +62,16 @@ date -d @$d '+%Y-%m-%d %2H'
     HH=$(date -d @$d '+%2H')
 #-----------------------------------------------------------------------------------#
   FILEWAVE=(/NCEPPROD/hpssprod/runhistory/rh$YY/$YY$MM/$YY$MM$DD/com_gfs_prod_gfs.${YY}${MM}${DD}_${HH}.gfs_pgrb2.tar)
-  atmos=./gfs.$YY$MM$DD/${HH}/atmos/gfs.t${HH}z.pgrb2.0p25.f00
-    if [ ! -d ./gfs.$YY$MM$DD/${HH}/atmos ]
+  atmosDIR=./gfs.$YY$MM$DD/${HH}
+  atmos=${atmosDIR}/gfs.t${HH}z.pgrb2.0p25.f00
+    if [ ! -d ${atmosDIR} ]
     then
       htar -xvf $FILEWAVE ${atmos}0 ${atmos}1 ${atmos}2 ${atmos}3 ${atmos}4 ${atmos}5
     fi
 #-----------------------------------------------------------------------------------#
 # convert grib2 to netcdf
-rm gfs.$YY$MM$DD/${HH}/atmos/*nc
-grib2_list=`( ls gfs.$YY$MM$DD/${HH}/atmos/ )`
+rm ${atmosDIR}/*nc
+grib2_list=`( ls ${atmosDIR}/ )`
 echo $grib2_list
 for file in $grib2_list
   do
@@ -78,21 +79,30 @@ for file in $grib2_list
     while (( count < $npp ))
     do
       (( count = count + 1 ))
-       wgrib2 gfs.$YY$MM$DD/${HH}/atmos/$file -s | grep "${varname[count]}${lev[count]}" | wgrib2 -i gfs.$YY$MM$DD/${HH}/atmos/$file -netcdf gfs.$YY$MM$DD/${HH}/atmos/$file.${varname[count]}.nc -nc4
+       wgrib2 ${atmosDIR}/$file -s | grep "${varname[count]}${lev[count]}" | wgrib2 -i ${atmosDIR}/$file -netcdf ${atmosDIR}/$file.${varname[count]}.nc -nc4
        echo $count       
-          ncks -A gfs.$YY$MM$DD/${HH}/atmos/$file.${varname[count]}.nc gfs.$YY$MM$DD/${HH}/atmos/$file.nc
-       rm  gfs.$YY$MM$DD/${HH}/atmos/$file.${varname[count]}.nc
+          ncks -A ${atmosDIR}/$file.${varname[count]}.nc ${atmosDIR}/$file.nc
+       rm  ${atmosDIR}/$file.${varname[count]}.nc
     done
 
 echo $file
 done
 #-----------------------------------------------------------------------------------#
+#check the netcdf files
+unset nc_file_list
+for i in `seq 0 1 5`; do
+  if [ -f ${atmos}${i}.nc ];then
+     nc_file_list="$nc_file_list ${atmos}${i}.nc"
+  else
+     echo "${atmos}${i}.nc does not exist"
+  fi
+done
 if [ $d == $start ]; then
 #Append netcdf files
-ncrcat -h ${atmos}0.nc ${atmos}1.nc ${atmos}2.nc ${atmos}3.nc ${atmos}4.nc ${atmos}5.nc gfs_wnd.nc
+ncrcat -h $nc_file_list gfs_wnd.nc
 else
 mv gfs_wnd.nc gfs_wnd_tmp.nc
-ncrcat -h  gfs_wnd_tmp.nc ${atmos}0.nc ${atmos}1.nc ${atmos}2.nc ${atmos}3.nc ${atmos}4.nc ${atmos}5.nc gfs_wnd.nc
+ncrcat -h  gfs_wnd_tmp.nc $nc_file_list gfs_wnd.nc
 fi
 
     d=$(( $d + 21600 ))
@@ -179,4 +189,3 @@ echo '       *****************************************************************'
   echo '       *****************************************************************'    
   echo ' '  
 fi
-

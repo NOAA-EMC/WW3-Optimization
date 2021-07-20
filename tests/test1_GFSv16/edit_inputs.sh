@@ -149,6 +149,12 @@ function edit_ww3_grid {
        -e "s/SDSCOSvar/$SDSCOSvar/g"
 }
 
+function edit_ww3_grid_nml {
+
+  sed  -e "s/inputdir/$input_i/g" 
+}
+
+
 function edit_input_lower_bound {
 
   sed  -e "s/BETAMAXmin/$BETAMAXmin/g" \

@@ -108,7 +108,7 @@ fi
     d=$(( $d + 21600 ))
 done
 
-rm gfs_wnd_tmp.nc 
+rm *tmp gfs_wnd_tmp.nc 
 #mv gfs_wnd.nc ${TEST_DIR}/${input_i}
 
 echo '       *****************************************************************' 

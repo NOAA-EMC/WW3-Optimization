@@ -20,7 +20,6 @@ $
 &SNL1
  NLPROP = NLPROPvar /
 &SDS4
- FXFM3 = FXFM3var,
  SDSC2 = SDSC2var,
  SDSCUM = SDSCUMvar,
  SDSC5 = SDSC5var,

@@ -31,9 +31,14 @@ echo -e "\e[34minputs templates are filled\e[0m"
 #-----------------------------------------------------------------------------------#
 #ww3_grid parameters
 edit_grdset < ${TEST_DIR}/parm/grdset.IN > ${TEST_DIR}/${input_i}/grdset_a
-edit_ww3_grid < ${TEST_DIR}/parm/ww3_grid_gnh_10m.inp.IN > ${TEST_DIR}/${input_i}/ww3_grid_gnh_10m.inp
-edit_ww3_grid < ${TEST_DIR}/parm/ww3_grid_gsh_15m.inp.IN > ${TEST_DIR}/${input_i}/ww3_grid_gsh_15m.inp
-edit_ww3_grid < ${TEST_DIR}/parm/ww3_grid_aoc_9km.inp.IN > ${TEST_DIR}/${input_i}/ww3_grid_aoc_9km.inp
+#inp
+#edit_ww3_grid < ${TEST_DIR}/parm/ww3_grid_gnh_10m.inp.IN > ${TEST_DIR}/${input_i}/ww3_grid_gnh_10m.inp
+#edit_ww3_grid < ${TEST_DIR}/parm/ww3_grid_gsh_15m.inp.IN > ${TEST_DIR}/${input_i}/ww3_grid_gsh_15m.inp
+#edit_ww3_grid < ${TEST_DIR}/parm/ww3_grid_aoc_9km.inp.IN > ${TEST_DIR}/${input_i}/ww3_grid_aoc_9km.inp
+#nml
+edit_ww3_grid_nml < ${TEST_DIR}/parm/ww3_grid_gnh_10m.nml.IN > ${TEST_DIR}/${input_i}/ww3_grid_gnh_10m.nml
+edit_ww3_grid_nml < ${TEST_DIR}/parm/ww3_grid_gsh_15m.nml.IN > ${TEST_DIR}/${input_i}/ww3_grid_gsh_15m.nml
+edit_ww3_grid_nml < ${TEST_DIR}/parm/ww3_grid_aoc_9km.nml.IN > ${TEST_DIR}/${input_i}/ww3_grid_aoc_9km.nml
 edit_ww3_grid < ${TEST_DIR}/parm/input_nml.IN > ${TEST_DIR}/${input_i}/inp.nml
 edit_input_lower_bound < ${TEST_DIR}/parm/input_lower_bound_nml.IN > ${TEST_DIR}/${input_i}/inp_lower_bound.nml
 edit_input_upper_bound < ${TEST_DIR}/parm/input_upper_bound_nml.IN > ${TEST_DIR}/${input_i}/inp_upper_bound.nml

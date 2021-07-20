@@ -1,4 +1,4 @@
-function [N,ERR] = satellite_error(sat_netcdf,var_sat_lon,var_sat_lat,var_sat_time,var_sat_v,ww3_netcdf,var_ww3_lon,var_ww3_lat,var_ww3_time,var_ww3_v)
+function [N_GLOBAL,ERR_GLOBAL,N_REGIONAL,ERR_REGIONAL] = satellite_error(sat_netcdf,var_sat_lon,var_sat_lat,var_sat_time,var_sat_v,ww3_netcdf,var_ww3_lon,var_ww3_lat,var_ww3_time,var_ww3_v,lon_min,lon_max,lat_min,lat_max)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This program compares the satellite observation (along track) and model %
@@ -19,15 +19,19 @@ function [N,ERR] = satellite_error(sat_netcdf,var_sat_lon,var_sat_lat,var_sat_ti
 %var_ww3_time: the name of variable for time in WW3 [M,1]
 %var_ww3_v: the name of variable to be compared with the observations in
 %model [P,M]
+%[lon_min lon_max]: logitude minimum and maximum bounds for regional analysis
+%[lat_min lat_max]: latitude minimum and maximum bounds for regional analysis
 %%%%%%%%%%%%%%%%%%%    OUTPUT    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%N: number of observations and model outputs
-%ERR: Root mean square error (rmse)
+%N_GLOBAL: number of observations and model outputs for all data
+%ERR_GLOBAL: Root mean square error (rmse) for all data
+%N_REGIONAL: number of observations and model outputs for regional coverage
+%ERR_REGIONAL: Root mean square error (rmse) for regional coverage
 %%%%%%%%%%%%%%%%%%%%%%%% Dependency %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %convert_time: reads the unit from satellite/model and convert them to
 % matlab time
 %%%%%%%%%%%%%%%%%%%    example   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%[N,ERR] = satellite_error('satellite.nc','lon','lat','time',...
-%'swh','ww3.nc','longitude','latitude','time','hs')
+%[N_GLOBAL,ERR_GLOBAL,N_REGIONAL,ERR_REGIONAL] = satellite_error('satellite.nc',...
+%'lon','lat','time','swh','ww3.nc','longitude','latitude','time','hs',40,60,10,50)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %read satellie data
@@ -42,10 +46,22 @@ lonww3=double(ncread(ww3_netcdf,var_ww3_lon));
 vww3=double(ncread(ww3_netcdf,var_ww3_v));
 %mesh grid the gridded model for interpolation
 [Y,X,T]=meshgrid(latww3,lonww3,timeww3);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%global
 %interpolation
-VWW3=interp3(Y,X,T,vww3,latsat,lonsat,timesat);
+VWW3_GLOBAL=interp3(Y,X,T,vww3,latsat,lonsat,timesat);
 %number of scatters
-DIFF=VWW3-vsat;
-N=length(DIFF(~isnan(DIFF)));
+DIFF_GLOBAL=VWW3_GLOBAL-vsat;
+N_GLOBAL=length(DIFF_GLOBAL(~isnan(DIFF_GLOBAL)));
 %RMSE
-ERR=rmse(VWW3,vsat);
+ERR_GLOBAL=rmse(VWW3_GLOBAL,vsat);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%regional
+[ii,jj]=find(lonsat>=lon_min & lonsat<=lon_max & latsat>=lat_min & latsat<=lat_max);
+VWW3_REGIONAL=VWW3_GLOBAL(ii);
+vsat2=vsat(ii);
+%number of scatters
+DIFF_REGIONAL=VWW3_REGIONAL-vsat2;
+N_REGIONAL=length(DIFF_REGIONAL(~isnan(DIFF_REGIONAL)));
+%RMSE
+ERR_REGIONAL=rmse(VWW3_REGIONAL,vsat2);

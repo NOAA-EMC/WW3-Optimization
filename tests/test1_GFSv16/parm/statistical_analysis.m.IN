@@ -2,18 +2,29 @@ clear all
 clc
 addpath('../../../tools/matlab_bin/')
 
-[Nsat,ERRsat] = satellite_error('../obs/satellite_obs.nc','lon','lat','time',...
-'swh','../WORKDIR/ww3_ounf_OUTGRID/ww3_out_grd_OUTGRID.nc','longitude','latitude','time','hs')
-
-[Nbuoy,ERRbuoy] = buoy_error('../obs/BUOY.nc','station_name','time',...
-'wave_height','../WORKDIR/ww3_out_pnt_tab.nc','station_name','time','hs')
-
-ErrTot=((Nsat*ERRsat)+(Nbuoy*ERRbuoy))/(Nsat+Nbuoy)
-fileID = fopen('../INPUTDIR/Err','w');
-fprintf(fileID,'%d\n',ErrTot);
+%global
+[Nsat_GLOBAL,ERRsat_GLOBAL,Nsat_REGIONAL,ERRsat_REGIONAL] = satellite_error('../obs/satellite_obs.nc',...
+'lon','lat','time','swh','../WORKDIR/ww3_ounf_OUTGRID/ww3_out_grd_OUTGRID.nc','longitude',...
+'latitude','time','hs',LONMIN,LONMAX,LATMIN,LATMAX);
+%regional
+[Nbuoy_GLOBAL,ERRbuoy_GLOBAL,Nbuoy_REGIONAL,ERRbuoy_REGIONAL] = buoy_error('../obs/BUOY.nc',...
+'station_name','time','wave_height','../WORKDIR/ww3_out_pnt_tab.nc','station_name','time','hs',...
+LONMIN,LONMAX,LATMIN,LATMAX);
+%global
+ErrTot_GLOBAL=((Nsat_GLOBAL*ERRsat_GLOBAL)+(Nbuoy_GLOBAL*ERRbuoy_GLOBAL))/(Nsat_GLOBAL+Nbuoy_GLOBAL)
+fileID = fopen('../INPUTDIR/Err_GLOBAL','w');
+fprintf(fileID,'%d\n',ErrTot_GLOBAL);
 fclose(fileID);
-fileID = fopen('../WORKDIR/Err','w');
-fprintf(fileID,'%d\n',ErrTot);
+fileID = fopen('../WORKDIR/Err_GLOBAL','w');
+fprintf(fileID,'%d\n',ErrTot_GLOBAL);
+fclose(fileID);
+%regional
+ErrTot_REGIONAL=((Nsat_REGIONAL*ERRsat_REGIONAL)+(Nbuoy_REGIONAL*ERRbuoy_REGIONAL))/(Nsat_REGIONAL+Nbuoy_REGIONAL)
+fileID = fopen('../INPUTDIR/Err_REGIONAL','w');
+fprintf(fileID,'%d\n',ErrTot_REGIONAL);
+fclose(fileID);
+fileID = fopen('../WORKDIR/Err_REGIONAL','w');
+fprintf(fileID,'%d\n',ErrTot_REGIONAL);
 fclose(fileID);
 
 % Normalize input variables

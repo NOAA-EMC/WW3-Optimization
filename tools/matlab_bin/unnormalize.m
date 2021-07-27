@@ -19,3 +19,4 @@ function [xval] = unnormalize(lower_bound,upper_bound,vmin,vmax,var)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  xval = ( lower_bound * ( vmax - var ) + upper_bound * ( var - vmin ) )/  ...
         ( vmax - vmin );
+ xval(isnan(xval))=lower_bound;

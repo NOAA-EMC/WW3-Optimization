@@ -2,7 +2,7 @@
 
 export TEST_DIR="${PWD%/*}"
 export FORCING_DIR="${TEST_DIR}/forcing"
-input_i=input_1
+input_i=inputdir
 #cd $FORCING_PATH
 
 #-----------------------------------------------------------------------------------#

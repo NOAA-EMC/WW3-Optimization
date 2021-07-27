@@ -10,14 +10,23 @@ export TEST_DIR="${PWD}"
 export FORCING_DIR="${TEST_DIR}/forcing"
 export OPTDIR="${PWD%/*/*/*}"
 export BIN_DIR=${OPTDIR}/tests/bin
-STARTDATE="2020-09-01"
+STARTDATE="2020-09-19"
 startd=$(date -d $STARTDATE +%s)
-forecast_day=1
+export spinup_day=30
+forecast_day=7
+startspinup=$(( $startd - $spinup_day*24*3600 ))
 endd=$(( $startd + $forecast_day*24*3600 ))
+#spinup start date
+export SPYEAR=$(date -d @$startspinup '+%Y')
+export SPMONTH=$(date -d @$startspinup '+%m')
+export SPDAY=$(date -d @$startspinup '+%d')
+export SPHOUR=$(date -d @$startspinup '+%2H')
+#start date
 export SYEAR=$(date -d @$startd '+%Y')
 export SMONTH=$(date -d @$startd '+%m')
 export SDAY=$(date -d @$startd '+%d')
 export SHOUR=$(date -d @$startd '+%2H')
+#end date
 export EYEAR=$(date -d @$endd '+%Y')
 export EMONTH=$(date -d @$endd '+%m')
 export EDAY=$(date -d @$endd '+%d')

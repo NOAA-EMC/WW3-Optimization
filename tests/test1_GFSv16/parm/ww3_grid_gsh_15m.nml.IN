@@ -138,7 +138,7 @@
 ! -------------------------------------------------------------------- !
 &GRID_NML
   GRID%NAME         =  'GFSv16-wave S Hemisphere 1/4 deg'
-  GRID%NML          =  '../inputdir/namelists_gsh_15m.nml'
+  GRID%NML          =  '../inputdir/namelist.nml'
   GRID%TYPE         =  'RECT'
   GRID%COORD        =  'SPHE'
   GRID%CLOS         =  'SMPL'

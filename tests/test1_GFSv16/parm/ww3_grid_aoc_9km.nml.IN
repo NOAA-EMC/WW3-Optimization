@@ -137,7 +137,7 @@
 ! -------------------------------------------------------------------- !
 &GRID_NML
   GRID%NAME         =  'Arctic Ocean PolarStereo 9km'
-  GRID%NML          =  '../inputdir/namelists_aoc_9km.nml'
+  GRID%NML          =  '../inputdir/namelist.nml'
   GRID%TYPE         =  'CURV'
   GRID%COORD        =  'SPHE'
   GRID%CLOS         =  'NONE'

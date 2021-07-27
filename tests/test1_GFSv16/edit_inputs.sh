@@ -1,6 +1,49 @@
 #! /usr/bin/env bash
 set -eu
 
+#multi for spinup
+function edit_ww3_multi_spinup {
+
+  SDATEWW3="${SPYEAR}${SPMONTH}${SPDAY} $(printf "%02d" $(( ${SPHOUR}  )))0000"
+  EDATEWW3="${SYEAR}${SMONTH}${SDAY} $(printf "%02d" $(( ${SHOUR}  )))0000"
+  DT_2_RST_WAV_SP="$(printf "%02d" $(( ${spinup_day}*24*3600 )))"
+  DTFLD_WAV="$(printf "%01d" $(( ${WW3OUTDTHR}*0 )))"
+  DTPNT_WAV="$(printf "%01d" $(( ${WW3OUTDTHRPNT}*0 )))"
+
+  sed -e "s/NFGRIDS/$NFGRIDS/g" \
+      -e "s/NMGRIDS/${NMGRIDS}/g" \
+      -e "s/FUNIPNT/T/g" \
+      -e "s/IOSRV/3/g" \
+      -e "s/FPNTPROC/T/g" \
+      -e "s/FGRDPROC/F/g" \
+      -e "s/OUTPARS/${OUTPARS_WAV}/g" \
+      -e "s/CPLILINE/${CPLILINE}/g" \
+      -e "s/UNIPOINTS/'points'/g" \
+      -e "s/GRIDLINE/${ww3gline}/g" \
+      -e "s/ICELINE/$ICELINE/g" \
+      -e "s/CURRLINE/$CURRLINE/g" \
+      -e "s/WINDLINE/$WINDLINE/g" \
+      -e "s/RUN_BEG/$SDATEWW3/g" \
+      -e "s/RUN_END/$EDATEWW3/g" \
+      -e "s/OUT_BEG/$SDATEWW3/g" \
+      -e "s/OUT_END/$EDATEWW3/g" \
+      -e "s/DTFLD/ $DTFLD_WAV/g" \
+      -e "s/FLAGMASKCOMP/ T/g" \
+      -e "s/FLAGMASKOUT/ T/g" \
+      -e "s/GOFILETYPE/ $WW3OUTPUTTYPE/g" \
+      -e "s/POFILETYPE/ $WW3OUTPUTTYPE/g" \
+      -e "s/DTPNT/ $DTPNT_WAV/g" \
+      -e "s/RST_BEG/$SDATEWW3/g" \
+      -e "s/RSTTYPE/F/g" \
+      -e "s/RST_2_BEG/$SDATEWW3/g" \
+      -e "s/DTRST/$DT_2_RST_WAV_SP/g" \
+      -e "s/DT_2_RST/$DT_2_RST_WAV_SP/g" \
+      -e "s/RST_END/$EDATEWW3/g" \
+      -e "s/RST_2_END/$EDATEWW3/g"
+}
+
+
+#multi for main run
 function edit_ww3_multi { 
 
   SDATEWW3="${SYEAR}${SMONTH}${SDAY} $(printf "%02d" $(( ${SHOUR}  )))0000"
@@ -99,10 +142,11 @@ function edit_ww3_ounp {
 
 function edit_forcing {
 
-  SDATEWW3="${SYEAR}-${SMONTH}-${SDAY}"
-  EDATEWW3="${EYEAR}-${EMONTH}-${EDAY}"
-  sed  -e "s/FRC_BEG/$SDATEWW3/g" \
-       -e "s/FRC_END/$EDATEWW3/g" \
+  SDATEATM="${SPYEAR}-${SPMONTH}-${SPDAY}"
+  EDATEATM="${EYEAR}-${EMONTH}-${EDAY}"
+  sed  -e "s/FRC_BEG/$SDATEATM/g" \
+       -e "s/FRC_END/$EDATEATM/g" \
+       -e "s/inputdir/${input_i}/g" \
        -e "s/FORCING_T/${FORCING_GFS}/g" 
 }
 

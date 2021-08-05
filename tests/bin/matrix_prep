@@ -38,28 +38,22 @@ set +x
   if [ $ishera ]
   then
     # If no other h, assuming Hera 
-#    cmplr='intel'
-#    batchq='slurm'
-#    hpcstackpath='/scratch2/NCEPDEV/nwprod/hpc-stack/libs/hpc-stack/modulefiles/stack'
-#    hpcstackversion='hpc/1.1.0'
-#    modcomp='hpc-intel/18.0.5.274'
-#    modmpi='hpc-impi/2018.0.4'
-#    modnetcdf='netcdf/4.7.4'
-#    metispath='/scratch2/COASTAL/coastal/save/Ali.Abdolali/hpc-stack/parmetis-4.0.3'
-#    modjasper='jasper/2.0.25'
-#    modzlib='zlib/1.2.11'
-#    modpng='png/1.6.35'
-#    modhdf5='hdf5/1.10.6'
-#    modbacio='bacio/2.4.1'
-#    modg2='g2/3.4.1'
-#    modw3nco='w3nco/2.4.1'
-#    modesmf='esmf/8_1_1'
-  cmplr=hera
-  batchq="slurm"
-  modcomp='intel/18.0.5.274'
-  modmpi='impi/2018.0.4'
-  modnetcdf='netcdf/4.6.1'
-  metispath='/scratch2/COASTAL/coastal/save/Ali.Abdolali/parmetis-4.0.3'
+    cmplr='intel'
+    batchq='slurm'
+    hpcstackpath='/scratch2/NCEPDEV/nwprod/hpc-stack/libs/hpc-stack/modulefiles/stack'
+    hpcstackversion='hpc/1.1.0'
+    modcomp='hpc-intel/18.0.5.274'
+    modmpi='hpc-impi/2018.0.4'
+    modnetcdf='netcdf/4.7.4'
+    metispath='/scratch2/COASTAL/coastal/save/Ali.Abdolali/hpc-stack/parmetis-4.0.3'
+    modjasper='jasper/2.0.25'
+    modzlib='zlib/1.2.11'
+    modpng='png/1.6.35'
+    modhdf5='hdf5/1.10.6'
+    modbacio='bacio/2.4.1'
+    modg2='g2/3.4.1'
+    modw3nco='w3nco/2.4.1'
+    modesmf='esmf/8_1_1'
   elif [ $isorion ]
   then
     cmplr='intel'
@@ -157,7 +151,7 @@ cd ${HOME}
     echo "#SBATCH --cpus-per-task=${nth}"                   >> matrix.head
     echo '#SBATCH -q batch'                                 >> matrix.head
     echo '#SBATCH -t 08:00:00'                              >> matrix.head
-    echo '#SBATCH -A marine-cpu'                            >> matrix.head
+    echo '#SBATCH -A coastal'                            >> matrix.head
     echo '#SBATCH -J ww3_regtest'                           >> matrix.head
     echo '#SBATCH -o matrix.out'                            >> matrix.head
   else
@@ -175,32 +169,26 @@ cd ${HOME}
 
 # Netcdf and Parmetis modules & variables
   echo "  module purge"                                     >> matrix.head
-#  echo "  module use $hpcstackpath"                         >> matrix.head
-#  echo "  module load $hpcstackversion"                     >> matrix.head
-#  echo "  module load $modcomp"                             >> matrix.head
-#  echo "  module load $modmpi"                              >> matrix.head
-#  echo "  module load $modnetcdf"                           >> matrix.head
-#  echo "  module load $modjasper"                           >> matrix.head
-#  echo "  module load $modzlib"                             >> matrix.head
-#  echo "  module load $modpng"                              >> matrix.head
-#  echo "  module load $modhdf5"                             >> matrix.head
-#  echo "  module load $modbacio"                            >> matrix.head
-#  echo "  module load $modg2"                               >> matrix.head
-#  echo "  module load $modw3nco"                            >> matrix.head
-#  echo "  module load $modesmf"                             >> matrix.head
-#  echo "  export WWATCH3_NETCDF=NC4"                        >> matrix.head
-#  echo '  export NETCDF_CONFIG=$NETCDF_ROOT/bin/nc-config'  >> matrix.head
-#  echo "  export METIS_PATH=${metispath}"                   >> matrix.head
-#  echo '  export JASPER_LIB=$JASPER_ROOT/lib64/libjasper.a' >> matrix.head
-#  echo '  export PNG_LIB=$PNG_ROOT/lib64/libpng.a'          >> matrix.head
-#  echo '  export Z_LIB=$ZLIB_ROOT/lib/libz.a'               >> matrix.head
-#  echo '  export ESMFMKFILE=$ESMF_LIB/esmf.mk'              >> matrix.head
-#  echo "  export WW3_PARCOMPN=4"                            >> matrix.head
-#  echo ' ' 
-  echo "  module load $modcomp $modmpi $modnetcdf"                   >> matrix.head
+  echo "  module use $hpcstackpath"                         >> matrix.head
+  echo "  module load $hpcstackversion"                     >> matrix.head
+  echo "  module load $modcomp"                             >> matrix.head
+  echo "  module load $modmpi"                              >> matrix.head
+  echo "  module load $modnetcdf"                           >> matrix.head
+  echo "  module load $modjasper"                           >> matrix.head
+  echo "  module load $modzlib"                             >> matrix.head
+  echo "  module load $modpng"                              >> matrix.head
+  echo "  module load $modhdf5"                             >> matrix.head
+  echo "  module load $modbacio"                            >> matrix.head
+  echo "  module load $modg2"                               >> matrix.head
+  echo "  module load $modw3nco"                            >> matrix.head
+  echo "  module load $modesmf"                             >> matrix.head
   echo "  export WWATCH3_NETCDF=NC4"                        >> matrix.head
-  echo "  export NETCDF_CONFIG=`which nc-config`"           >> matrix.head
-  echo "  export METIS_PATH=${metispath}"   >> matrix.head
+  echo '  export NETCDF_CONFIG=$NETCDF_ROOT/bin/nc-config'  >> matrix.head
+  echo "  export METIS_PATH=${metispath}"                   >> matrix.head
+  echo '  export JASPER_LIB=$JASPER_ROOT/lib64/libjasper.a' >> matrix.head
+  echo '  export PNG_LIB=$PNG_ROOT/lib64/libpng.a'          >> matrix.head
+  echo '  export Z_LIB=$ZLIB_ROOT/lib/libz.a'               >> matrix.head
+  echo '  export ESMFMKFILE=$ESMF_LIB/esmf.mk'              >> matrix.head
   echo "  export WW3_PARCOMPN=4"                            >> matrix.head
   echo ' ' 
 
@@ -252,7 +240,14 @@ cd ${HOME}
 # 2.  prepare test list ...                                                   #
 # --------------------------------------------------------------------------- #
 # test1_GFSv16
-  echo "$rtst -w work_a -m grdset_a -f -p $mpi -n $np -t $nth -o both $ww3 test1_GFSv16"  >> matrix.body             
+  echo "$rtst -w work_spinup -i input_spinup -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"  >> matrix.body             
+  echo "mkdir test1_GFSv16/work_1"    >> matrix.body
+  echo "cp test1_GFSv16/work_spinup/restart001.gnh_10m test1_GFSv16/work_1/restart.gnh_10m"   >> matrix.body
+  echo "cp test1_GFSv16/work_spinup/restart001.gsh_15m test1_GFSv16/work_1/restart.gsh_15m"   >> matrix.body
+  echo "cp test1_GFSv16/work_spinup/restart001.aoc_9km test1_GFSv16/work_1/restart.aoc_9km"   >> matrix.body
+
+  echo "$rtst -w work_1 -i input_1 -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"  >> matrix.body
+
 # --------------------------------------------------------------------------- #
 # 3.  End of script output                                                    #
 # --------------------------------------------------------------------------- #

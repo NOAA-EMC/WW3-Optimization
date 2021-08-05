@@ -37,7 +37,7 @@ function edit_ww3_multi_spinup {
       -e "s/RSTTYPE/F/g" \
       -e "s/RST_2_BEG/$SDATEWW3/g" \
       -e "s/DTRST/$DT_2_RST_WAV_SP/g" \
-      -e "s/DT_2_RST/$DT_2_RST_WAV_SP/g" \
+      -e "s/DT_2_RST/0/g" \
       -e "s/RST_END/$EDATEWW3/g" \
       -e "s/RST_2_END/$EDATEWW3/g"
 }
@@ -51,7 +51,7 @@ function edit_ww3_multi {
   #note EDATE should be SDATE+FHMAX, but since this requires adding ndate 
   #a work around is to just put a date long in the future as the actual end time is
   #determined by the driver
-  DT_2_RST_WAV="$(printf "%02d" $(( ${WW3RSTDTHR}*3600 )))"
+  DT_2_RST_WAV="$(printf "%02d" $(( ${WW3RSTDTHR}*3600*0 )))"
   DTFLD_WAV="$(printf "%02d" $(( ${WW3OUTDTHR}*1 )))"
   DTPNT_WAV="$(printf "%02d" $(( ${WW3OUTDTHRPNT}*1 )))"
 
@@ -79,7 +79,7 @@ function edit_ww3_multi {
       -e "s/POFILETYPE/ $WW3OUTPUTTYPE/g" \
       -e "s/DTPNT/ $DTPNT_WAV/g" \
       -e "s/RST_BEG/$SDATEWW3/g" \
-      -e "s/RSTTYPE/F/g" \
+      -e "s/RSTTYPE/T/g" \
       -e "s/RST_2_BEG/$SDATEWW3/g" \
       -e "s/DTRST/0/g" \
       -e "s/DT_2_RST/$DT_2_RST_WAV/g" \

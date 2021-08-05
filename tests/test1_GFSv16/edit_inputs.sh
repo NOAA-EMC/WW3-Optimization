@@ -7,8 +7,8 @@ function edit_ww3_multi_spinup {
   SDATEWW3="${SPYEAR}${SPMONTH}${SPDAY} $(printf "%02d" $(( ${SPHOUR}  )))0000"
   EDATEWW3="${SYEAR}${SMONTH}${SDAY} $(printf "%02d" $(( ${SHOUR}  )))0000"
   DT_2_RST_WAV_SP="$(printf "%02d" $(( ${spinup_day}*24*3600 )))"
-  DTFLD_WAV="$(printf "%01d" $(( ${WW3OUTDTHR}*0 )))"
-  DTPNT_WAV="$(printf "%01d" $(( ${WW3OUTDTHRPNT}*0 )))"
+  DTFLD_WAV="$(printf "%01d" $(( ${WW3OUTDTHR} )))"
+  DTPNT_WAV="$(printf "%01d" $(( ${WW3OUTDTHRPNT} )))"
 
   sed -e "s/NFGRIDS/$NFGRIDS/g" \
       -e "s/NMGRIDS/${NMGRIDS}/g" \

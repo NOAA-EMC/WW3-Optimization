@@ -37,8 +37,10 @@ function [N_GLOBAL,ERR_GLOBAL,N_REGIONAL,ERR_REGIONAL] = satellite_error(sat_net
 %read satellie data
 latsat=double(ncread(sat_netcdf,var_sat_lat));
 lonsat=double(ncread(sat_netcdf,var_sat_lon));
+lonsat(lonsat<0)=lonsat(lonsat<0)+360;
 [timesat]=convert_time(sat_netcdf,var_sat_time);
 vsat=double(ncread(sat_netcdf,var_sat_v));
+vsat(vsat<0)=nan;
 %read model data
 latww3=double(ncread(ww3_netcdf,var_ww3_lat));
 lonww3=double(ncread(ww3_netcdf,var_ww3_lon));
@@ -50,6 +52,8 @@ vww3=double(ncread(ww3_netcdf,var_ww3_v));
 %global
 %interpolation
 VWW3_GLOBAL=interp3(Y,X,T,vww3,latsat,lonsat,timesat);
+%VWW3 > 8 are excluded (vsat max is 8 m)
+VWW3_GLOBAL(VWW3_GLOBAL>8)=nan;
 %number of scatters
 DIFF_GLOBAL=VWW3_GLOBAL-vsat;
 N_GLOBAL=length(DIFF_GLOBAL(~isnan(DIFF_GLOBAL)));

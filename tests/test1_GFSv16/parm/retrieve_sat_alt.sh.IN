@@ -58,6 +58,9 @@ date -d @$d '+%Y-%m-%d %2H'
 if [ ! -f j3_${YY}${MM}${DD}.nc ]
 then
 wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/j3/j3_${YY}${MM}${DD}.nc
+#remove scale factor and offset
+ncpdq --unpack j3_${YY}${MM}${DD}.nc j3_${YY}${MM}${DD}_tmp.nc
+mv j3_${YY}${MM}${DD}_tmp.nc j3_${YY}${MM}${DD}.nc
 else 
 echo -e "\e[34mj3_${YY}${MM}${DD}.nc exists\e[0m"
 fi
@@ -65,6 +68,8 @@ fi
 if [ ! -f 3a_${YY}${MM}${DD}.nc ]
 then
 wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/3a/3a_${YY}${MM}${DD}.nc
+ncpdq --unpack 3a_${YY}${MM}${DD}.nc 3a_${YY}${MM}${DD}_tmp.nc
+mv 3a_${YY}${MM}${DD}_tmp.nc 3a_${YY}${MM}${DD}.nc
 else
 echo -e "\e[34m3a_${YY}${MM}${DD}.nc exists\e[0m"
 fi
@@ -72,6 +77,8 @@ fi
 if [ ! -f 3b_${YY}${MM}${DD}.nc ]
 then
 wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/3b/3b_${YY}${MM}${DD}.nc
+ncpdq --unpack 3b_${YY}${MM}${DD}.nc 3b_${YY}${MM}${DD}_tmp.nc
+mv 3b_${YY}${MM}${DD}_tmp.nc 3b_${YY}${MM}${DD}.nc
 else
 echo -e "\e[34m3b_${YY}${MM}${DD}.nc exists\e[0m"
 fi
@@ -79,6 +86,8 @@ fi
 if [ ! -f c2_${YY}${MM}${DD}.nc ]
 then
 wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/c2/c2_${YY}${MM}${DD}.nc
+ncpdq --unpack c2_${YY}${MM}${DD}.nc c2_${YY}${MM}${DD}_tmp.nc
+mv c2_${YY}${MM}${DD}_tmp.nc c2_${YY}${MM}${DD}.nc
 else
 echo -e "\e[34mc2_${YY}${MM}${DD}.nc exists\e[0m"
 fi
@@ -86,6 +95,8 @@ fi
 if [ ! -f sa_${YY}${MM}${DD}.nc ]
 then
 wget ftp://ftpcoastwatch.noaa.gov/pub/socd/lsa/johnk/coastwatch/sa/sa_${YY}${MM}${DD}.nc
+ncpdq --unpack sa_${YY}${MM}${DD}.nc sa_${YY}${MM}${DD}_tmp.nc
+mv sa_${YY}${MM}${DD}_tmp.nc sa_${YY}${MM}${DD}.nc
 else
 echo -e "\e[34msa_${YY}${MM}${DD}.nc exists\e[0m"
 fi

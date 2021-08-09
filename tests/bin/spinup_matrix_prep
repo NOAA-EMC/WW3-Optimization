@@ -1,0 +1,270 @@
+#!/bin/bash
+# --------------------------------------------------------------------------- #
+# spinup_prep: prep spinup of regression tests on target machine.             #
+#                                                                             #
+# Remarks:                                                                    #
+# - This version is set up for automatic w3_setenv script and for the         #
+#   NOAA RDHPC systems. When using this for your own setup and                #
+#   computer, please copy rather than modify.                                 #
+#                                                                             #
+#                                                      Ali Abdolali           #
+#                                                       June 2021             #
+#                                                                             #
+#    Copyright 2013 National Weather Service (NWS),                           #
+#       National Oceanic and Atmospheric Administration.  All rights          #
+#       reserved.  WAVEWATCH III is a trademark of the NWS.                   #
+#       No unauthorized use without permission.                               #
+#                                                                             #
+# --------------------------------------------------------------------------- #
+HOME=${PWD}
+MAIN=${PWD%/*}
+export HOME_PATH="${HOME}"
+export OPTDIR="${MAIN}"
+#source input_vars.sh
+###################################
+# 0. Set up                       #
+###################################
+set +x
+# Compiler option. Choose appropriate compiler and set cmplOption to
+# y if using for the first time or using a different compiler
+
+  cmplr=intel
+  export cmplOption='y'
+
+# Set batchq queue, choose modules and other custom variables to fit system and 
+# to define headers etc (default to original version if empty)
+  ishera=`hostname | grep hfe`
+  isorion=`hostname | grep Orion`
+  if [ $ishera ]
+  then
+    # If no other h, assuming Hera 
+    cmplr='hera.intel'
+    batchq='slurm'
+    hpcstackpath='/scratch2/NCEPDEV/nwprod/hpc-stack/libs/hpc-stack/modulefiles/stack'
+    hpcstackversion='hpc/1.1.0'
+    modcomp='hpc-intel/18.0.5.274'
+    modmpi='hpc-impi/2018.0.4'
+    modnetcdf='netcdf/4.7.4'
+    metispath='/scratch2/COASTAL/coastal/save/Ali.Abdolali/hpc-stack/parmetis-4.0.3'
+    modjasper='jasper/2.0.25'
+    modzlib='zlib/1.2.11'
+    modpng='png/1.6.35'
+    modhdf5='hdf5/1.10.6'
+    modbacio='bacio/2.4.1'
+    modg2='g2/3.4.1'
+    modw3nco='w3nco/2.4.1'
+    modesmf='esmf/8_1_1'
+  elif [ $isorion ]
+  then
+    cmplr='intel'
+    batchq='slurm'
+    hpcstackpath='/apps/contrib/NCEP/libs/hpc-stack/modulefiles/stack'
+    hpcstackversion='hpc/1.1.0'
+    modcomp='hpc-intel/2019.5'
+    modmpi='hpc-impi/2019.6'
+    modnetcdf='netcdf/4.7.4'
+    metispath='/work/noaa/marine/ali.abdolali/Source/hpc-stack/parmetis-4.0.3'
+    modjasper='jasper/2.0.25'
+    modzlib='zlib/1.2.11'
+    modpng='png/1.6.35'
+    modhdf5='hdf5/1.10.6'
+    modbacio='bacio/2.4.1'
+    modg2='g2/3.4.1'
+    modw3nco='w3nco/2.4.1'
+    modesmf='esmf/8_1_1'
+  else
+    batchq=
+  fi
+
+
+set -x 
+
+###################################
+#  1. WW3 setup                   #
+###################################
+set +x
+cd $OPTDIR/WW3
+export WW3_DIR=$( pwd -P )/model
+export WW3_BINDIR="${WW3_DIR}/bin"
+export WW3_TMPDIR=${WW3_DIR}/tmp
+export WW3_EXEDIR=${WW3_DIR}/exe
+export WWATCH3_ENV=${WW3_BINDIR}/wwatch3.env
+export WW3_COMP=intel
+export WW3_CC=icc
+export WW3_F90=ifort
+export PRINTER=printer
+
+# 1.0. Environment file
+
+rm  $WWATCH3_ENV
+echo '#'                                              > $WWATCH3_ENV
+echo '# ---------------------------------------'      >> $WWATCH3_ENV
+echo '# Environment variables for wavewatch III'      >> $WWATCH3_ENV
+echo '# ---------------------------------------'      >> $WWATCH3_ENV
+echo '#'                                              >> $WWATCH3_ENV
+echo "WWATCH3_LPR      $PRINTER"                      >> $WWATCH3_ENV
+echo "WWATCH3_F90      $WW3_F90"                      >> $WWATCH3_ENV
+echo "WWATCH3_CC       $WW3_CC"                       >> $WWATCH3_ENV
+echo "WWATCH3_DIR      $WW3_DIR"                      >> $WWATCH3_ENV
+echo "WWATCH3_TMP      $WW3_TMPDIR"                   >> $WWATCH3_ENV
+echo 'WWATCH3_SOURCE   yes'                           >> $WWATCH3_ENV
+echo 'WWATCH3_LIST     yes'                           >> $WWATCH3_ENV
+echo ''                                               >> $WWATCH3_ENV
+
+source ${WW3_BINDIR}/w3_setenv
+
+  main_dir=$WWATCH3_DIR
+  temp_dir=$WWATCH3_TMP
+  source=$WWATCH3_SOURCE
+  list=$WWATCH3_LIST
+
+  echo "Main directory    : $main_dir"
+  echo "Scratch directory : $temp_dir"
+  echo "Save source codes : $source"
+  echo "Save listings     : $list"
+
+# 1.1 Set up
+   
+  export  np='440'     #number of mpi tasks
+  export  nr='4'      #number of mpi tasks for hybrid
+  export nth='6'      #number of threads
+
+cd ${HOME}
+
+# 1.1.a Computer/ user dependent set up
+
+  echo '#!/bin/sh --login'                                   > spinup.head
+  echo ' '                                                  >> spinup.head
+  if [ $batchq = "slurm" ] && [ $isorion ]
+  then
+    echo "#SBATCH -n ${np}"                                 >> spinup.head
+    echo "#SBATCH --cpus-per-task=${nth}"                   >> spinup.head
+    echo '#SBATCH -q batch'                                 >> spinup.head
+    echo '#SBATCH -t 08:00:00'                              >> spinup.head
+    echo '#SBATCH -A marine-cpu'                            >> spinup.head
+    echo '#SBATCH -J ww3_regtest'                           >> spinup.head
+    echo '#SBATCH -o spinup.out'                            >> spinup.head
+    echo '#SBATCH -p orion'                                 >> spinup.head
+  elif [ $batchq = "slurm" ]
+  then
+    echo "#SBATCH -n ${np}"                                 >> spinup.head
+    echo "#SBATCH --cpus-per-task=${nth}"                   >> spinup.head
+    echo '#SBATCH -q batch'                                 >> spinup.head
+    echo '#SBATCH -t 08:00:00'                              >> spinup.head
+    echo '#SBATCH -A coastal'                            >> spinup.head
+    echo '#SBATCH -J ww3_regtest'                           >> spinup.head
+    echo '#SBATCH -o spinup.out'                            >> spinup.head
+  else
+    echo '#PBS -l procs=24'                                 >> spinup.head
+    echo '#PBS -q batch'                                    >> spinup.head
+    echo '#PBS -l walltime=08:00:00'                        >> spinup.head
+    echo '#PBS -A marine-cpu'                               >> spinup.head
+    echo '#PBS -N ww3_regtest'                              >> spinup.head
+    echo '#PBS -j oe'                                       >> spinup.head
+    echo '#PBS -o spinup.out'                               >> spinup.head
+    echo ' '                                                >> spinup.head
+  fi
+  echo "  cd ${HOME}"                                       >> spinup.head
+  echo ' '                                                  >> spinup.head
+
+# Netcdf and Parmetis modules & variables
+  echo "  module purge"                                     >> spinup.head
+  echo "  module use $hpcstackpath"                         >> spinup.head
+  echo "  module load $hpcstackversion"                     >> spinup.head
+  echo "  module load $modcomp"                             >> spinup.head
+  echo "  module load $modmpi"                              >> spinup.head
+  echo "  module load $modnetcdf"                           >> spinup.head
+  echo "  module load $modjasper"                           >> spinup.head
+  echo "  module load $modzlib"                             >> spinup.head
+  echo "  module load $modpng"                              >> spinup.head
+  echo "  module load $modhdf5"                             >> spinup.head
+  echo "  module load $modbacio"                            >> spinup.head
+  echo "  module load $modg2"                               >> spinup.head
+  echo "  module load $modw3nco"                            >> spinup.head
+  echo "  module load $modesmf"                             >> spinup.head
+  echo "  module load matlab"                               >> spinup.head
+  echo "  export WWATCH3_NETCDF=NC4"                        >> spinup.head
+  echo '  export NETCDF_CONFIG=$NETCDF_ROOT/bin/nc-config'  >> spinup.head
+  echo "  export METIS_PATH=${metispath}"                   >> spinup.head
+  echo '  export JASPER_LIB=$JASPER_ROOT/lib64/libjasper.a' >> spinup.head
+  echo '  export PNG_LIB=$PNG_ROOT/lib64/libpng.a'          >> spinup.head
+  echo '  export Z_LIB=$ZLIB_ROOT/lib/libz.a'               >> spinup.head
+  echo '  export ESMFMKFILE=$ESMF_LIB/esmf.mk'              >> spinup.head
+  echo "  export WW3_PARCOMPN=4"                            >> spinup.head
+  echo ' ' 
+
+  if [ "$batchq" = 'slurm' ]
+  then
+    export  mpi='mpirun'
+  else
+    export  mpi='mpirun'
+  fi
+
+# Compile option
+  if [ "$cmplOption" = 'y' ]
+  then
+     opt="-c $cmplr -S -T"
+  else
+     opt="-S"
+  fi
+# Batch queue option
+  if [ "$batchq" = 'slurm' ]
+  then
+     opt="-b $batchq $opt"
+  fi
+
+# Base run_test command line
+#  export rtst="${OPTDIR}/WW3/regtests/bin/run_test $opt"
+  export rtst="${HOME}/bin/run_test $opt"
+
+  export  ww3="${WW3_DIR}"
+
+# 1.1.b Check on existence of spinup.head  - - - - - - - - - - - - - - - - - - -
+
+  if [ ! -f spinup.head ]
+  then
+    echo "#!/bin/sh"  > spinup.head
+  fi
+
+  rm -f spinup.body
+  rm -f spinup.tail
+
+# 1.1.c Output to ID script  - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  echo "  echo ' '"                                                            >> spinup.head
+  echo "  echo '             **********************************************'"  >> spinup.head
+  echo "  echo '           ***  WAVEWATCH III spinup of tests             ***'">> spinup.head
+  echo "  echo '             **********************************************'"  >> spinup.head
+  echo "  echo ' '"                                                            >> spinup.head
+
+# --------------------------------------------------------------------------- #
+# 2.  prepare test list ...                                                   #
+# --------------------------------------------------------------------------- #
+# test1_GFSv16
+  echo "$rtst -w work_spinup -i input_spinup -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"  >> spinup.body             
+  echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; initial_prep; catch; end; quit\" ) > initial_log.out 2> initial_err.out" >> spinup.body
+# --------------------------------------------------------------------------- #
+# 3.  End of script output                                                    #
+# --------------------------------------------------------------------------- #
+
+  echo "  echo ' '"                                                                > spinup.tail
+  echo "  echo '       *****************************************************'"    >> spinup.tail
+  echo "  echo '     ***  end of WAVEWATCH III spinup of tests             ***'"  >> spinup.tail
+  echo "  echo '       *****************************************************'"    >> spinup.tail
+  echo "  echo ' '"                                                               >> spinup.tail
+
+# --------------------------------------------------------------------------- #
+# 4.  Put it together and clean up                                            #
+# --------------------------------------------------------------------------- #
+
+    mv spinup.head spinup
+    cat spinup.body >> spinup
+    rm -f spinup.body
+    cat spinup.tail >> spinup
+    rm -f spinup.tail
+
+  echo "file spinup prepared ...."
+
+# --------------------------------------------------------------------------- #
+# End to the spinup                                                           #
+# --------------------------------------------------------------------------- #

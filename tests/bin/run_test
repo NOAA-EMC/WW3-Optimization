@@ -1507,7 +1507,7 @@ fi
   if [ ! -z "$strtfile" ]; then
     for strtf in $strtfile
     do
-    #  cp $strtf ${path_w}
+      cp $strtf ${path_w}
       echo "copying $strtf to $path_w"
     done
   fi
@@ -2777,6 +2777,10 @@ then
   exit
 fi
 
+# statistical anaylsis
+if [ -f $path_e/statistical_analysis.m
+  ( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; statistical_analysis; catch; end; quit\" ) > stat.log 2> stat.err
+fi
 # 3.k End ------------------------------------------------------------------- #
 
 if [ "$stub" ]

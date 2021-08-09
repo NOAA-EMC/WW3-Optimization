@@ -182,6 +182,7 @@ cd ${HOME}
   echo "  module load $modg2"                               >> matrix.head
   echo "  module load $modw3nco"                            >> matrix.head
   echo "  module load $modesmf"                             >> matrix.head
+  echo "  module load matlab"                               >> matrix.head
   echo "  export WWATCH3_NETCDF=NC4"                        >> matrix.head
   echo '  export NETCDF_CONFIG=$NETCDF_ROOT/bin/nc-config'  >> matrix.head
   echo "  export METIS_PATH=${metispath}"                   >> matrix.head
@@ -241,13 +242,7 @@ cd ${HOME}
 # --------------------------------------------------------------------------- #
 # test1_GFSv16
   echo "$rtst -w work_spinup -i input_spinup -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"  >> matrix.body             
-  echo "mkdir test1_GFSv16/work_1"    >> matrix.body
-  echo "cp test1_GFSv16/work_spinup/restart001.gnh_10m test1_GFSv16/work_1/restart.gnh_10m"   >> matrix.body
-  echo "cp test1_GFSv16/work_spinup/restart001.gsh_15m test1_GFSv16/work_1/restart.gsh_15m"   >> matrix.body
-  echo "cp test1_GFSv16/work_spinup/restart001.aoc_9km test1_GFSv16/work_1/restart.aoc_9km"   >> matrix.body
-
-  echo "$rtst -w work_1 -i input_1 -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"  >> matrix.body
-
+  echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; initial_prep; catch; end; quit\" ) > initial_log.out 2> initial_err.out" >> matrix.body
 # --------------------------------------------------------------------------- #
 # 3.  End of script output                                                    #
 # --------------------------------------------------------------------------- #

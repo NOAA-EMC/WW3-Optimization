@@ -12,8 +12,8 @@ export OPTDIR="${PWD%/*/*/*}"
 export BIN_DIR=${OPTDIR}/tests/bin
 STARTDATE="2020-09-19"
 startd=$(date -d $STARTDATE +%s)
-export spinup_day=1
-forecast_day=1
+export spinup_day=30
+forecast_day=5
 startspinup=$(( $startd - $spinup_day*24*3600 ))
 endd=$(( $startd + $forecast_day*24*3600 ))
 #spinup start date

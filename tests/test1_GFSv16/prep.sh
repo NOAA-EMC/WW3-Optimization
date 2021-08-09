@@ -106,6 +106,16 @@ cd ${FORCING_DIR}
 #       bash retrieve_restart_hpss.sh
 #       echo -e "\e[31mrestart files are retrieved\e[0m"     
 #    fi
+# copy restart files from work_spinup
+    if [[ -f ${TEST_DIR}/work_spinup/restart001.aoc_9km ]] && [[ -f ${TEST_DIR}/work_spinup/restart001.gnh_10m ]] && [[ -f ${TEST_DIR}/work_spinup/restart001.gsh_15m ]]
+    then
+       cp ${TEST_DIR}/work_spinup/restart001.gnh_10m ${TEST_DIR}/${input_i}/restart.gnh_10m
+       cp ${TEST_DIR}/work_spinup/restart001.gsh_15m ${TEST_DIR}/${input_i}/restart.gsh_15m
+       cp ${TEST_DIR}/work_spinup/restart001.aoc_9km ${TEST_DIR}/${input_i}/restart.aoc_9km
+       echo -e "\e[31mrestart files coppied over\e[0m"
+    else
+       echo -e "\e[34mrestart files do not exist\e[0m"
+    fi
 #-----------------------------------------------------------------------------------#
     if [[ -f ${TEST_DIR}/${input_i}/rmp_src_to_dst_conserv_002_001.nc ]] && [[ -f ${TEST_DIR}/${input_i}/rmp_src_to_dst_conserv_003_001.nc ]]
     then

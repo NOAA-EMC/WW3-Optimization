@@ -168,5 +168,7 @@ end
 for i=1:m
 namelist=['namelist_',num2str(i)];
 write_namelist(namelist,var_unnorm(:,i))
+dlmwrite(['norm_',num2str(i)],rot90(var_norm(:,i)),'delimiter',' ','precision',8);
+dlmwrite(['unnorm_',num2str(i)],rot90(var_unnorm(:,i)),'delimiter',' ','precision',8);
 end
 

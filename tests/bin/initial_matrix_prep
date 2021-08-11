@@ -240,6 +240,10 @@ cd ${HOME}
 # --------------------------------------------------------------------------- #
 # 2.  prepare test list ...                                                   #
 # --------------------------------------------------------------------------- #
+echo "# GlobalError RegionalError var1 var2 var3 var4 var5 var6 var7 var8 var9 var10 var11 var12 var13 var14 var15 var16 var17 var18 var19 var20 var21 var22" >  table_Err_norm
+echo "#                            X    X    X    X    X    X    X    X    X    -     X     X     X     X     X     X     X     X     -     -     -     -   " >> table_Err_norm
+echo "# GlobalError RegionalError var1 var2 var3 var4 var5 var6 var7 var8 var9 var10 var11 var12 var13 var14 var15 var16 var17 var18 var19 var20 var21 var22" >  table_Err_unnorm
+echo "#                            X    X    X    X    X    X    X    X    X    -     X     X     X     X     X     X     X     X     -     -     -     -   " >> table_Err_unnorm
 # test1_GFSv16
  i=0
  while [ -f ${HOME}/bin/namelist_$(( i + 1 )) ];
@@ -251,10 +255,14 @@ cd ${HOME}
      export input_i=input_$i
      export work_i=work_$i
      cd ${HOME}/test1_GFSv16/
-     bash prep.sh
+#     bash prep.sh
      cd ${HOME}
-     echo "$rtst -w work_$i -i input_$i -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"  >> initial.body             
-     cp ${HOME}/bin/namelist_$i ${HOME}/test1_GFSv16/input_$i/namelist.nml
+     mv ${HOME}/bin/namelist_$i ${HOME}/test1_GFSv16/input_$i/namelist.nml
+     mv ${HOME}/bin/norm_$i ${HOME}/test1_GFSv16/input_$i/norm.nml
+     mv ${HOME}/bin/unnorm_$i ${HOME}/test1_GFSv16/input_$i/unnorm.nml
+     echo "$rtst -w work_$i -i input_$i -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"  >> initial.body
+     echo "cat test1_GFSv16/work_$i/Err_norm.nml >> table_Err_norm"                                          >> initial.body
+     echo "cat test1_GFSv16/work_$i/Err_unnorm.nml >> table_Err_unnorm"                                      >> initial.body                    
      echo "input_$i is prepared"
    fi 
  done

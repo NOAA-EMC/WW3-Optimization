@@ -39,6 +39,7 @@ vbuoy=double(ncread(buoy_netcdf,var_buoy_v));
 buoy_ww3_name=cellstr(flipud(rot90(ncread(ww3_netcdf,var_ww3_buoy_name))));
 [timeww3]=convert_time(ww3_netcdf,var_ww3_time);
 longitude=double(ncread(ww3_netcdf,'longitude'));
+longitude(longitude<0)=longitude(longitude<0)+360;
 latitude=double(ncread(ww3_netcdf,'latitude'));
 vww3=double(ncread(ww3_netcdf,var_ww3_v));
 %rot90 the time variables
@@ -54,12 +55,27 @@ end
 DIFF_GLOBAL=(VWW3_GLOBAL(:)-vbuoy(:)).^2;
 N_GLOBAL=length(DIFF_GLOBAL(~isnan(DIFF_GLOBAL)));
 %RMSE
-ERR_GLOBAL=rmse(VWW3_GLOBAL,vbuoy);
+%ERR_GLOBAL=rmse(VWW3_GLOBAL,vbuoy);
+ERR_GLOBAL = sqrt(nanmean((VWW3_GLOBAL(:)-vbuoy(:)).^2));  % Root Mean Squared Error
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %regional
 LON(:,1)=longitude(:,1);
 LAT(:,1)=latitude(:,1);
-[ii,jj]=find(LON<lon_min & LON>lon_max & LAT<lat_min & LAT>lat_max);
+[ii,jj]=find(LON<lon_min | LON>lon_max | LAT<lat_min | LAT>lat_max);
+
+% the following block is the same as previous line to determine the points outside box
+%m=0;
+%n=0;
+%for i=1:length(LON)
+%  if (LON(i,1)>=lon_min && LON(i,1)<=lon_max && LAT(i,1)>=lat_min && LAT(i,1)<=lat_max);
+%    n=n+1;
+%    in(n)=i;
+%  else
+%    m=m+1;
+%    ii(m,1)=i;
+%  end
+%end
+
 VWW3_REGIONAL=VWW3_GLOBAL;
 for i=1:length(ii)
   VWW3_REGIONAL(ii(i),:)=nan;
@@ -68,4 +84,5 @@ end
 DIFF_REGIONAL=(VWW3_REGIONAL(:)-vbuoy(:)).^2;
 N_REGIONAL=length(DIFF_REGIONAL(~isnan(DIFF_REGIONAL)));
 %RMSE
-ERR_REGIONAL=rmse(VWW3_REGIONAL,vbuoy);
+%ERR_REGIONAL=rmse(VWW3_REGIONAL,vbuoy);
+ERR_REGIONAL = sqrt(nanmean((VWW3_REGIONAL(:)-vbuoy(:)).^2));  % Root Mean Squared Error

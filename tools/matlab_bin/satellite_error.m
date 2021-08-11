@@ -58,7 +58,8 @@ VWW3_GLOBAL(VWW3_GLOBAL>8)=nan;
 DIFF_GLOBAL=VWW3_GLOBAL-vsat;
 N_GLOBAL=length(DIFF_GLOBAL(~isnan(DIFF_GLOBAL)));
 %RMSE
-ERR_GLOBAL=rmse(VWW3_GLOBAL,vsat);
+%ERR_GLOBAL=rmse(VWW3_GLOBAL,vsat);
+ERR_GLOBAL = sqrt(nanmean((VWW3_GLOBAL-vsat).^2));  % Root Mean Squared Error
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %regional
 [ii,jj]=find(lonsat>=lon_min & lonsat<=lon_max & latsat>=lat_min & latsat<=lat_max);
@@ -68,4 +69,5 @@ vsat2=vsat(ii);
 DIFF_REGIONAL=VWW3_REGIONAL-vsat2;
 N_REGIONAL=length(DIFF_REGIONAL(~isnan(DIFF_REGIONAL)));
 %RMSE
-ERR_REGIONAL=rmse(VWW3_REGIONAL,vsat2);
+%ERR_REGIONAL=rmse(VWW3_REGIONAL,vsat2);
+ERR_REGIONAL = sqrt(nanmean((VWW3_REGIONAL-vsat2).^2));  % Root Mean Squared Error

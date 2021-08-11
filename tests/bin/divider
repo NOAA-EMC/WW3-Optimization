@@ -68,11 +68,18 @@ count=0
   cat before >> $matrix$count
   cat list_$i >> $matrix$count
   sed -i 's/'.out'/'${count}.out'/gI' ${matrix}${count}
-  echo "  echo ' '"                                                                     >> matrix$count
-  echo "  echo '     **************************************************************'"   >> matrix$count
-  echo "  echo '    *  end of WAVEWATCH III $matrix$count of regression tests     *'"   >> matrix$count
-  echo "  echo '     **************************************************************'"   >> matrix$count
-  echo "  echo ' '"                                                                     >> matrix$count
+  sed -i 's/'model'/'model${count}'/gI' $matrix$count
+  echo "  echo ' '"                                                                     >> $matrix$count
+  echo "  echo '     **************************************************************'"   >> $matrix$count
+  echo "  echo '    *  end of WAVEWATCH III $matrix$count of regression tests     *'"   >> $matrix$count
+  echo "  echo '     **************************************************************'"   >> $matrix$count
+  echo "  echo ' '"                                                                     >> $matrix$count
+  echo "rm -rf ../WW3/model${count}"                                                    >> $matrix$count
+#make sure ../model$count does not exist and copy a fresh copy
+  awk '1;/cd/ && !x {print "  cp -r ../WW3/model ../WW3/model'$count'"; x=1;}' $matrix$count > tmpfile && mv tmpfile $matrix$count
+  awk '1;/cd/ && !x {print "  if [ -d ../WW3/model'${count}' ]; then rm -rf ../WW3/model'${count}'; fi"; x=1;}' $matrix$count > tmpfile && mv tmpfile $matrix$count
+
+sbatch $matrix$count
   echo " $matrix$count prepared"
  done
 

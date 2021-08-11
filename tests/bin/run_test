@@ -2778,9 +2778,16 @@ then
 fi
 
 # statistical anaylsis
-if [ -f $path_e/statistical_analysis.m
-  ( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; statistical_analysis; catch; end; quit\" ) > stat.log 2> stat.err
+if [ -f $path_i/statistical_analysis.m ]
+then
+  if [ -f $path_w/ww3_out_pnt*_tab.nc ]
+  then
+     mv $path_w/ww3_out_pnt*_tab.nc $path_w/ww3_out_pnt_tab.nc
+  fi
+  ( cd $path_i; matlab -nodisplay -nodesktop -r "try; statistical_analysis; catch; end; quit" ) > stat.log 2> stat.err
 fi
+cd $path_w
+
 # 3.k End ------------------------------------------------------------------- #
 
 if [ "$stub" ]

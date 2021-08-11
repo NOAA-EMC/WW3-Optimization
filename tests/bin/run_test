@@ -2778,16 +2778,31 @@ then
 fi
 
 # statistical anaylsis
+prog=ww3_stat
+if [ $exec_p = $prog -o $exec_p = "none" ]
+then
+
+# Check for input file
 if [ -f $path_i/statistical_analysis.m ]
 then
+
+    echo ' '
+    echo '+-------------------------+'
+    echo '|   Statistical Analysis  |'
+    echo '+-------------------------+'
+    echo ' '
+    echo "   Processing statistical_analysis"
+    echo "   Screen output copied to stat.log"
   if [ -f $path_w/ww3_out_pnt*_tab.nc ]
   then
      mv $path_w/ww3_out_pnt*_tab.nc $path_w/ww3_out_pnt_tab.nc
   fi
   ( cd $path_i; matlab -nodisplay -nodesktop -r "try; statistical_analysis; catch; end; quit" ) > stat.log 2> stat.err
-fi
-cd $path_w
+  echo "Statistical analysis is performed."
 
+cd $path_w
+fi
+fi
 # 3.k End ------------------------------------------------------------------- #
 
 if [ "$stub" ]
@@ -2814,4 +2829,3 @@ echo ' '
 # --------------------------------------------------------------------------- #
 # End of script                                                               #
 # --------------------------------------------------------------------------- #
-

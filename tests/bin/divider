@@ -46,10 +46,10 @@ cp $matrix matrix.tmp
 HOME=${PWD%/*}
 
 #Put the job requirement/spec in "before"
-sed -e "/run_test/,\$d" matrix.tmp > before
+sed -e "/work_/,\$d" matrix.tmp > before
 
 #serial jobs
-command egrep 'run_test' matrix.tmp | cat >> list
+command egrep 'work_' matrix.tmp | cat >> list
 split -dl $maxlist list list_
 rm list
 matrixno=$(ls list_* | wc -l)
@@ -79,7 +79,7 @@ count=0
   awk '1;/cd/ && !x {print "  cp -r ../WW3/model ../WW3/model'$count'"; x=1;}' $matrix$count > tmpfile && mv tmpfile $matrix$count
   awk '1;/cd/ && !x {print "  if [ -d ../WW3/model'${count}' ]; then rm -rf ../WW3/model'${count}'; fi"; x=1;}' $matrix$count > tmpfile && mv tmpfile $matrix$count
 
-sbatch $matrix$count
+#sbatch $matrix$count
   echo " $matrix$count prepared"
  done
 

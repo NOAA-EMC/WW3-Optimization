@@ -1,6 +1,8 @@
 # WW3_Optimization
 Physics Optimization tools
 
+![WW3_Optimization-4](https://user-images.githubusercontent.com/37336972/129954053-71b4c4bf-0649-441a-b67e-ac97b34ff6b0.png)
+
 Users who only need to check out the latest code or certain tags can clone the repository without having a GitHub account:   
 `git clone https://github.com/aliabdolali/WW3_Optimization.git`   
 or with GitHub account   
@@ -23,7 +25,10 @@ modify _input_vars.sh_ and add the start day (_STARTDATE_), number of forecast d
 `./prep_spinup.sh`    
  to fill templates for WW3 fix files, forcing and observations (satellite and point source data) retrieval. This script is for model spinup for the duration of `spinup_day` before `STARTDATE` and continues for `forecast_day`. The filled WW3 input templates are then added to `input_spinup`.    
  
- ## Run model spinup 
+ ## Run model spinup     
+![WW3_Optimization-5](https://user-images.githubusercontent.com/37336972/129953939-9230166d-aa48-4657-85f4-32f0fd860468.png)
+
+
 `cd WW3_Optimization/tests`
  execute   
 `./bin/spinup_matrix_prep`  
@@ -40,7 +45,9 @@ The initial matrix can be divided into sub-matrixes using
 `./bin/divider initial 9`         
 which divides initial matrix into submatrixes, each with 3 tests.       
 
- ## Run Optimization   
+ ## Run Optimization 
+ ![WW3_Optimization-6](https://user-images.githubusercontent.com/37336972/129954078-0802f941-a420-48cc-89fd-1acbc39e3707.png)
+
  `cd WW3_Optimization/tests`
  execute   
 `./bin/opt_matrix_prep`     

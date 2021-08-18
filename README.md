@@ -17,7 +17,7 @@ or with GitHub account
 cd ../tests/test<test_name>   
 modify _input_vars.sh_ and add the start day (_STARTDATE_), number of forecast days (_forecast_day_) and other required parameters:   
 `STARTDATE="<YYYY-MM-DD>"`   
-`spinup_day=<NO1>`
+`spinup_day=<NO1>`     
 `forecast_day=<NO2>`   
  execute   
 `bash prep.sh`    

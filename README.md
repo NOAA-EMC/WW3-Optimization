@@ -48,7 +48,7 @@ which divides initial matrix into submatrixes, each with 3 tests.
  ## Run Optimization 
  ![WW3_Optimization-6](https://user-images.githubusercontent.com/37336972/129954078-0802f941-a420-48cc-89fd-1acbc39e3707.png)
 
- `cd WW3_Optimization/tests`
+ `cd WW3_Optimization/tests`     
  execute   
 `./bin/opt_matrix_prep`     
 to prepare opt_matrix jobcard and submit:          

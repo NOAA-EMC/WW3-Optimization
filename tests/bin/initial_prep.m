@@ -1,51 +1,81 @@
 clear all
 clc
-addpath('../../tools/matlab_bin/')
+% add paths
+    mat_bin_path = '../../tools/matlab_bin';
+    mex_path = '../../tools/install/lib64/matlab';
+    addpath(mex_path,mat_bin_path);
+x=load('x_opt')
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%number of perturbation + 1 default
-max_pert=2;
+% ------------------------------------------------------------------------------
+% constants
+    xn   = 17;       % num optimization params, x
+% ------------------------------------------------------------------------------
+% define lower and upper bounds for x (all are normalized and vary between 0 and 1)
+    lb = zeros(xn,1);
+    ub = ones(xn,1);
+% ------------------------------------------------------------------------------
+% opt: nlopt structure
+    opt.algorithm     = NLOPT_LN_BOBYQA;
+    opt.lower_bounds  = lb;
+    opt.upper_bounds  = ub;
+    opt.min_objective = @f;
+    opt.xtol_abs      = ones(xn,1) * 10e-3;
+    opt.xtol_rel      = 10e-3;
+    opt.ftol_abs      = 10e-3;
+    opt.ftol_rel      = 10e-3;
+    opt.stopval       = 0; %acceptable BIAS
+    opt.verbose       = 1;
+    opt.maxeval=(2*xn)+1
+% ------------------------------------------------------------------------------
+% initialize iteration
+    m=0
+    dlmwrite('m',m)
+    % call: nlopt optimization function
+    [xopt, fmin, retcode] = nlopt_optimize(opt, x)
+% ------------------------------------------------------------------------------
 %index of parameters to be tuned
 ii=[1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18];
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------------------------------------------------------------------
+for j=1:opt.maxeval
+xinp=dlmread(['norm_',num2str(j)]);
 %SIN4 (wind input)
 %(1)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- BETAMAX=1.315;
+ BETAMAX=xinp(1);
  BETAMAXmin=1.0;
  BETAMAXmax=2.0;
  var(1,:)=[BETAMAX BETAMAXmin BETAMAXmax];
 %(2)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- TAUWSHELTER=1.0;
+ TAUWSHELTER=xinp(2);
  TAUWSHELTERmin=0;
  TAUWSHELTERmax=1.5;
  var(2,:)=[TAUWSHELTER TAUWSHELTERmin TAUWSHELTERmax];
 %(3)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SWELLF=0.798;
+ SWELLF=xinp(3);
  SWELLFmin=0.5;
  SWELLFmax=1.2;
 var(3,:)=[SWELLF SWELLFmin SWELLFmax];
 %(4)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SWELLF2=-0.0127;
+ SWELLF2=xinp(4);
  SWELLF2min=-0.03;
  SWELLF2max=-0.01;
  var(4,:)=[SWELLF2 SWELLF2min SWELLF2max];
 %(5)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SWELLF3=0.0151;
+ SWELLF3=xinp(5);
  SWELLF3min=0.01;
  SWELLF3max=0.02;
  var(5,:)=[SWELLF3 SWELLF3min SWELLF3max];
 %(6)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SWELLF4=100025.0;
+ SWELLF4=xinp(6);
  SWELLF4min=80000.0;
  SWELLF4max=150000.0;
  var(6,:)=[SWELLF4 SWELLF4min SWELLF4max];
 %(7)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SWELLF5=1.1999;
+ SWELLF5=xinp(7);
  SWELLF5min=0.8;
  SWELLF5max=1.6;
  var(7,:)=[SWELLF5 SWELLF5min SWELLF5max];
 %(8)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SWELLF7=235500.0;
+ SWELLF7=xinp(8);
  SWELLF7min=0.0;
  SWELLF7max=400000.0;
  var(8,:)=[SWELLF7 SWELLF7min SWELLF7max];
@@ -53,7 +83,7 @@ var(3,:)=[SWELLF SWELLFmin SWELLFmax];
  %SNL1 (nonlinear interactions)
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %(9)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- NLPROP=2.502e7;
+ NLPROP=xinp(9);
  NLPROPmin=2.400e7;
  NLPROPmax=2.800e7;
  var(9,:)=[NLPROP NLPROPmin NLPROPmax];
@@ -61,67 +91,67 @@ var(3,:)=[SWELLF SWELLFmin SWELLFmax];
 %SDS4 (dissipation)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %(10)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- FXFM3 = 2.501;
+ FXFM3 = nan;
  FXFM3min=2.501;
  FXFM3max=2.501;
  var(10,:)=[FXFM3 FXFM3min FXFM3max];
 %(11)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SDSC2=-2.1975e-05;
+ SDSC2=xinp(10);
  SDSC2min=-2.5e-05;
  SDSC2max=0.0;
  var(11,:)=[SDSC2 SDSC2min SDSC2max];
 %(12)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SDSCUM=-0.4032;
+ SDSCUM=xinp(11);
  SDSCUMmin=-0.5;
  SDSCUMmax=0.0;
  var(12,:)=[SDSCUM SDSCUMmin SDSCUMmax];
 %(13)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SDSC5=0.0;
+ SDSC5=xinp(12);
  SDSC5min=0.0;
  SDSC5max=1.2;
  var(13,:)=[SDSC5 SDSC5min SDSC5max];
 %(14)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SDSC6=0.2978;
+ SDSC6=xinp(13);
  SDSC6min=0.0;
  SDSC6max=1.0;
  var(14,:)=[SDSC6 SDSC6min SDSC6max];
 %(15)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SDSBR=0.0009035;
+ SDSBR=xinp(14);
  SDSBRmin=0.0008;
  SDSBRmax=0.0010;
  var(15,:)=[SDSBR SDSBRmin SDSBRmax];
 %(16)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SDSBCK=0.0;
+ SDSBCK=xinp(15);
  SDSBCKmin=0.0;
  SDSBCKmax=0.2;
  var(16,:)=[SDSBCK SDSBCKmin SDSBCKmax];
 %(17)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SDSHCK=1.5;
+ SDSHCK=xinp(16);
  SDSHCKmin=0.0;
  SDSHCKmax=2.0;
  var(17,:)=[SDSHCK SDSHCKmin SDSHCKmax];
 %(18)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- SDSCOS=2.0;
+ SDSCOS=xinp(17);
  SDSCOSmin=0.0;
  SDSCOSmax=2.0;
  var(18,:)=[SDSCOS SDSCOSmin SDSCOSmax];
 %(19)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- CICE0 = 0.25;
+ CICE0 = nan;
  CICE0min=0.25;
  CICE0max=0.25;
  var(19,:)=[CICE0 CICE0min CICE0max];
 %(20)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- CICEN = 0.75;
+ CICEN = nan;
  CICENmin=0.75;
  CICENmax=0.75;
  var(20,:)=[CICEN CICENmin CICENmax];
 %(21)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- FLAGTR = 4;
+ FLAGTR = nan;
  FLAGTRmin=4;
  FLAGTRmax=4;
  var(21,:)=[FLAGTR FLAGTRmin FLAGTRmax];
 %(22)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- GAMMA = -0.038;
+ GAMMA = nan;
  GAMMAmin = -0.038;
  GAMMAmax = -0.038;
  var(22,:)=[GAMMA GAMMAmin GAMMAmax];
@@ -136,39 +166,29 @@ var(3,:)=[SWELLF SWELLFmin SWELLFmax];
 % WDTHTHmax=5.5;
 % var(24,:)=[WDTHTH WDTHTHmin WDTHTHmax];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%default
-for i=1:length(var(:,1))
-   [var_norm(i,1)] = normalize(var(i,2),var(i,3),0.0,1.0,var(i,1));
-end
+ for i=1:length(var(:,1))
+   [var_unnorm(i,1)] =  unnormalize(var(i,2),var(i,3),0.0,1.0,var(i,1));
+ end
 
  for i=1:length(var(:,1))
-   [var_unnorm(i,1)] =  unnormalize(var(i,2),var(i,3),0.0,1.0,var_norm(i,1));
- end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- m=1;
- %two perturbation per variables for ii
- for j=1:length(ii)
-     for p=1:max_pert
-     m=m+1;
-     var_tmp=var(:,1);
-       for i=1:length(var(:,1))
-         [var_norm(i,m)] = normalize(var(i,2),var(i,3),0.0,1.0,var_tmp(i,1));
-       end
-      var_norm(ii(j),m)=rand(1,1);
-     end
+   [var_norm(i,1)] = normalize(var(i,2),var(i,3),0.0,1.0,var_unnorm(i,1));
  end
 
- for j=1:m
- for i=1:length(var(:,1))
-   [var_unnorm(i,j)] =  unnormalize(var(i,2),var(i,3),0.0,1.0,var_norm(i,j));
- end
- end
-% write namelist
+namelist=['namelist_',num2str(j)];
+write_namelist(namelist,var_unnorm)
 
-for i=1:m
-namelist=['namelist_',num2str(i)];
-write_namelist(namelist,var_unnorm(:,i))
-dlmwrite(['norm_',num2str(i)],rot90(var_norm(:,i)),'delimiter',' ','precision',8);
-dlmwrite(['unnorm_',num2str(i)],rot90(var_unnorm(:,i)),'delimiter',' ','precision',8);
+dlmwrite(['unnorm_',num2str(j)],rot90(var_unnorm),'delimiter',' ','precision',8);
+
 end
-
+% ------------------------------------------------------------------------------
+  function [fval] = f(x)
+   m=dlmread('m')
+   m=m+1
+    fval=1
+    fileID = fopen(['norm_',num2str(m)],'w');
+    fprintf(fileID,['%f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f\n'], x);
+    fclose(fileID);
+    fileID = fopen('m','w');
+    fprintf(fileID,['%d\n'], m);
+    fclose(fileID);
+    end

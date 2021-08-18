@@ -79,7 +79,7 @@ count=0
   awk '1;/cd/ && !x {print "  cp -r ../WW3/model ../WW3/model'$count'"; x=1;}' $matrix$count > tmpfile && mv tmpfile $matrix$count
   awk '1;/cd/ && !x {print "  if [ -d ../WW3/model'${count}' ]; then rm -rf ../WW3/model'${count}'; fi"; x=1;}' $matrix$count > tmpfile && mv tmpfile $matrix$count
 
-#sbatch $matrix$count
+sbatch $matrix$count
   echo " $matrix$count prepared"
  done
 

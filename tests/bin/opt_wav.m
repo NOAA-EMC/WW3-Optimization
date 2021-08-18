@@ -26,7 +26,7 @@
     xn   = 17;       % num optimization params, x
 % ------------------------------------------------------------------------------
 % read the table of bias and normalized 'x' (global error, regional error, x1, x2, ...)
-    AA=dlmread('../opt_table_Err_norm',' ', 1, 1);
+    AA=dlmread('../opt_table_Err_norm',' ', 1, 0);
     x=load('default_x_norm');
 % define lower and upper bounds for x (all are normalized and vary between 0 and 1)
     lb = zeros(xn,1);
@@ -43,7 +43,8 @@
     opt.ftol_rel      = 10e-3;
     opt.stopval       = 0; %acceptable BIAS
     opt.verbose       = 1;
-    opt.maxeval=length((AA(:,1)))+1
+    opt.maxeval       = 200;
+%    opt.maxeval=length((AA(:,1)))+1
 % ------------------------------------------------------------------------------
 % initialize iteration
     m=0
@@ -60,12 +61,14 @@ end
   function [fval] = f(x)
    m=dlmread('m')
    m=m+1
-    A=dlmread('../opt_table_Err_norm',' ', 1, 1);
-    if m<=length(A(:,1))
-    fval=A(m,2);
-    else
-        fval=nan
-    end
+    A=dlmread('../opt_table_Err_norm',' ', 1, 0);
+
+%    if m<=length(A(:,1))
+%    fval=A(m,2);
+    [fval] = match_record(A, x, 10e-3)
+%    else
+%        fval=nan
+%    end
 
     fileID = fopen('x_opt','w');
     fprintf(fileID,['%f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f\n'], x);
@@ -74,3 +77,16 @@ end
     fprintf(fileID,['%d\n'], m);
     fclose(fileID);
     end
+% ------------------------------------------------------------------------------
+  function [fval_match] = match_record(RECS, new_rec, tol)
+      fval_match = nan;    % init to 'no record found' value
+
+      num_recs = size(RECS,1);
+      num_params = size(RECS,2)-2;
+      for r=1:num_recs
+          curr_rec = RECS(r,3:num_params+2);
+          if abs(curr_rec-new_rec) <= tol
+              fval_match = RECS(r,2);
+          end
+      end
+  end

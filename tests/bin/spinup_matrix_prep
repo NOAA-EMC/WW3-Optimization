@@ -241,8 +241,16 @@ cd ${HOME}
 # 2.  prepare test list ...                                                   #
 # --------------------------------------------------------------------------- #
 # test1_GFSv16
+if [ ! -f opt_table_Err_norm ] && [ ! -f opt_table_Err_unnorm ]
+then
+# prep the default setup
+  cp bin/default_x_norm bin/x_opt
+  echo "# GlobalError RegionalError var1 var2 var3 var4 var5 var6 var7 var8 var9 var11 var12 var13 var14 var15 var16 var17 var18" >  opt_table_Err_norm
+  echo "# GlobalError RegionalError var1 var2 var3 var4 var5 var6 var7 var8 var9 var11 var12 var13 var14 var15 var16 var17 var18 " >  opt_table_Err_unnorm
+fi
+
   echo "$rtst -w work_spinup -i input_spinup -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"  >> spinup.body             
-  echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; initial_prep; catch; end; quit\" ) > initial_log.out 2> initial_err.out" >> spinup.body
+#  echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; initial_prep; catch; end; quit\" ) > initial_log.out 2> initial_err.out" >> spinup.body
 # --------------------------------------------------------------------------- #
 # 3.  End of script output                                                    #
 # --------------------------------------------------------------------------- #

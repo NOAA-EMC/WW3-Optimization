@@ -28,8 +28,11 @@ fprintf(fileID,'%f\n',ErrTot_REGIONAL);
 fclose(fileID);
 
 % Normalize input variables
-input_norm_nml=dlmread('../INPUTDIR/norm.nml');
-input_unnorm_nml=dlmread('../INPUTDIR/unnorm.nml');
+input_norm=dlmread('../INPUTDIR/norm.nml');
+input_unnorm=dlmread('../INPUTDIR/unnorm.nml');
+input_norm_nml=input_norm(~isnan(input_norm));
+input_unnorm_nml=input_unnorm(~isnan(input_norm));
+
 Err_norm=[ErrTot_GLOBAL ErrTot_REGIONAL input_norm_nml];
 Err_unnorm=[ErrTot_GLOBAL ErrTot_REGIONAL input_unnorm_nml];
 dlmwrite('../INPUTDIR/Err_norm.nml',Err_norm,'delimiter',' ','precision',8);

@@ -14,10 +14,11 @@ or with GitHub account
 `./makenlopt.sh`  
 
 ## Fill the templates and retrieve the forcings from global dump and hpss   
-cd tests/test<name>   
+cd ../tests/test<test_name>   
 modify _input_vars.sh_ and add the start day (_STARTDATE_), number of forecast days (_forecast_day_) and other required parameters:   
 `STARTDATE="<YYYY-MM-DD>"`   
-`forecast_day=<NO>`   
+`spinup_day=<NO1>`
+`forecast_day=<NO2>`   
  execute   
 `bash prep.sh`    
- to fill templates for WW3 _input_, fix files, restart, forcing and observations (satellite and point source data) retrieval.    
+ to fill templates for WW3 fix files, restart, forcing and observations (satellite and point source data) retrieval.    

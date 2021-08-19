@@ -1,11 +1,10 @@
 %function [] = opt_wav
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This program provides the x_opt for the next round of iteration or stops%
-% computations if one of stop critera is met.                             %
-% Ali Abdolali (EMC/NCEP/NOAA ali.abdolali@noaa.gov                       %
-% Matthew Masarik (EMC/NCEP/NOAA matthew.masarik@noaa.gov                 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This program provides the x_opt for the next round of iteration or stops %
+% computations if one of stop critera is met.                              %
+% Ali Abdolali (EMC/NCEP/NOAA ali.abdolali@noaa.gov                        %
+% Matthew Masarik (EMC/NCEP/NOAA matthew.masarik@noaa.gov                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Refs:
 %    * nlopt docs - https://nlopt.readthedocs.io/en/latest/NLopt_Introduction/
 %

@@ -55,3 +55,13 @@ to prepare opt_matrix jobcard and submit:
  `sbatch opt_matrix`    
  
  `WW3_Optimization/tests/opt_table_Err_unnorm` is populated after each round of data exchange between WW3 and NLOPT, where each row starts with global and regional scores followed by _n_ input variables.      
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Developers:
+Ali Abdolali (EMC/NCEP/NOAA ali.abdolali@noaa.gov)      
+Matthew Masarik (EMC/NCEP/NOAA matthew.masarik@noaa.gov) 

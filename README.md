@@ -55,6 +55,15 @@ to prepare opt_matrix jobcard and submit:
  `sbatch opt_matrix`    
  
  `WW3-Optimization/tests/opt_table_Err_unnorm` is populated after each round of data exchange between WW3 and NLOPT, where each row starts with global and regional scores followed by _n_ input variables.      
+ The optimization continues until one of the following criteria is met:      
+
+1- Max number of iterations      
+2- Absolute change in the parameters value       
+3- Relative change in the parameters value       
+4- Absolute change in the function value       
+5- Relative change in the function value       
+6- Function value Less than a prescribed minimum       
+
  
  
  

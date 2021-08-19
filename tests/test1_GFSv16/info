@@ -10,7 +10,7 @@
 # INPUT: glo_15mxt for current and ice and native grids for wind.           #
 # The forcing including ice concentration, wind speed (u10)                 #
 # and current fields (wind_cur_ice.nc).                                     #
-# POINT: points. The unified point output grid is glo_15mxt                 #
+# POINT: points. The unified point output grid is points.                   #
 #                                                                           #
 # The test is standalone GFSv16 using ww3_multi on PolarStereo grid in      #
 # arctic and rectilinear grids for global core and southern ocean.          #

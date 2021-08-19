@@ -1,6 +1,6 @@
 #!/bin/bash
 # --------------------------------------------------------------------------- #
-# opt_matrix_prep: prep opt_matrix of regression tests on target machine.             #
+# opt_matrix_prep: prep opt_matrix of regression tests on target machine.     #
 #                                                                             #
 # Remarks:                                                                    #
 # - This version is set up for automatic w3_setenv script and for the         #
@@ -142,8 +142,8 @@ cd ${HOME}
     echo '#SBATCH -q batch'                                 >> opt_matrix.head
     echo '#SBATCH -t 02:00:00'                              >> opt_matrix.head
     echo '#SBATCH -A marine-cpu'                            >> opt_matrix.head
-    echo '#SBATCH -J ww3_regtest'                           >> opt_matrix.head
-    echo '#SBATCH -o opt_matrix.out'                            >> opt_matrix.head
+    echo '#SBATCH -J ww3_optimization'                      >> opt_matrix.head
+    echo '#SBATCH -o opt_matrix.out'                        >> opt_matrix.head
     echo '#SBATCH -p orion'                                 >> opt_matrix.head
   elif [ $batchq = "slurm" ]
   then
@@ -151,17 +151,17 @@ cd ${HOME}
     echo "#SBATCH --cpus-per-task=${nth}"                   >> opt_matrix.head
     echo '#SBATCH -q batch'                                 >> opt_matrix.head
     echo '#SBATCH -t 02:00:00'                              >> opt_matrix.head
-    echo '#SBATCH -A coastal'                            >> opt_matrix.head
-    echo '#SBATCH -J ww3_regtest'                           >> opt_matrix.head
-    echo '#SBATCH -o opt_matrix.out'                            >> opt_matrix.head
+    echo '#SBATCH -A marine-cpu'                            >> opt_matrix.head
+    echo '#SBATCH -J ww3_optimization'                      >> opt_matrix.head
+    echo '#SBATCH -o opt_matrix.out'                        >> opt_matrix.head
   else
     echo '#PBS -l procs=24'                                 >> opt_matrix.head
     echo '#PBS -q batch'                                    >> opt_matrix.head
     echo '#PBS -l walltime=02:00:00'                        >> opt_matrix.head
     echo '#PBS -A marine-cpu'                               >> opt_matrix.head
-    echo '#PBS -N ww3_regtest'                              >> opt_matrix.head
+    echo '#PBS -N ww3_optimization'                         >> opt_matrix.head
     echo '#PBS -j oe'                                       >> opt_matrix.head
-    echo '#PBS -o opt_matrix.out'                               >> opt_matrix.head
+    echo '#PBS -o opt_matrix.out'                           >> opt_matrix.head
     echo ' '                                                >> opt_matrix.head
   fi
   echo "  cd ${HOME}"                                       >> opt_matrix.head
@@ -229,13 +229,13 @@ cd ${HOME}
   rm -f opt_matrix.body
   rm -f opt_matrix.tail
 
-# 1.1.c Output to ID script  - - - - - - - - - - - - - - - - - - - - - - - - - -
+# 1.1.c Output to ID script  - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  echo "  echo ' '"                                                            >> opt_matrix.head
-  echo "  echo '             **********************************************'"  >> opt_matrix.head
-  echo "  echo '           ***  WAVEWATCH III opt_matrix of tests             ***'">> opt_matrix.head
-  echo "  echo '             **********************************************'"  >> opt_matrix.head
-  echo "  echo ' '"                                                            >> opt_matrix.head
+  echo "  echo ' '"                                                                 >> opt_matrix.head
+  echo "  echo '             **********************************************'"       >> opt_matrix.head
+  echo "  echo '           ***     WAVEWATCH III opt_matrix tests             ***'" >> opt_matrix.head
+  echo "  echo '             **********************************************'"       >> opt_matrix.head
+  echo "  echo ' '"                                                                 >> opt_matrix.head
 
 # --------------------------------------------------------------------------- #
 # 2.  prepare test list ...                                                   #
@@ -251,7 +251,7 @@ cd ${HOME}
 
 if [ ! -f opt_table_Err_norm ] && [ ! -f opt_table_Err_unnorm ]
 then  
-  echo "# GlobalError RegionalError var1 var2 var3 var4 var5 var6 var7 var8 var9 var11 var12 var13 var14 var15 var16 var17 var18" >  opt_table_Err_norm
+  echo "# GlobalError RegionalError var1 var2 var3 var4 var5 var6 var7 var8 var9 var11 var12 var13 var14 var15 var16 var17 var18"  >  opt_table_Err_norm
   echo "# GlobalError RegionalError var1 var2 var3 var4 var5 var6 var7 var8 var9 var11 var12 var13 var14 var15 var16 var17 var18 " >  opt_table_Err_unnorm
 fi
 
@@ -272,12 +272,12 @@ fi
        
      echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; opt_wav; catch; end; quit\" ) > opt_log.out 2> opt_err.out"  >> opt_matrix.body
      echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; opt_prep; catch; end; quit\" ) > opt_log.out 2> opt_err.out" >> opt_matrix.body
-     echo "mv ${HOME}/bin/namelist ${HOME}/test1_GFSv16/input_opt/namelist.nml"                              >> opt_matrix.body
-     echo "mv ${HOME}/bin/norm ${HOME}/test1_GFSv16/input_opt/norm.nml"                                      >> opt_matrix.body
-     echo "mv ${HOME}/bin/unnorm ${HOME}/test1_GFSv16/input_opt/unnorm.nml"                                  >> opt_matrix.body
-     echo "$rtst -w work_opt -i input_opt -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"  >> opt_matrix.body
-     echo "cat test1_GFSv16/work_opt/Err_norm.nml >> opt_table_Err_norm"                                       >> opt_matrix.body
-     echo "cat test1_GFSv16/work_opt/Err_unnorm.nml >> opt_table_Err_unnorm"                                   >> opt_matrix.body
+     echo "mv ${HOME}/bin/namelist ${HOME}/test1_GFSv16/input_opt/namelist.nml"                                                   >> opt_matrix.body
+     echo "mv ${HOME}/bin/norm ${HOME}/test1_GFSv16/input_opt/norm.nml"                                                           >> opt_matrix.body
+     echo "mv ${HOME}/bin/unnorm ${HOME}/test1_GFSv16/input_opt/unnorm.nml"                                                       >> opt_matrix.body
+     echo "$rtst -w work_opt -i input_opt -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"                     >> opt_matrix.body
+     echo "cat test1_GFSv16/work_opt/Err_norm.nml >> opt_table_Err_norm"                                                          >> opt_matrix.body
+     echo "cat test1_GFSv16/work_opt/Err_unnorm.nml >> opt_table_Err_unnorm"                                                      >> opt_matrix.body
   echo "   if [ -f "${HOME}/stop" ]"              >> opt_matrix.body
   echo "   then"                                  >> opt_matrix.body
   echo "      echo 'optimization is completed'"   >> opt_matrix.body
@@ -291,11 +291,11 @@ fi
 # 3.  End of script output                                                    #
 # --------------------------------------------------------------------------- #
 
-  echo "  echo ' '"                                                                > opt_matrix.tail
-  echo "  echo '       *****************************************************'"    >> opt_matrix.tail
-  echo "  echo '     ***  end of WAVEWATCH III opt_matrix of tests             ***'"  >> opt_matrix.tail
-  echo "  echo '       *****************************************************'"    >> opt_matrix.tail
-  echo "  echo ' '"                                                               >> opt_matrix.tail
+  echo "  echo ' '"                                                                   > opt_matrix.tail
+  echo "  echo '       *****************************************************'"        >> opt_matrix.tail
+  echo "  echo '     ***     end of WAVEWATCH III opt_matrix tests             ***'"  >> opt_matrix.tail
+  echo "  echo '       *****************************************************'"        >> opt_matrix.tail
+  echo "  echo ' '"                                                                   >> opt_matrix.tail
 
 # --------------------------------------------------------------------------- #
 # 4.  Put it together and clean up                                            #
@@ -310,5 +310,5 @@ fi
   echo "file opt_matrix prepared ...."
 
 # --------------------------------------------------------------------------- #
-# End to the opt_matrix                                                           #
+# End to the opt_matrix                                                       #
 # --------------------------------------------------------------------------- #

@@ -1,6 +1,6 @@
 #!/bin/bash
 # --------------------------------------------------------------------------- #
-# initial_prep: prep initial of regression tests on target machine.             #
+# initial_prep: prep initial of regression tests on target machine.           #
 #                                                                             #
 # Remarks:                                                                    #
 # - This version is set up for automatic w3_setenv script and for the         #
@@ -142,8 +142,8 @@ cd ${HOME}
     echo '#SBATCH -q batch'                                 >> initial.head
     echo '#SBATCH -t 08:00:00'                              >> initial.head
     echo '#SBATCH -A marine-cpu'                            >> initial.head
-    echo '#SBATCH -J ww3_regtest'                           >> initial.head
-    echo '#SBATCH -o initial.out'                            >> initial.head
+    echo '#SBATCH -J ww3_optimization'                      >> initial.head
+    echo '#SBATCH -o initial.out'                           >> initial.head
     echo '#SBATCH -p orion'                                 >> initial.head
   elif [ $batchq = "slurm" ]
   then
@@ -151,17 +151,17 @@ cd ${HOME}
     echo "#SBATCH --cpus-per-task=${nth}"                   >> initial.head
     echo '#SBATCH -q batch'                                 >> initial.head
     echo '#SBATCH -t 08:00:00'                              >> initial.head
-    echo '#SBATCH -A coastal'                            >> initial.head
-    echo '#SBATCH -J ww3_regtest'                           >> initial.head
-    echo '#SBATCH -o initial.out'                            >> initial.head
+    echo '#SBATCH -A marine-cpu'                            >> initial.head
+    echo '#SBATCH -J ww3_optimization'                      >> initial.head
+    echo '#SBATCH -o initial.out'                           >> initial.head
   else
     echo '#PBS -l procs=24'                                 >> initial.head
     echo '#PBS -q batch'                                    >> initial.head
     echo '#PBS -l walltime=08:00:00'                        >> initial.head
     echo '#PBS -A marine-cpu'                               >> initial.head
-    echo '#PBS -N ww3_regtest'                              >> initial.head
+    echo '#PBS -N ww3_optimization'                         >> initial.head
     echo '#PBS -j oe'                                       >> initial.head
-    echo '#PBS -o initial.out'                               >> initial.head
+    echo '#PBS -o initial.out'                              >> initial.head
     echo ' '                                                >> initial.head
   fi
   echo "  cd ${HOME}"                                       >> initial.head
@@ -231,18 +231,18 @@ cd ${HOME}
 
 # 1.1.c Output to ID script  - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  echo "  echo ' '"                                                            >> initial.head
-  echo "  echo '             **********************************************'"  >> initial.head
+  echo "  echo ' '"                                                             >> initial.head
+  echo "  echo '             **********************************************'"   >> initial.head
   echo "  echo '           ***  WAVEWATCH III initial of tests             ***'">> initial.head
-  echo "  echo '             **********************************************'"  >> initial.head
-  echo "  echo ' '"                                                            >> initial.head
+  echo "  echo '             **********************************************'"   >> initial.head
+  echo "  echo ' '"                                                             >> initial.head
 
 # --------------------------------------------------------------------------- #
 # 2.  prepare test list ...                                                   #
 # --------------------------------------------------------------------------- #
 if [ ! -f table_Err_norm ] && [ ! -f table_Err_unnorm ]
 then  
-  echo "# GlobalError RegionalError var1 var2 var3 var4 var5 var6 var7 var8 var9 var11 var12 var13 var14 var15 var16 var17 var18" >  opt_table_Err_norm
+  echo "# GlobalError RegionalError var1 var2 var3 var4 var5 var6 var7 var8 var9 var11 var12 var13 var14 var15 var16 var17 var18"  >  opt_table_Err_norm
   echo "# GlobalError RegionalError var1 var2 var3 var4 var5 var6 var7 var8 var9 var11 var12 var13 var14 var15 var16 var17 var18 " >  opt_table_Err_unnorm
 fi
 
@@ -278,10 +278,10 @@ module load matlab
 # --------------------------------------------------------------------------- #
 
   echo "  echo ' '"                                                                > initial.tail
-  echo "  echo '       *****************************************************'"    >> initial.tail
-  echo "  echo '     ***  end of WAVEWATCH III initial of tests             ***'"  >> initial.tail
-  echo "  echo '       *****************************************************'"    >> initial.tail
-  echo "  echo ' '"                                                               >> initial.tail
+  echo "  echo '       *****************************************************'"     >> initial.tail
+  echo "  echo '     ***  end of WAVEWATCH III initial tests               ***'"   >> initial.tail
+  echo "  echo '       *****************************************************'"     >> initial.tail
+  echo "  echo ' '"                                                                >> initial.tail
 
 # --------------------------------------------------------------------------- #
 # 4.  Put it together and clean up                                            #
@@ -296,5 +296,5 @@ module load matlab
   echo "file initial prepared ...."
 
 # --------------------------------------------------------------------------- #
-# End to the initial                                                           #
+# End to the initial                                                          #
 # --------------------------------------------------------------------------- #

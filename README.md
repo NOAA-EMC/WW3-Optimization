@@ -1,4 +1,4 @@
-# WW3_Optimization
+# WW3-Optimization
 Physics Optimization tools
 
 ![WW3_Optimization-4](https://user-images.githubusercontent.com/37336972/129954053-71b4c4bf-0649-441a-b67e-ac97b34ff6b0.png)
@@ -7,7 +7,7 @@ Users who only need to check out the latest code or certain tags can clone the r
 `git clone git@github.com:NOAA-EMC/WW3-Optimization.git`   
 or with GitHub account   
 `git clone git@github.com:NOAA-EMC/WW3-Optimization.git`     
-`cd WW3_Optimization`      
+`cd WW3-Optimization`      
 % git checkout develop (or tags)     
 `git submodule update --init --recursive`     
 
@@ -34,7 +34,7 @@ modify _input_vars.sh_ and add the start day (_STARTDATE_), number of forecast d
 `./bin/spinup_matrix_prep`  
  to prepare spinup jobcard and submit it:          
  `sbatch spinup`   
- Once the spinup simulation is done, the restart* files at (_STARTDATE_) are written in `WW3_Optimization/tests/test<test_name>/work_spinup`.   
+ Once the spinup simulation is done, the restart* files at (_STARTDATE_) are written in `WW3-Optimization/tests/test<test_name>/work_spinup`.   
  
  ## Run initial runs (Optional)     
  In order to optimize _n_ physics parameters, the _NLOPT_LN_BOBYQA_ optimization method requires the model skill for the default and 2 perturbations around each parameter (Total of 2n+1). These _initial_ simulations can be done concurrently. 
@@ -48,7 +48,7 @@ which divides initial matrix into submatrixes, each with 3 tests.
  ## Run Optimization 
  ![WW3_Optimization-6](https://user-images.githubusercontent.com/37336972/129954078-0802f941-a420-48cc-89fd-1acbc39e3707.png)
 
- `cd WW3_Optimization/tests`     
+ `cd WW3-Optimization/tests`     
  execute   
 `./bin/opt_matrix_prep`     
 to prepare opt_matrix jobcard and submit:          

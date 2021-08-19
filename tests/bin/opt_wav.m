@@ -51,11 +51,37 @@
     % call: nlopt optimization function
     [xopt, fmin, retcode] = nlopt_optimize(opt, x)
 % stop criteria
-if fmin < opt.stopval
-    fileID = fopen('stop','w');
-    fprintf(fileID,['%s\n'], 'stop');
+if retcode ==1
+    fileID = fopen('../stop','w');
+    fprintf(fileID,['%s\n'], 'Generic success return value.');
     fclose(fileID);
 end
+if retcode ==2
+    fileID = fopen('../stop','w');
+    fprintf(fileID,['%s\n'], 'stopval was reached.');
+    fclose(fileID);
+end
+if retcode ==3
+    fileID = fopen('../stop','w');
+    fprintf(fileID,['%s\n'], 'ftol_rel or ftol_abs was reached.');
+    fclose(fileID);
+end
+if retcode ==4
+    fileID = fopen('../stop','w');
+    fprintf(fileID,['%s\n'], 'xtol_rel or xtol_abs was reached.');
+    fclose(fileID);
+end
+if retcode ==5
+    fileID = fopen('../stop','w');
+    fprintf(fileID,['%s\n'], 'maxeval was reached.');
+    fclose(fileID);
+end
+if retcode ==6
+    fileID = fopen('../stop','w');
+    fprintf(fileID,['%s\n'], 'maxtime was reached.');
+    fclose(fileID);
+end
+
 % ------------------------------------------------------------------------------
   function [fval] = f(x)
    m=dlmread('m')

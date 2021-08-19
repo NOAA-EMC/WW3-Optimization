@@ -4,19 +4,19 @@ Physics Optimization tools
 ![WW3_Optimization-4](https://user-images.githubusercontent.com/37336972/129954053-71b4c4bf-0649-441a-b67e-ac97b34ff6b0.png)
 
 Users who only need to check out the latest code or certain tags can clone the repository without having a GitHub account:   
-`git clone https://github.com/aliabdolali/WW3_Optimization.git`   
+`git clone git@github.com:NOAA-EMC/WW3-Optimization.git`   
 or with GitHub account   
-`git clone git@github.com:aliabdolali/WW3_Optimization.git`     
+`git clone git@github.com:NOAA-EMC/WW3-Optimization.git`     
 `cd WW3_Optimization`      
 % git checkout develop (or tags)     
 `git submodule update --init --recursive`     
 
 ## compile nlopt with Matlab plugin    
-`cd WW3_Optimization/tools`   
+`cd WW3-Optimization/tools`   
 `./makenlopt.sh`  
 
 ## Fill the templates and retrieve the forcings from global dump and hpss and spinup run   
-`cd WW3_Optimization/tests/test<test_name>`   
+`cd WW3-Optimization/tests/test<test_name>`   
 modify _input_vars.sh_ and add the start day (_STARTDATE_), number of forecast days (_forecast_day_) and other required parameters:   
 `STARTDATE="<YYYY-MM-DD>"`   
 `spinup_day=<NO1>`     
@@ -29,7 +29,7 @@ modify _input_vars.sh_ and add the start day (_STARTDATE_), number of forecast d
 ![WW3_Optimization-5](https://user-images.githubusercontent.com/37336972/129953939-9230166d-aa48-4657-85f4-32f0fd860468.png)
 
 
-`cd WW3_Optimization/tests`
+`cd WW3-Optimization/tests`
  execute   
 `./bin/spinup_matrix_prep`  
  to prepare spinup jobcard and submit it:          
@@ -38,7 +38,7 @@ modify _input_vars.sh_ and add the start day (_STARTDATE_), number of forecast d
  
  ## Run initial runs (Optional)     
  In order to optimize _n_ physics parameters, the _NLOPT_LN_BOBYQA_ optimization method requires the model skill for the default and 2 perturbations around each parameter (Total of 2n+1). These _initial_ simulations can be done concurrently. 
- `cd WW3_Optimization/tests`
+ `cd WW3-Optimization/tests`
  execute   
 `./bin/initial_matrix_prep`  
 The initial matrix can be divided into sub-matrixes using       
@@ -54,7 +54,7 @@ which divides initial matrix into submatrixes, each with 3 tests.
 to prepare opt_matrix jobcard and submit:          
  `sbatch opt_matrix`    
  
- `WW3_Optimization/tests/opt_table_Err_unnorm` is populated after each round of data exchange between WW3 and NLOPT, where each row starts with global and regional scores followed by _n_ input variables.      
+ `WW3-Optimization/tests/opt_table_Err_unnorm` is populated after each round of data exchange between WW3 and NLOPT, where each row starts with global and regional scores followed by _n_ input variables.      
  
  
  

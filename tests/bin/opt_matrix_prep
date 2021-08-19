@@ -245,7 +245,9 @@ cd ${HOME}
      export input_i=input_opt
      export work_i=work_opt  
 # prep the default setup
-  cp bin/default_x_norm bin/x_opt:q
+  cp bin/default_x_norm bin/x_opt
+  module load matlab
+ ( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r "try; opt_wav; catch; end; quit" ) > opt_log.out 2> opt_err.out
 
 if [ ! -f opt_table_Err_norm ] && [ ! -f opt_table_Err_unnorm ]
 then  
@@ -268,7 +270,7 @@ fi
   echo "      rm -r ${HOME}/test1_GFSv16/work_opt "                              >> opt_matrix.body
   echo "   fi"                                                                   >> opt_matrix.body
        
-
+     echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; opt_wav; catch; end; quit\" ) > opt_log.out 2> opt_err.out"  >> opt_matrix.body
      echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; opt_prep; catch; end; quit\" ) > opt_log.out 2> opt_err.out" >> opt_matrix.body
      echo "mv ${HOME}/bin/namelist ${HOME}/test1_GFSv16/input_opt/namelist.nml"                              >> opt_matrix.body
      echo "mv ${HOME}/bin/norm ${HOME}/test1_GFSv16/input_opt/norm.nml"                                      >> opt_matrix.body
@@ -276,7 +278,6 @@ fi
      echo "$rtst -w work_opt -i input_opt -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"  >> opt_matrix.body
      echo "cat test1_GFSv16/work_opt/Err_norm.nml >> opt_table_Err_norm"                                       >> opt_matrix.body
      echo "cat test1_GFSv16/work_opt/Err_unnorm.nml >> opt_table_Err_unnorm"                                   >> opt_matrix.body
-     echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; opt_wav; catch; end; quit\" ) > opt_log.out 2> opt_err.out" >> opt_matrix.body
   echo "   if [ -f "${HOME}/stop" ]"              >> opt_matrix.body
   echo "   then"                                  >> opt_matrix.body
   echo "      echo 'optimization is completed'"   >> opt_matrix.body

@@ -4,7 +4,7 @@ clc
     mat_bin_path = '../../tools/matlab_bin';
     mex_path = '../../tools/install/lib64/matlab';
     addpath(mex_path,mat_bin_path);
-x=load('x_opt')
+x=load('default_x_norm')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Ali Abdolali (EMC/NCEP/NOAA ali.abdolali@noaa.gov)                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

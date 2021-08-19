@@ -13,7 +13,7 @@ function [namelist] = write_namelist(namelist,var)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %variables
-BETAMAX=var(1); TAUWSHELTER=var(2); SWELLF=var(4);  SWELLF2=var(4);
+BETAMAX=var(1); TAUWSHELTER=var(2); SWELLF=var(3);  SWELLF2=var(4);
 SWELLF3=var(5); SWELLF4=var(6)    ; SWELLF5=var(7); SWELLF7=var(8);
 NLPROP=var(9) ; FXFM3=var(10)     ; SDSC2=var(11) ; SDSCUM=var(12);
 SDSC5=var(13) ; SDSC6=var(14)     ; SDSBR=var(15) ; SDSBCK=var(16);

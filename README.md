@@ -15,12 +15,17 @@ or with GitHub account
 `cd WW3-Optimization/tools`   
 `./makenlopt.sh`  
 
-## Fill the templates and retrieve the forcings from global dump and hpss and spinup run   
+## Fill the templates and retrieve the forcings, observations from global dump and hpss and spinup run   
 `cd WW3-Optimization/tests/test<test_name>`   
 modify _input_vars.sh_ and add the start day (_STARTDATE_), number of forecast days (_forecast_day_) and other required parameters:   
 `STARTDATE="<YYYY-MM-DD>"`   
 `spinup_day=<NO1>`     
 `forecast_day=<NO2>`   
+The observations have global coverage. Beside the model skill in the entire domain (global coverage), the regional skill can be evaluated witihin a pre-defined box in _input_vars.sh_:      
+`lat_min`      
+`lat_max`      
+`lon_min`      
+`lon_max`      
  execute   
 `./prep_spinup.sh`    
  to fill templates for WW3 fix files, forcing and observations (satellite and point source data) retrieval. This script is for model spinup for the duration of `spinup_day` before `STARTDATE` and continues for `forecast_day`. The filled WW3 input templates are then added to `input_spinup`.    

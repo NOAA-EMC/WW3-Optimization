@@ -5,7 +5,9 @@ clc
     mex_path = '../../tools/install/lib64/matlab';
     addpath(mex_path,mat_bin_path);
 x=load('x_opt')
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ali Abdolali (EMC/NCEP/NOAA ali.abdolali@noaa.gov)                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ------------------------------------------------------------------------------
 % constants
     xn   = 17;       % num optimization params, x

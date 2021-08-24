@@ -168,6 +168,8 @@ var(3,:)=[SWELLF SWELLFmin SWELLFmax];
 % WDTHTHmax=5.5;
 % var(24,:)=[WDTHTH WDTHTHmin WDTHTHmax];
 % ------------------------------------------------------------------------------
+clear var_unnorm
+clear var_norm
  for i=1:length(var(:,1))
    [var_unnorm(i,1)] =  unnormalize(var(i,2),var(i,3),0.0,1.0,var(i,1));
  end
@@ -178,7 +180,7 @@ var(3,:)=[SWELLF SWELLFmin SWELLFmax];
 
 namelist=['namelist_',num2str(j)];
 write_namelist(namelist,var_unnorm)
-
+dlmwrite(['norm_',num2str(j)],rot90(var_norm),'delimiter',' ','precision',8);
 dlmwrite(['unnorm_',num2str(j)],rot90(var_unnorm),'delimiter',' ','precision',8);
 
 end

@@ -2,7 +2,7 @@
 
 export TEST_DIR="${PWD%/*}"
 export FORCING_DIR="${TEST_DIR}/forcing"
-input_i=input_1
+input_i=input_opt
 #cd $FORCING_PATH
 
 #-----------------------------------------------------------------------------------#
@@ -15,11 +15,13 @@ input_i=input_1
   echo ' ' 
 
 
-file_rmp=`( ls ${FIXwave}rmp_src_to_dst_conserv* )`
-cp ${FIXwave}rmp_src_to_dst_conserv* ${TEST_DIR}/${input_i}
+file_rmp=`( ls ${FIXwave1}rmp_src_to_dst_conserv* )`
+cp ${FIXwave1}rmp_src_to_dst_conserv* ${TEST_DIR}/${input_i}
   echo "$file_rmp"
-cp ${FIXwave}WHTGRIDINT.bin.glo_15mxt ${TEST_DIR}/${input_i}/WHTGRIDINT.bin
+cp ${FIXwave1}WHTGRIDINT.bin.glo_15mxt ${TEST_DIR}/${input_i}/WHTGRIDINT.bin
   echo "WHTGRIDINT.bin.glo_15mxt"
+cp ${FIXwave1}namelist.nml ${TEST_DIR}/${input_i}/
+  echo "namelist.nml"
 cp ${FIXwave}ww3_grid.inp.glo_15mxt ${TEST_DIR}/${input_i}/ww3_grid_glo_15mxt.inp
   echo "ww3_grid_glo_15mxt.inp"
 cp ${FIXwave}ww3_grid.inp.points ${TEST_DIR}/${input_i}/ww3_grid_points.inp

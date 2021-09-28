@@ -38,7 +38,7 @@ set +x
   if [ $ishera ]
   then
     # If no other h, assuming Hera 
-    cmplr='hera.intel'
+    cmplr='intel'
     batchq='slurm'
     hpcstackpath='/scratch2/NCEPDEV/nwprod/hpc-stack/libs/hpc-stack/modulefiles/stack'
     hpcstackversion='hpc/1.1.0'
@@ -140,7 +140,7 @@ cd ${HOME}
     echo "#SBATCH -n ${np}"                                 >> opt_matrix.head
     echo "#SBATCH --cpus-per-task=${nth}"                   >> opt_matrix.head
     echo '#SBATCH -q batch'                                 >> opt_matrix.head
-    echo '#SBATCH -t 02:00:00'                              >> opt_matrix.head
+    echo '#SBATCH -t 03:00:00'                              >> opt_matrix.head
     echo '#SBATCH -A marine-cpu'                            >> opt_matrix.head
     echo '#SBATCH -J ww3_optimization'                      >> opt_matrix.head
     echo '#SBATCH -o opt_matrix.out'                        >> opt_matrix.head
@@ -150,7 +150,7 @@ cd ${HOME}
     echo "#SBATCH -n ${np}"                                 >> opt_matrix.head
     echo "#SBATCH --cpus-per-task=${nth}"                   >> opt_matrix.head
     echo '#SBATCH -q batch'                                 >> opt_matrix.head
-    echo '#SBATCH -t 02:00:00'                              >> opt_matrix.head
+    echo '#SBATCH -t 03:00:00'                              >> opt_matrix.head
     echo '#SBATCH -A marine-cpu'                            >> opt_matrix.head
     echo '#SBATCH -J ww3_optimization'                      >> opt_matrix.head
     echo '#SBATCH -o opt_matrix.out'                        >> opt_matrix.head
@@ -169,29 +169,32 @@ cd ${HOME}
 
 # Netcdf and Parmetis modules & variables
   echo "  module purge"                                     >> opt_matrix.head
-  echo "  module use $hpcstackpath"                         >> opt_matrix.head
-  echo "  module load $hpcstackversion"                     >> opt_matrix.head
-  echo "  module load $modcomp"                             >> opt_matrix.head
-  echo "  module load $modmpi"                              >> opt_matrix.head
-  echo "  module load $modnetcdf"                           >> opt_matrix.head
-  echo "  module load $modjasper"                           >> opt_matrix.head
-  echo "  module load $modzlib"                             >> opt_matrix.head
-  echo "  module load $modpng"                              >> opt_matrix.head
-  echo "  module load $modhdf5"                             >> opt_matrix.head
-  echo "  module load $modbacio"                            >> opt_matrix.head
-  echo "  module load $modg2"                               >> opt_matrix.head
-  echo "  module load $modw3nco"                            >> opt_matrix.head
-  echo "  module load $modesmf"                             >> opt_matrix.head
+  echo "  module load intel impi netcdf"                    >> opt_matrix.head
+#  echo "  module use $hpcstackpath"                         >> opt_matrix.head
+#  echo "  module load $hpcstackversion"                     >> opt_matrix.head
+#  echo "  module load $modcomp"                             >> opt_matrix.head
+#  echo "  module load $modmpi"                              >> opt_matrix.head
+#  echo "  module load $modnetcdf"                           >> opt_matrix.head
+#  echo "  module load $modjasper"                           >> opt_matrix.head
+#  echo "  module load $modzlib"                             >> opt_matrix.head
+#  echo "  module load $modpng"                              >> opt_matrix.head
+#  echo "  module load $modhdf5"                             >> opt_matrix.head
+#  echo "  module load $modbacio"                            >> opt_matrix.head
+#  echo "  module load $modg2"                               >> opt_matrix.head
+#  echo "  module load $modw3nco"                            >> opt_matrix.head
+#  echo "  module load $modesmf"                             >> opt_matrix.head
   echo "  module load matlab"                               >> opt_matrix.head
   echo "  export WWATCH3_NETCDF=NC4"                        >> opt_matrix.head
-  echo '  export NETCDF_CONFIG=$NETCDF_ROOT/bin/nc-config'  >> opt_matrix.head
-  echo "  export METIS_PATH=${metispath}"                   >> opt_matrix.head
-  echo '  export JASPER_LIB=$JASPER_ROOT/lib64/libjasper.a' >> opt_matrix.head
-  echo '  export PNG_LIB=$PNG_ROOT/lib64/libpng.a'          >> opt_matrix.head
-  echo '  export Z_LIB=$ZLIB_ROOT/lib/libz.a'               >> opt_matrix.head
-  echo '  export ESMFMKFILE=$ESMF_LIB/esmf.mk'              >> opt_matrix.head
+  echo "  export NETCDF_CONFIG=/apps/netcdf/4.6.1/intel/16.1.150/bin/nc-config" >> opt_matrix.head
+#  echo '  export NETCDF_CONFIG=$NETCDF_ROOT/bin/nc-config'  >> opt_matrix.head
+#  echo "  export METIS_PATH=${metispath}"                   >> opt_matrix.head
+#  echo '  export JASPER_LIB=$JASPER_ROOT/lib64/libjasper.a' >> opt_matrix.head
+#  echo '  export PNG_LIB=$PNG_ROOT/lib64/libpng.a'          >> opt_matrix.head
+#  echo '  export Z_LIB=$ZLIB_ROOT/lib/libz.a'               >> opt_matrix.head
+#  echo '  export ESMFMKFILE=$ESMF_LIB/esmf.mk'              >> opt_matrix.head
   echo "  export WW3_PARCOMPN=4"                            >> opt_matrix.head
   echo ' ' 
+
 
   if [ "$batchq" = 'slurm' ]
   then
@@ -286,6 +289,7 @@ fi
   echo "   fi"                                    >> opt_matrix.body
      echo "input_opt is prepared"
   
+
 
 # --------------------------------------------------------------------------- #
 # 3.  End of script output                                                    #

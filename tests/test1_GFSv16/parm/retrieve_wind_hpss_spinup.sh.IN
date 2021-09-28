@@ -52,6 +52,8 @@ npp=2
   lev[1]=':10 m above ground:'
   lev[2]=':10 m above ground:'
 #-----------------------------------------------------------------------------------#
+while [[ $d -le $end ]]
+do
 date -d @$d '+%Y-%m-%d %2H'
     YY=$(date -d @$d '+%Y')
     MM=$(date -d @$d '+%m')
@@ -60,39 +62,55 @@ date -d @$d '+%Y-%m-%d %2H'
 #-----------------------------------------------------------------------------------#
   FILEWAVE=(/NCEPPROD/hpssprod/runhistory/rh$YY/$YY$MM/$YY$MM$DD/com_gfs_prod_gfs.${YY}${MM}${DD}_${HH}.gfs_pgrb2.tar)
   atmosDIR=./gfs.$YY$MM$DD/${HH}
-  atmos=${atmosDIR}/gfs.t${HH}z.pgrb2.0p25.f
-  unset grib_list
-  for i in `seq 0 1 384`; do
-     grib_list="$grib_list $atmos$(printf %03d $i)"
-  done
-  echo $grib_list
+  atmos=${atmosDIR}/gfs.t${HH}z.pgrb2.0p25.f00
     if [ ! -d ${atmosDIR} ]
     then
-      htar -xvf $FILEWAVE $grib_list
+      htar -xvf $FILEWAVE ${atmos}0 ${atmos}1 ${atmos}2 ${atmos}3 ${atmos}4 ${atmos}5
     fi
 #-----------------------------------------------------------------------------------#
 # convert grib2 to netcdf
 rm ${atmosDIR}/*nc
-unset nc_file_list
 grib2_list=`( ls ${atmosDIR}/ )`
-#echo $grib2_list
-  for file in $grib2_list
+echo $grib2_list
+for file in $grib2_list
   do
-      wgrib2 ${atmosDIR}/$file -s | egrep '(UGRD:10 m above ground:|VGRD:10 m above ground:)' | wgrib2 -i ${atmosDIR}/$file -grib ${atmosDIR}/tmp.$file
-      wgrib2 ${atmosDIR}/tmp.$file -netcdf ${atmosDIR}/$file.nc -nc4
-      nc_file_list="$nc_file_list ${atmosDIR}/$file.nc"
-      rm ${atmosDIR}/tmp.$file
-      echo $file
-  done
+    count=0
+    while (( count < $npp ))
+    do
+      (( count = count + 1 ))
+       wgrib2 ${atmosDIR}/$file -s | grep "${varname[count]}${lev[count]}" | wgrib2 -i ${atmosDIR}/$file -netcdf ${atmosDIR}/$file.${varname[count]}.nc -nc4
+       echo $count       
+          ncks -A ${atmosDIR}/$file.${varname[count]}.nc ${atmosDIR}/$file.nc
+       rm  ${atmosDIR}/$file.${varname[count]}.nc
+    done
 
-echo $nc_file_list
-
+echo $file
+done
 #-----------------------------------------------------------------------------------#
+#check the netcdf files
+unset nc_file_list
+for i in `seq 0 1 5`; do
+  if [ -f ${atmos}${i}.nc ];then
+     nc_file_list="$nc_file_list ${atmos}${i}.nc"
+  else
+     echo "${atmos}${i}.nc does not exist"
+  fi
+done
+if [ $d == $start ]; then
 #Append netcdf files
-ncrcat -h $nc_file_list gfs_wnd.nc
+ncrcat -h $nc_file_list gfs_wnd_spinup.nc
+else
+mv gfs_wnd_spinup.nc gfs_wnd_spinup_tmp.nc
+ncrcat -h  gfs_wnd_spinup_tmp.nc $nc_file_list gfs_wnd_spinup.nc
+fi
+
+    d=$(( $d + 21600 ))
+done
+
+rm *tmp gfs_wnd_spinup_tmp.nc 
 
 echo '       *****************************************************************' 
-  echo "gfs_wnd.nc prepared"
+  echo "gfs_wnd_spinup.nc prepared"
   echo ' '                                                                 
   echo '       *****************************************************************'     
   echo "     ***                            done                               ***"

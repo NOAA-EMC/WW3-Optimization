@@ -142,13 +142,24 @@ function edit_ww3_ounp {
 
 function edit_forcing {
 
-  SDATEATM="${SPYEAR}-${SPMONTH}-${SPDAY}"
+  SDATEATM="${SYEAR}-${SMONTH}-${SDAY}"
   EDATEATM="${EYEAR}-${EMONTH}-${EDAY}"
   sed  -e "s/FRC_BEG/$SDATEATM/g" \
        -e "s/FRC_END/$EDATEATM/g" \
        -e "s/inputdir/${input_i}/g" \
        -e "s/FORCING_T/${FORCING_GFS}/g" 
 }
+
+function edit_forcing_spinup {
+
+  SDATEATM="${SPYEAR}-${SPMONTH}-${SPDAY}"
+  EDATEATM="${SYEAR}-${SMONTH}-${SDAY}"
+  sed  -e "s/FRC_BEG/$SDATEATM/g" \
+       -e "s/FRC_END/$EDATEATM/g" \
+       -e "s/inputdir/${input_i}/g" \
+       -e "s/FORCING_T/${FORCING_GFS}/g"
+}
+
 
 function edit_obs {
 

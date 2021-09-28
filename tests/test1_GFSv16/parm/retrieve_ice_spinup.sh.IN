@@ -18,7 +18,7 @@ source ${BIN_DIR}/loadmodules.sh
 STARTDATE="FRC_BEG"
 ENDDATE="FRC_END"
 start=$(date -d $STARTDATE +%s)
-end=$(date -d $ENDDATE +%s)
+end0=$(date -d $ENDDATE +%s)
 
 #-----------------------------------------------------------------------------------#
 #                                        ICE (Daily)                                #
@@ -33,9 +33,11 @@ end=$(date -d $ENDDATE +%s)
 
 
 d="$start"
-d=$(( $d + 86400 ))
-echo "start date: $(date -d @$start '+%Y-%m-%d %2H')"
-echo "end date: $(date -d @$end '+%Y-%m-%d %2H')"
+end=$(( $end0 + 86400 ))
+echo "start date: $(date -d @$start0 '+%Y-%m-%d %2H')"
+echo "end date: $(date -d @$end0 '+%Y-%m-%d %2H')"
+while [[ $d -le $end ]]
+do
     date -d @$d '+%Y-%m-%d %2H'
     YY=$(date -d @$d '+%Y')
     MM=$(date -d @$d '+%m')
@@ -53,12 +55,21 @@ ncpdq -h -O -a -lat seaice_$YY$MM$DD${HH}_5min.blend1.nc seaice_$YY$MM$DD${HH}_5
 mv seaice_$YY$MM$DD${HH}_5min.blend2.nc seaice_$YY$MM$DD${HH}_5min.blend1.nc
 ncatted -O -a _FillValue,var91,o,f,-32766 seaice_$YY$MM$DD${HH}_5min.blend1.nc
 #-----------------------------------------------------------------------------------#
-    cp seaice_$YY$MM$DD${HH}_5min.blend1.nc ice.nc
+#put all time steps together
+ if [ $d == $start ]; then
+    cp seaice_$YY$MM$DD${HH}_5min.blend1.nc ice_spinup.nc
+ else
+   mv ice_spinup.nc ice_spinup_tmp.nc
+   ncrcat -h ice_spinup_tmp.nc seaice_$YY$MM$DD${HH}_5min.blend1.nc ice_spinup.nc
+ fi
 #-----------------------------------------------------------------------------------#
 # Cleanup
 rm -f seaice_$YY$MM$DD${HH}_5min.blend.nc seaice_$YY$MM$DD${HH}_5min.blend.grb seaice_$YY$MM$DD${HH}_5min.blend1.nc seaice_$YY$MM$DD${HH}_5min.blend1.grb wgrib.out
+ d=$(( $d + 86400 ))
+done
+rm ice_spinup_tmp.nc
   echo '       *****************************************************************' 
-  echo "ice.nc prepared"
+  echo "ice_spinup.nc prepared"
   echo ' '                                                                 
   echo '       *****************************************************************'     
   echo "     ***                            done                               ***"

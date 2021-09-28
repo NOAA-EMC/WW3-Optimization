@@ -32,14 +32,17 @@
     ub = ones(xn,1);
 % ------------------------------------------------------------------------------
 % opt: nlopt structure
-    opt.algorithm     = NLOPT_LN_BOBYQA;
+% global:
+%    opt.algorithm     = NLOPT_LN_BOBYQA;
+% local: 
+    opt.algorithm     = NLOPT_GN_ESCH;
     opt.lower_bounds  = lb;
     opt.upper_bounds  = ub;
     opt.min_objective = @f;
-    opt.xtol_abs      = ones(xn,1) * 10e-3;
-    opt.xtol_rel      = 10e-3;
-    opt.ftol_abs      = 10e-3;
-    opt.ftol_rel      = 10e-3;
+    opt.xtol_abs      = ones(xn,1) * 10e-4;
+    opt.xtol_rel      = 10e-4;
+    opt.ftol_abs      = 10e-4;
+    opt.ftol_rel      = 10e-4;
     opt.stopval       = 0; %acceptable BIAS
     opt.verbose       = 1;
     opt.maxeval       = 200;
@@ -111,6 +114,7 @@ end
       for r=1:num_recs
           curr_rec = RECS(r,3:num_params+2);
           if abs(curr_rec-new_rec) <= tol
+% #1 for global and #2 for regional
               fval_match = RECS(r,2);
           end
       end

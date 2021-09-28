@@ -41,7 +41,12 @@ echo -e "\e[34mww3_grid.inp files are filled\e[0m"
 cp ${TEST_DIR}/parm/switch ${TEST_DIR}/${input_i}
 echo -"\e[34mswitch is coppied\e[0m"
 #-----------------------------------------------------------------------------------#
-#forcing
+#forcing 
+#spinup
+edit_forcing_spinup < ${TEST_DIR}/parm/retrieve_wind_hpss_spinup.sh.IN > ${FORCING_DIR}/retrieve_wind_hpss_spinup.sh
+edit_forcing_spinup < ${TEST_DIR}/parm/retrieve_ice_spinup.sh.IN > ${FORCING_DIR}/retrieve_ice_spinup.sh
+edit_forcing_spinup < ${TEST_DIR}/parm/retrieve_cur_spinup.sh.IN > ${FORCING_DIR}/retrieve_cur_spinup.sh
+#forecast
 edit_forcing < ${TEST_DIR}/parm/retrieve_wind_hpss.sh.IN > ${FORCING_DIR}/retrieve_wind_hpss.sh
 edit_forcing < ${TEST_DIR}/parm/retrieve_ice.sh.IN > ${FORCING_DIR}/retrieve_ice.sh
 edit_forcing < ${TEST_DIR}/parm/retrieve_cur.sh.IN > ${FORCING_DIR}/retrieve_cur.sh
@@ -64,6 +69,15 @@ echo -e "\e[34mBuoy obs templates is filled\e[0m"
 #-----------------------------------------------------------------------------------#
 cd ${FORCING_DIR}
     echo -e "\e[36mForcing Retrieval ...\e[0m"
+# spinup
+    if [ -f rtofs_current_spinup.nc ]
+    then
+       echo -e "\e[34mrtofs_current_spinup.nc exists\e[0m"
+   else
+       bash retrieve_cur_spinup.sh               
+       echo -e "\e[31mcurrent (spinup) file is retrieved\e[0m"
+   fi
+# forecast
     if [ -f rtofs_current.nc ]
     then
        echo -e "\e[34mrtofs._current.nc exists\e[0m"
@@ -72,6 +86,15 @@ cd ${FORCING_DIR}
        echo -e "\e[31mcurrent file is retrieved\e[0m"
    fi
 #-----------------------------------------------------------------------------------#
+# spinup
+    if [ -f ice_spinup.nc ]
+    then
+       echo -e "\e[34mice_spinup.nc exists\e[0m"
+    else
+       bash retrieve_ice_spinup.sh
+       echo -e "\e[31mice file (spinup) is retrieved\e[0m"
+   fi
+# forecast
     if [ -f ice.nc ]
     then
        echo -e "\e[34mice.nc exists\e[0m"
@@ -80,6 +103,15 @@ cd ${FORCING_DIR}
        echo -e "\e[31mice file is retrieved\e[0m"
    fi
 #-----------------------------------------------------------------------------------#
+# spinup
+    if [ -f gfs_wnd_spinup.nc ]
+    then
+      echo -e "\e[34mgfs_wnd_spinup.nc exists\e[0m"        
+    else
+      bash retrieve_wind_hpss_spinup.sh
+      echo -e "\e[31mwind file (spinup) is retrieved\e[0m"     
+    fi
+# forecast
     if [ -f gfs_wnd.nc ]
     then
       echo -e "\e[34mgfs_wnd.nc exists\e[0m"        

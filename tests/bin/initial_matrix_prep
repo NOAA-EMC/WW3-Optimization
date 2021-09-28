@@ -38,7 +38,7 @@ set +x
   if [ $ishera ]
   then
     # If no other h, assuming Hera 
-    cmplr='hera.intel'
+    cmplr='intel'
     batchq='slurm'
     hpcstackpath='/scratch2/NCEPDEV/nwprod/hpc-stack/libs/hpc-stack/modulefiles/stack'
     hpcstackversion='hpc/1.1.0'
@@ -169,27 +169,29 @@ cd ${HOME}
 
 # Netcdf and Parmetis modules & variables
   echo "  module purge"                                     >> initial.head
-  echo "  module use $hpcstackpath"                         >> initial.head
-  echo "  module load $hpcstackversion"                     >> initial.head
-  echo "  module load $modcomp"                             >> initial.head
-  echo "  module load $modmpi"                              >> initial.head
-  echo "  module load $modnetcdf"                           >> initial.head
-  echo "  module load $modjasper"                           >> initial.head
-  echo "  module load $modzlib"                             >> initial.head
-  echo "  module load $modpng"                              >> initial.head
-  echo "  module load $modhdf5"                             >> initial.head
-  echo "  module load $modbacio"                            >> initial.head
-  echo "  module load $modg2"                               >> initial.head
-  echo "  module load $modw3nco"                            >> initial.head
-  echo "  module load $modesmf"                             >> initial.head
+  echo "  module load intel impi netcdf"                    >> initial.head
+#  echo "  module use $hpcstackpath"                         >> initial.head
+#  echo "  module load $hpcstackversion"                     >> initial.head
+#  echo "  module load $modcomp"                             >> initial.head
+#  echo "  module load $modmpi"                              >> initial.head
+#  echo "  module load $modnetcdf"                           >> initial.head
+#  echo "  module load $modjasper"                           >> initial.head
+#  echo "  module load $modzlib"                             >> initial.head
+#  echo "  module load $modpng"                              >> initial.head
+#  echo "  module load $modhdf5"                             >> initial.head
+#  echo "  module load $modbacio"                            >> initial.head
+#  echo "  module load $modg2"                               >> initial.head
+#  echo "  module load $modw3nco"                            >> initial.head
+#  echo "  module load $modesmf"                             >> initial.head
   echo "  module load matlab"                               >> initial.head
   echo "  export WWATCH3_NETCDF=NC4"                        >> initial.head
-  echo '  export NETCDF_CONFIG=$NETCDF_ROOT/bin/nc-config'  >> initial.head
-  echo "  export METIS_PATH=${metispath}"                   >> initial.head
-  echo '  export JASPER_LIB=$JASPER_ROOT/lib64/libjasper.a' >> initial.head
-  echo '  export PNG_LIB=$PNG_ROOT/lib64/libpng.a'          >> initial.head
-  echo '  export Z_LIB=$ZLIB_ROOT/lib/libz.a'               >> initial.head
-  echo '  export ESMFMKFILE=$ESMF_LIB/esmf.mk'              >> initial.head
+  echo "  export NETCDF_CONFIG=/apps/netcdf/4.6.1/intel/16.1.150/bin/nc-config" >> initial.head
+#  echo '  export NETCDF_CONFIG=$NETCDF_ROOT/bin/nc-config'  >> initial.head
+#  echo "  export METIS_PATH=${metispath}"                   >> initial.head
+#  echo '  export JASPER_LIB=$JASPER_ROOT/lib64/libjasper.a' >> initial.head
+#  echo '  export PNG_LIB=$PNG_ROOT/lib64/libpng.a'          >> initial.head
+#  echo '  export Z_LIB=$ZLIB_ROOT/lib/libz.a'               >> initial.head
+#  echo '  export ESMFMKFILE=$ESMF_LIB/esmf.mk'              >> initial.head
   echo "  export WW3_PARCOMPN=4"                            >> initial.head
   echo ' ' 
 

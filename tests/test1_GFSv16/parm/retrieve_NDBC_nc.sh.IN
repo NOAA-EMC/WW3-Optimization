@@ -1,0 +1,78 @@
+#!/bin/bash
+
+
+
+STARTDATE="FRC_BEG"
+
+start=$(date -d $STARTDATE +%s)
+date -d @$start '+%Y-%m-%d %2H'
+YYYY=$(date -d @$d '+%Y')
+
+  echo ' '
+  echo '       *****************************************************************'
+  echo "      ***           NDBC Spectral Wave Density data Prep               ***"
+  echo '       *****************************************************************'
+  echo ' '
+
+  cp ../../../tools/obs_retrieval/ndbc_swden.dat ./
+  LIST=ndbc_swden.dat
+
+while IFS= read -r line
+do
+
+myURL="https://dods.ndbc.noaa.gov/thredds/fileServer/data/swden/${line}/${line}w${YYYY}.nc"
+
+ if [ ! -f ${line}w${YYYY}.nc ]
+ then
+       wget -O/dev/null -q ${myURL} && wget -c ${myURL} || echo ${myURL} not exist
+       echo "$line is retrieved"
+ else
+   echo -e "\e[34m${line}w${YYYY}.nc exists\e[0m"
+ fi
+done < "$LIST"
+
+
+  echo '       *****************************************************************'
+  echo -e "\e[36mNDBC Spectral Wave Density data files are retrieved\e[0m"
+  echo ' '
+  echo '       *****************************************************************'
+  echo "     ***                            done                               ***"
+  echo '       *****************************************************************'
+  echo ' '
+
+
+
+
+  cp ../../../tools/obs_retrieval/ndbc_stdmet.dat ./
+  LIST=ndbc_stdmet.dat
+
+
+  echo ' '
+  echo '       *****************************************************************'
+  echo "      ***           NDBC Standard Meteorological data Prep             ***"
+  echo '       *****************************************************************'
+  echo ' '
+
+
+while IFS= read -r line
+do
+
+myURL="https://dods.ndbc.noaa.gov/thredds/fileServer/data/swden/${line}/${line}h${YYYY}.nc"
+ if [ ! -f ${line}w${YYYY}.nc ]
+ then
+       wget -O/dev/null -q ${myURL} && wget -c ${myURL} || echo ${myURL} not exist
+ else
+   echo -e "\e[34m${line}w${YYYY}.nc exists\e[0m"
+ fi
+done < "$LIST"
+
+
+  echo '       *****************************************************************'
+  echo -e "\e[36mNDBC Standard Meteorological data files are retrieved\e[0m"
+  echo ' '
+  echo '       *****************************************************************'
+  echo "     ***                            done                               ***"
+  echo '       *****************************************************************'
+  echo ' '
+
+

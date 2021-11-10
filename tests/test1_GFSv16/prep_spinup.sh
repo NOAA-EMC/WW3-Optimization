@@ -64,6 +64,8 @@ edit_obs < ${TEST_DIR}/parm/retrieve_sat_alt.sh.IN > ${TEST_DIR}/obs/retrieve_sa
 echo -e "\e[34mSatellite obs templates is filled\e[0m"
 edit_obs < ${TEST_DIR}/parm/retrieve_buoy.sh.IN > ${TEST_DIR}/obs/retrieve_buoy.sh
 echo -e "\e[34mBuoy obs templates is filled\e[0m"
+edit_obs < ${TEST_DIR}/parm/retrieve_NDBC_nc.sh.IN > ${TEST_DIR}/obs/retrieve_NDBC_nc.sh
+echo -e "\e[34mNDBC obs templates is filled\e[0m"
 #-----------------------------------------------------------------------------------#
 #                     2- Forcing Retrieval                                          #
 #-----------------------------------------------------------------------------------#
@@ -143,6 +145,13 @@ cd ${TEST_DIR}/obs
 
 #-----------------------------------------------------------------------------------#
 # buoy
+# NDBC (individual)
+
+ bash retrieve_NDBC_nc.sh
+ echo -e "\e[31mNDBC files are downloaded\e[0m"
+
+# combined NDBC stdmet data
+
    if [ -f BUOY.nc ]
    then
        echo -e "\e[34mBUOY.nc file exists\e[0m"

@@ -270,14 +270,30 @@ fi
 
   echo "   if [ -d "${HOME}/test1_GFSv16/work_opt" ] "                           >> opt_matrix.body
   echo "   then "                                                                >> opt_matrix.body
-  echo "      rm -r ${HOME}/test1_GFSv16/work_opt "                              >> opt_matrix.body
+  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/out* "                         >> opt_matrix.body
+  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/restart* "                     >> opt_matrix.body
+  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/wind.* "                       >> opt_matrix.body
+  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/ice.* "                        >> opt_matrix.body
+  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/currenti.* "                   >> opt_matrix.body
+  echo "      i=0 "                                                              >> opt_matrix.body
+  echo "      while [ -d "${HOME}/test1_GFSv16/work_opt_$i" ] "                  >> opt_matrix.body
+  echo "      do "                                                               >> opt_matrix.body
+  echo "        i=$(( i + 1 )) "                                                 >> opt_matrix.body     
+  echo "      done "                                                             >> opt_matrix.body
+  echo "      mv ${HOME}/test1_GFSv16/work_opt ${HOME}/test1_GFSv16/work_opt_$i" >> opt_matrix.body
   echo "   fi"                                                                   >> opt_matrix.body
        
      echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; opt_wav; catch; end; quit\" ) > opt_log.out 2> opt_err.out"  >> opt_matrix.body
      echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; opt_prep; catch; end; quit\" ) > opt_log.out 2> opt_err.out" >> opt_matrix.body
-     echo "mv ${HOME}/bin/namelist ${HOME}/test1_GFSv16/input_opt/namelist.nml"                                                   >> opt_matrix.body
-     echo "mv ${HOME}/bin/norm ${HOME}/test1_GFSv16/input_opt/norm.nml"                                                           >> opt_matrix.body
-     echo "mv ${HOME}/bin/unnorm ${HOME}/test1_GFSv16/input_opt/unnorm.nml"                                                       >> opt_matrix.body
+     echo "mv ${HOME}/bin/namelist_gnh ${HOME}/test1_GFSv16/input_opt/namelist_gnh.nml"                                                   >> opt_matrix.body
+     echo "mv ${HOME}/bin/namelist_gsh ${HOME}/test1_GFSv16/input_opt/namelist_gsh.nml"                                                   >> opt_matrix.body
+     echo "mv ${HOME}/bin/namelist_aoc ${HOME}/test1_GFSv16/input_opt/namelist_aoc.nml"                                                   >> opt_matrix.body
+     echo "mv ${HOME}/bin/norm_gnh ${HOME}/test1_GFSv16/input_opt/norm_gnh.nml"                                                           >> opt_matrix.body
+     echo "mv ${HOME}/bin/norm_gsh ${HOME}/test1_GFSv16/input_opt/norm_gsh.nml"                                                           >> opt_matrix.body
+     echo "mv ${HOME}/bin/norm_aoc ${HOME}/test1_GFSv16/input_opt/norm_aoc.nml"                                                           >> opt_matrix.body
+     echo "mv ${HOME}/bin/unnorm_gnh ${HOME}/test1_GFSv16/input_opt/unnorm_gnh.nml"                                                       >> opt_matrix.body
+     echo "mv ${HOME}/bin/unnorm_gsh ${HOME}/test1_GFSv16/input_opt/unnorm_gsh.nml"                                                       >> opt_matrix.body
+     echo "mv ${HOME}/bin/unnorm_aoc ${HOME}/test1_GFSv16/input_opt/unnorm_aoc.nml"                                                       >> opt_matrix.body
      echo "$rtst -w work_opt -i input_opt -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"                     >> opt_matrix.body
      echo "cat test1_GFSv16/work_opt/Err_norm.nml >> opt_table_Err_norm"                                                          >> opt_matrix.body
      echo "cat test1_GFSv16/work_opt/Err_unnorm.nml >> opt_table_Err_unnorm"                                                      >> opt_matrix.body

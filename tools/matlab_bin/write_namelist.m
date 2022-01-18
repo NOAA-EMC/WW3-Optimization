@@ -18,7 +18,7 @@ SWELLF3=var(5); SWELLF4=var(6)    ; SWELLF5=var(7); SWELLF7=var(8);
 NLPROP=var(9) ; FXFM3=var(10)     ; SDSC2=var(11) ; SDSCUM=var(12);
 SDSC5=var(13) ; SDSC6=var(14)     ; SDSBR=var(15) ; SDSBCK=var(16);
 SDSHCK=var(17); SDSCOS=var(18)    ; CICE0=var(19) ; CICEN=var(20) ;
-FLAGTR=var(21); GAMMA=var(22);
+FLAGTR=var(21); GAMMA=var(22)     ; WDTHCG=var(23); WDTHTH=var(24);   
 
 %write namelist
 fileID = fopen(namelist,'w');
@@ -48,9 +48,9 @@ fprintf(fileID,['%s %2.2f%s\n'], 'CICEN = ',CICEN,',');
 fprintf(fileID,['%s %d %s\n'], 'FLAGTR= ',FLAGTR,'/');
 fprintf(fileID,['%s\n'], '&SBT1');
 fprintf(fileID,['%s %2.3f %s\n'], 'GAMMA= ',GAMMA,'/');
-%fprintf(fileID,['%s\n'], '&PRO3');
-%fprintf(fileID,['%s %2.2f%s\n'], 'WDTHCG',WDTHCG,',');
-%fprintf(fileID,['%s %2.2f %s\n'], 'WDTHTH',WDTHTH,'/');
+fprintf(fileID,['%s\n'], '&PRO3');
+fprintf(fileID,['%s %2.2f%s\n'], 'WDTHCG=',WDTHCG,',');
+fprintf(fileID,['%s %2.2f %s\n'], 'WDTHTH=',WDTHTH,'/');
 %fprintf(fileID,['%s\n'], 'END OF NAMELISTS');
 fclose(fileID);
 

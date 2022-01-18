@@ -51,17 +51,19 @@ export WINDPRNCLINE="'WND' 'LL' T T"
 export WINDDIMLINE="longitude latitude time"
 export WINDVARLINE="UGRD_10maboveground VGRD_10maboveground"
 export WINDFRCFILE="gfs_wnd.nc"
+export WINDFRCFILE_SP="gfs_wnd_spinup.nc"
 
 export ICEPRNCLINE="'ICE' 'LL' T T"
 export ICEDIMLINE="lon lat time"
 export ICEVARLINE="var91"
 export ICEFRCFILE="ice.nc"
+export ICEFRCFILE_SP="ice_spinup.nc"
 
 export CURPRNCLINE="'CUR' 'LL' T T"
 export CURDIMLINE="lon lat time"
 export CURVARLINE="u_velocity v_velocity"
 export CURFRCFILE="rtofs_current.nc"
-
+export CURFRCFILE_SP="rtofs_current_spinup.nc"
 #waves
 #restsrt interval (hr)
 export WW3RSTDTHR='0'

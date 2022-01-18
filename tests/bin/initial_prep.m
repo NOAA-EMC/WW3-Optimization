@@ -158,15 +158,18 @@ var(3,:)=[SWELLF SWELLFmin SWELLFmax];
  GAMMAmax = -0.038;
  var(22,:)=[GAMMA GAMMAmin GAMMAmax];
 %(23)---------------------------------------------------------------------------
-% WDTHCG=5.5;
-% WDTHCGmin=5.5;
-% WDTHCGmax=5.5;
-% var(23,:)=[WDTHCG WDTHCGmin WDTHCGmax];
+%GSE (GNH:5.5 GSH:4.0 AOC:3.0)
+ GSE=[5.5 4.0 3.0];
+for gse=1:3
+ WDTHCG=nan;
+ WDTHCGmin=GSE(gse);
+ WDTHCGmax=GSE(gse);
+ var(23,:)=[WDTHCG WDTHCGmin WDTHCGmax];
 %(24)---------------------------------------------------------------------------
-% WDTHTH=5.5;
-% WDTHTHmin=5.5;
-% WDTHTHmax=5.5;
-% var(24,:)=[WDTHTH WDTHTHmin WDTHTHmax];
+ WDTHTH=nan;
+ WDTHTHmin=GSE(gse);
+ WDTHTHmax=GSE(gse);
+ var(24,:)=[WDTHTH WDTHTHmin WDTHTHmax];
 % ------------------------------------------------------------------------------
 clear var_unnorm
 clear var_norm
@@ -177,12 +180,20 @@ clear var_norm
  for i=1:length(var(:,1))
    [var_norm(i,1)] = normalize(var(i,2),var(i,3),0.0,1.0,var_unnorm(i,1));
  end
-
-namelist=['namelist_',num2str(j)];
+ if gse==1
+ grid='gnh'
+ end
+ if gse==2
+ grid='gsh'
+ end
+ if gse==3
+ grid='aoc'
+ end
+namelist=['namelist_',grid,'_',num2str(j)];
 write_namelist(namelist,var_unnorm)
-dlmwrite(['norm_',num2str(j)],rot90(var_norm),'delimiter',' ','precision',8);
-dlmwrite(['unnorm_',num2str(j)],rot90(var_unnorm),'delimiter',' ','precision',8);
-
+dlmwrite(['norm_',grid,'_',num2str(j)],rot90(var_norm),'delimiter',' ','precision',8);
+dlmwrite(['unnorm_',grid,'_',num2str(j)],rot90(var_unnorm),'delimiter',' ','precision',8);
+ end
 end
 % ------------------------------------------------------------------------------
   function [fval] = f(x)

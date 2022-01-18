@@ -255,7 +255,7 @@ module load matlab
 # --------------------------------------------------------------------------- #
 # test1_GFSv16
  i=0
- while [ -f ${HOME}/bin/namelist_$(( i + 1 )) ];
+ while [ -f ${HOME}/bin/namelist_gnh_$(( i + 1 )) ];
  do
    i=$(( i + 1 ))
    if [ -d "${HOME}/test1_GFSv16/input_$i" ];then
@@ -266,9 +266,15 @@ module load matlab
      cd ${HOME}/test1_GFSv16/
      bash prep.sh
      cd ${HOME}
-     mv ${HOME}/bin/namelist_$i ${HOME}/test1_GFSv16/input_$i/namelist.nml
-     mv ${HOME}/bin/norm_$i ${HOME}/test1_GFSv16/input_$i/norm.nml
-     mv ${HOME}/bin/unnorm_$i ${HOME}/test1_GFSv16/input_$i/unnorm.nml
+     mv ${HOME}/bin/namelist_gnh_$i ${HOME}/test1_GFSv16/input_$i/namelist_gnh.nml
+     mv ${HOME}/bin/namelist_gsh_$i ${HOME}/test1_GFSv16/input_$i/namelist_gsh.nml
+     mv ${HOME}/bin/namelist_aoc_$i ${HOME}/test1_GFSv16/input_$i/namelist_aoc.nml
+     mv ${HOME}/bin/norm_gnh_$i ${HOME}/test1_GFSv16/input_$i/norm_gnh.nml
+     mv ${HOME}/bin/norm_gsh_$i ${HOME}/test1_GFSv16/input_$i/norm_gsh.nml
+     mv ${HOME}/bin/norm_aoc_$i ${HOME}/test1_GFSv16/input_$i/norm_aoc.nml
+     mv ${HOME}/bin/unnorm_gnh_$i ${HOME}/test1_GFSv16/input_$i/unnorm_gnh.nml
+     mv ${HOME}/bin/unnorm_gsh_$i ${HOME}/test1_GFSv16/input_$i/unnorm_gsh.nml
+     mv ${HOME}/bin/unnorm_aoc_$i ${HOME}/test1_GFSv16/input_$i/unnorm_aoc.nml
      echo "$rtst -w work_$i -i input_$i -m grdset_a -f -p $mpi -n $np -t $nth -o both -N $ww3 test1_GFSv16"  >> initial.body
      echo "cat test1_GFSv16/work_$i/Err_norm.nml >> opt_table_Err_norm"                                      >> initial.body
      echo "cat test1_GFSv16/work_$i/Err_unnorm.nml >> opt_table_Err_unnorm"                                  >> initial.body                    

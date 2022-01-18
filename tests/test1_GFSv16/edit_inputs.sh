@@ -116,6 +116,15 @@ function edit_ww3_prnc_wind {
 }
 
 
+function edit_ww3_prnc_wind_spinup {
+
+  sed  -e "s/PRNCLINE/$WINDPRNCLINE/g" \
+       -e "s/DIMLINE/$WINDDIMLINE/g" \
+       -e "s/VARLINE/$WINDVARLINE/g" \
+       -e "s/FRCFILE/$WINDFRCFILE_SP/g"
+}
+
+
 function edit_ww3_prnc_cur {
 
   sed  -e "s/PRNCLINE/$CURPRNCLINE/g" \
@@ -124,12 +133,28 @@ function edit_ww3_prnc_cur {
        -e "s/FRCFILE/$CURFRCFILE/g"
 }
 
+function edit_ww3_prnc_cur_spinup {
+
+  sed  -e "s/PRNCLINE/$CURPRNCLINE/g" \
+       -e "s/DIMLINE/$CURDIMLINE/g" \
+       -e "s/VARLINE/$CURVARLINE/g" \
+       -e "s/FRCFILE/$CURFRCFILE_SP/g"
+}
+
 function edit_ww3_prnc_ice {
 
   sed  -e "s/PRNCLINE/$ICEPRNCLINE/g" \
        -e "s/DIMLINE/$ICEDIMLINE/g" \
        -e "s/VARLINE/$ICEVARLINE/g" \
        -e "s/FRCFILE/$ICEFRCFILE/g"
+}
+
+function edit_ww3_prnc_ice_spinup {
+
+  sed  -e "s/PRNCLINE/$ICEPRNCLINE/g" \
+       -e "s/DIMLINE/$ICEDIMLINE/g" \
+       -e "s/VARLINE/$ICEVARLINE/g" \
+       -e "s/FRCFILE/$ICEFRCFILE_SP/g"
 }
 
 function edit_ww3_ounp {

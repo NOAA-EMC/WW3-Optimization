@@ -20,9 +20,9 @@ fi
 echo -e "\e[36mFilling namelist templates ...\e[0m"
 #inp prep
 edit_ww3_multi_spinup  < ${TEST_DIR}/parm/ww3_multi.inp.IN > ${TEST_DIR}/${input_i}/ww3_multi_grdset_a.inp
-edit_ww3_prnc_wind < ${TEST_DIR}/parm/ww3_prnc.inp.IN > ${TEST_DIR}/${input_i}/ww3_prnc_glox_10m_wind.inp
-edit_ww3_prnc_cur  < ${TEST_DIR}/parm/ww3_prnc.inp.IN > ${TEST_DIR}/${input_i}/ww3_prnc_glix_10m_current.inp
-edit_ww3_prnc_ice  < ${TEST_DIR}/parm/ww3_prnc.inp.IN > ${TEST_DIR}/${input_i}/ww3_prnc_glix_10m_ice.inp
+edit_ww3_prnc_wind_spinup < ${TEST_DIR}/parm/ww3_prnc.inp.IN > ${TEST_DIR}/${input_i}/ww3_prnc_glox_10m_wind.inp
+edit_ww3_prnc_cur_spinup  < ${TEST_DIR}/parm/ww3_prnc.inp.IN > ${TEST_DIR}/${input_i}/ww3_prnc_glix_10m_current.inp
+edit_ww3_prnc_ice_spinup  < ${TEST_DIR}/parm/ww3_prnc.inp.IN > ${TEST_DIR}/${input_i}/ww3_prnc_glix_10m_ice.inp
 echo -e "\e[34minputs templates are filled\e[0m"
 #-----------------------------------------------------------------------------------#
 #ww3_grid parameters
@@ -147,8 +147,8 @@ cd ${TEST_DIR}/obs
 # buoy
 # NDBC (individual)
 
- bash retrieve_NDBC_nc.sh
- echo -e "\e[31mNDBC files are downloaded\e[0m"
+# bash retrieve_NDBC_nc.sh
+# echo -e "\e[31mNDBC files are downloaded\e[0m"
 
 # combined NDBC stdmet data
 

@@ -2,15 +2,26 @@ clear all
 clc
 addpath('../../../tools/matlab_bin/')
 
-%satellite
-[Nsat_GLOBAL,ERRsat_GLOBAL,Nsat_REGIONAL,ERRsat_REGIONAL] = satellite_error('../obs/satellite_obs.nc',...
-'lon','lat','time','swh','../WORKDIR/ww3_out_grd_field.nc','longitude','latitude','time','hs',...
-LONMIN,LONMAX,LATMIN,LATMAX);
+
+[Nsat_GLOBAL,ERRsat_GLOBAL,S_BIAS_GLOBAL,S_AE_GLOBAL,Nsat_REGIONAL,ERRsat_REGIONAL,S_BIAS_REGIONAL,S_AE_REGIONAL] = satellite_hs_error('../obs/satellite_obs.nc',...
+'lon','lat','time','swh',['../WORKDIR/ww3_out_grd_field.nc'],'longitude','latitude','time','hs',...
+LONMIN,LONMAX,LATMIN,LATMAX,0);
 %buoy
-[Nbuoy_GLOBAL,ERRbuoy_GLOBAL,Nbuoy_REGIONAL,ERRbuoy_REGIONAL] = buoy_error('../obs/BUOY.nc',...
-'station_name','time','wave_height','../WORKDIR/ww3_out_pnt_tab.nc','station_name','time','hs',...
-LONMIN,LONMAX,LATMIN,LATMAX);
-%global
+[Nbuoy_GLOBAL,ERRbuoy_GLOBAL,B_BIAS_GLOBAL,B_AE_GLOBAL,Nbuoy_REGIONAL,ERRbuoy_REGIONAL,B_BIAS_REGIONAL,B_AE_REGIONAL]  = buoy_hs_error('../obs/BUOY.nc',...
+'station_name','longitude','latitude','time','wave_height',['../WORKDIR/ww3_out_pnt_tab.nc'],'longitude','latitude','time','hs',...
+LONMIN,LONMAX,LATMIN,LATMAX,0);
+
+
+%% old statistical anayslsis routine
+%%satellite
+%[Nsat_GLOBAL,ERRsat_GLOBAL,Nsat_REGIONAL,ERRsat_REGIONAL] = satellite_error('../obs/satellite_obs.nc',...
+%'lon','lat','time','swh','../WORKDIR/ww3_out_grd_field.nc','longitude','latitude','time','hs',...
+%LONMIN,LONMAX,LATMIN,LATMAX);
+%%buoy
+%[Nbuoy_GLOBAL,ERRbuoy_GLOBAL,Nbuoy_REGIONAL,ERRbuoy_REGIONAL] = buoy_error('../obs/BUOY.nc',...
+%'station_name','time','wave_height','../WORKDIR/ww3_out_pnt_tab.nc','station_name','time','hs',...
+%LONMIN,LONMAX,LATMIN,LATMAX);
+%%global
 ErrTot_GLOBAL=((Nsat_GLOBAL*ERRsat_GLOBAL)+(Nbuoy_GLOBAL*ERRbuoy_GLOBAL))/(Nsat_GLOBAL+Nbuoy_GLOBAL)
 fileID = fopen('../INPUTDIR/Err_GLOBAL','w');
 fprintf(fileID,'%f\n',ErrTot_GLOBAL);
@@ -28,8 +39,8 @@ fprintf(fileID,'%f\n',ErrTot_REGIONAL);
 fclose(fileID);
 
 % Normalize input variables
-input_norm=dlmread('../INPUTDIR/norm.nml');
-input_unnorm=dlmread('../INPUTDIR/unnorm.nml');
+input_norm=dlmread('../INPUTDIR/norm_gnh.nml');
+input_unnorm=dlmread('../INPUTDIR/unnorm_gnh.nml');
 input_norm_nml=input_norm(~isnan(input_norm));
 input_unnorm_nml=input_unnorm(~isnan(input_norm));
 

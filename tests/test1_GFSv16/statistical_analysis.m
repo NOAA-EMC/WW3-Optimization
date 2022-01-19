@@ -1,10 +1,10 @@
-clear all
-clc
+%clear all
+%clc
 addpath('../../tools/matlab_bin/')
-plott=0;
-for i=1:41
+plott=1;
+for i=23
     i
-cd (['work_',num2str(i)])
+cd (['work_p_',num2str(i)])
 %satellite
 [S_N_GLOBAL(i,1),S_RMSE_GLOBAL(i,1),S_BIAS_GLOBAL(i,1),S_AE_GLOBAL(i,1),S_N_REGIONAL(i,1),S_RMSE_REGIONAL(i,1),S_BIAS_REGIONAL(i,1),S_AE_REGIONAL(i,1)] = satellite_hs_error('../obs/satellite_obs.nc',...
 'lon','lat','time','swh',['ww3_out_grd_field.nc'],'longitude','latitude','time','hs',...
@@ -34,29 +34,29 @@ end
 %%
 figure
 subplot(2,1,1)
-plot(1:41,S_AE_REGIONAL,'b');
+plot(1:0.025:2,S_BIAS_REGIONAL,'b');
 hold on;
-plot(1:41,S_AE_GLOBAL,'r');
+plot(1:0.025:2,S_BIAS_GLOBAL,'r');
 hold on;
 
-plot(1:41,B_AE_REGIONAL,'k');
+plot(1:0.025:2,B_BIAS_REGIONAL,'k');
 hold on;
-plot(1:41,B_AE_GLOBAL,'m');
+plot(1:0.025:2,B_BIAS_GLOBAL,'m');
 hold on;
 subplot(2,1,2)
-plot(1:41,ErrTot_GLOBAL,'b')
+plot(1:0.025:2,ErrTot_GLOBAL,'b')
 hold on
-plot(1:41,ErrTot_REGIONAL,'r')
+plot(1:0.025:2,ErrTot_REGIONAL,'r')
 legend('global','regional')
 hold on
 figure
-plot(1:41,ERRsat_GLOBAL,'-b');
+plot(1:0.025:2,ERRsat_GLOBAL,'-b');
 hold on;
-plot(1:41,ERRsat_REGIONAL,'-r')
+plot(1:0.025:2,ERRsat_REGIONAL,'-r')
 hold on
-plot(1:41,ERRbuoy_GLOBAL,'-k');
+plot(1:0.025:2,ERRbuoy_GLOBAL,'-k');
 hold on;
-plot(1:41,ERRbuoy_REGIONAL,'-m')
+plot(1:0.025:2,ERRbuoy_REGIONAL,'-m')
 
 
 % Normalize input variables

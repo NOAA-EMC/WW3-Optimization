@@ -268,20 +268,20 @@ fi
 
      cd ${HOME}
 
-  echo "   if [ -d "${HOME}/test1_GFSv16/work_opt" ] "                           >> opt_matrix.body
-  echo "   then "                                                                >> opt_matrix.body
-  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/out* "                         >> opt_matrix.body
-  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/restart* "                     >> opt_matrix.body
-  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/wind.* "                       >> opt_matrix.body
-  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/ice.* "                        >> opt_matrix.body
-  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/currenti.* "                   >> opt_matrix.body
-  echo "      i=0 "                                                              >> opt_matrix.body
-  echo "      while [ -d "${HOME}/test1_GFSv16/work_opt_$i" ] "                  >> opt_matrix.body
-  echo "      do "                                                               >> opt_matrix.body
-  echo "        i=$(( i + 1 )) "                                                 >> opt_matrix.body     
-  echo "      done "                                                             >> opt_matrix.body
-  echo "      mv ${HOME}/test1_GFSv16/work_opt ${HOME}/test1_GFSv16/work_opt_$i" >> opt_matrix.body
-  echo "   fi"                                                                   >> opt_matrix.body
+  echo "   if [ -d "${HOME}/test1_GFSv16/work_opt" ] "                               >> opt_matrix.body
+  echo "   then "                                                                    >> opt_matrix.body
+  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/out* "                             >> opt_matrix.body
+  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/restart* "                         >> opt_matrix.body
+  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/wind.* "                           >> opt_matrix.body
+  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/ice.* "                            >> opt_matrix.body
+  echo "      rm -f ${HOME}/test1_GFSv16/work_opt/current.* "                        >> opt_matrix.body
+  echo "      i=0 "                                                                  >> opt_matrix.body
+  echo "      while [ -d ${HOME}/test1_GFSv16/work_opt_\$i ] "                       >> opt_matrix.body
+  echo "      do "                                                                   >> opt_matrix.body
+  echo "        i=\$(( i + 1 )) "                                                    >> opt_matrix.body     
+  echo "      done "                                                                 >> opt_matrix.body
+  echo "      mv ${HOME}/test1_GFSv16/work_opt ${HOME}/test1_GFSv16/work_opt_\$i"    >> opt_matrix.body
+  echo "   fi"                                                                       >> opt_matrix.body
        
      echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; opt_wav; catch; end; quit\" ) > opt_log.out 2> opt_err.out"  >> opt_matrix.body
      echo "( cd ${HOME}/bin/; matlab -nodisplay -nodesktop -r \"try; opt_prep; catch; end; quit\" ) > opt_log.out 2> opt_err.out" >> opt_matrix.body

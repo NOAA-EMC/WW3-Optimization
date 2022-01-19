@@ -154,11 +154,12 @@ end
  if gse==2
  grid='gsh'
  end
- if gse=3
- grid=aoc
+ if gse==3
+ grid='aoc'
  end
 
 write_namelist(['namelist_',grid],var_unnorm)
 dlmwrite(['norm_',grid],rot90(var_norm),'delimiter',' ','precision',8);
 dlmwrite(['unnorm_',grid],rot90(var_unnorm),'delimiter',' ','precision',8);
 end
+

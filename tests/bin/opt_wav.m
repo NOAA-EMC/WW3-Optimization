@@ -32,10 +32,10 @@
     ub = ones(xn,1);
 % ------------------------------------------------------------------------------
 % opt: nlopt structure
-% global:
-%    opt.algorithm     = NLOPT_LN_BOBYQA;
-% local: 
-    opt.algorithm     = NLOPT_GN_ESCH;
+% local
+    opt.algorithm     = NLOPT_LN_BOBYQA;
+% global: 
+i%    opt.algorithm     = NLOPT_GN_ESCH;
     opt.lower_bounds  = lb;
     opt.upper_bounds  = ub;
     opt.min_objective = @f;
